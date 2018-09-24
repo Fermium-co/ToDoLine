@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoLine", "ToDoLine\ToDoLine.csproj", "{4F250618-193A-4142-BADC-FF9058EB9A67}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoLine.Test", "ToDoLine.Test\ToDoLine.Test.csproj", "{84499AEC-CF79-45A0-930C-C072533BAA15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{2B116A31-6FA1-48E8-B28E-DAD7A652D812}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F250618-193A-4142-BADC-FF9058EB9A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F250618-193A-4142-BADC-FF9058EB9A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F250618-193A-4142-BADC-FF9058EB9A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F250618-193A-4142-BADC-FF9058EB9A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84499AEC-CF79-45A0-930C-C072533BAA15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84499AEC-CF79-45A0-930C-C072533BAA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84499AEC-CF79-45A0-930C-C072533BAA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84499AEC-CF79-45A0-930C-C072533BAA15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82805C73-5701-4C31-9EB6-E77A229E5705}
+	EndGlobalSection
+EndGlobal
