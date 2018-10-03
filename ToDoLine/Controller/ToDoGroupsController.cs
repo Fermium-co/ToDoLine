@@ -45,21 +45,6 @@ namespace ToDoLine.Controller
                       Theme = tdgo.Theme,
                       Title = tdgo.ToDoGroup.Title
                   });
-
-            /*return ToDoGroupsRepository.GetAll()
-                .Join(ToDoGroupOptionsListRepository.GetAll().Where(tdgo => tdgo.UserId == userId), tdg => tdg.Id, tdgo => tdgo.ToDoGroupId, (tdg, tdgo) => new ToDoGroupDto
-                {
-                    Id = tdg.Id,
-                    CreatedBy = tdg.CreatedBy.UserName,
-                    CreatedOn = tdg.CreatedOn,
-                    HideCompletedToDoItems = tdgo.HideCompletedToDoItems,
-                    IsDefault = tdg.IsDefault,
-                    ModifiedOn = tdg.ModifiedOn,
-                    SharedByCount = tdg.Options.Count,
-                    SortedBy = tdgo.SortedBy,
-                    Theme = tdgo.Theme,
-                    Title = tdg.Title
-                });*/
         }
 
         public class CreateToDoGroupArgs
