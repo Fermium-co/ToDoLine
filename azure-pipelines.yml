@@ -2,18 +2,11 @@ queue:
   name: Hosted VS2017
   demands: msbuild
 
-#Your build pipeline references an undefined variable named ‘Parameters.solution’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 steps:
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.4.1'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
   inputs:
-    versionSpec: 4.4.1
-
-
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
-  inputs:
-    restoreSolution: '$(Parameters.solution)'
+    command: restore
 
     feedsToUse: config
 
