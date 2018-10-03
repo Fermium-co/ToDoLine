@@ -18,8 +18,11 @@ namespace ToDoLine.Controller
     public class ToDoItemsController : DtoController<ToDoItemDto>
     {
         public virtual IRepository<ToDoItemOptions> ToDoItemOptionsListRepository { get; set; }
+
         public virtual IRepository<ToDoItem> ToDoItemsRepository { get; set; }
+
         public virtual IUserInformationProvider UserInformationProvider { get; set; }
+
         public virtual IDateTimeProvider DateTimeProvider { get; set; }
 
         [Function]
@@ -43,13 +46,8 @@ namespace ToDoLine.Controller
                       Notes = tdio.ToDoItem.Notes,
                       ShowInMyDay = tdio.ShowInMyDayOn.Value.Date == DateTimeProvider.GetCurrentUtcDateTime().Date,
                       ToDoGroupId = tdio.ToDoItem.ToDoGroupId,
-                      Steps = tdio.ToDoItem.Steps.Select(tdis => new ToDoItemStepDto
-                      {
-                          Id = tdis.Id,
-                          IsCompleted = tdis.IsCompleted,
-                          ToDoItemId = tdis.ToDoItemId,
-                          Text = tdis.Text
-                      }).ToList()
+                      ToDoItemStepsCount = tdio.ToDoItem.Steps.Count(),
+                      ToDoItemStepsCompletedCount = tdio.ToDoItem.Steps.Count(s => s.IsCompleted == true),
                   });
         }
 

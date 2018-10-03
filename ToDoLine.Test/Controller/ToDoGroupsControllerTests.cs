@@ -366,5 +366,134 @@ namespace ToDoLine.Test.Controller
                 }
             }
         }
+
+        [TestMethod]
+        public async Task OnlyOwnerCanKickUsersFromToDoGroupTest()
+        {
+            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
+            {
+                //first user
+                IODataClient client1 = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
+
+                string userName1 = Guid.NewGuid().ToString("N");
+
+                await client1.Controller<UserRegistrationController, UserRegistrationDto>()
+                    .Action(nameof(UserRegistrationController.Register))
+                    .Set(new UserRegistrationController.RegisterArgs {  userRegistration = new UserRegistrationDto { UserName = userName1, Password = "P@ssw0rd" } })
+                    .ExecuteAsync();
+
+                var token1 = await testEnv.Server.Login(userName1, "P@ssw0rd", "ToDoLine", "secret");
+
+                client1 = testEnv.Server.BuildODataClient(token: token1, odataRouteName: "ToDoLine");
+
+                //second user
+                IODataClient client2 = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
+
+                string userName2 = Guid.NewGuid().ToString("N");
+
+                await client2.Controller<UserRegistrationController, UserRegistrationDto>()
+                    .Action(nameof(UserRegistrationController.Register))
+                    .Set(new UserRegistrationController.RegisterArgs { userRegistration = new UserRegistrationDto { UserName = userName2, Password = "P@ssw0rd" } })
+                    .ExecuteAsync();
+
+                var token2 = await testEnv.Server.Login(userName2, "P@ssw0rd", "ToDoLine", "secret");
+
+                client2 = testEnv.Server.BuildODataClient(token: token2, odataRouteName: "ToDoLine");
+
+                //create ToDoGroup by first user
+                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
+                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Group1" })
+                    .ExecuteAsSingleAsync();
+
+                UserDto user2 = await client1.Controller<UsersController, UserDto>()
+                     .Function(nameof(UsersController.GetAllUsers))
+                     .Filter(u => u.UserName.ToLower().Contains(userName2))
+                     .FindEntryAsync();
+
+                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                   .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
+                   .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
+                   .ExecuteAsSingleAsync();
+
+                UserDto user1 = await client2.Controller<UsersController, UserDto>()
+                     .Function(nameof(UsersController.GetAllUsers))
+                     .Filter(u => u.UserName.ToLower().Contains(userName1))
+                     .FindEntryAsync();
+
+                try
+                {
+                    await client2.Controller<ToDoGroupsController, ToDoGroupDto>()
+                        .Action(nameof(ToDoGroupsController.KickUserFromToDoGroup))
+                        .Set(new ToDoGroupsController.KickAnotherUserFromMyToDoGroupArge { userId = user1.Id, toDoGroupId = toDoGroup.Id })
+                        .ExecuteAsSingleAsync();
+
+                    Assert.Fail();
+                }
+                catch (WebRequestException exp) when (exp.Message == "KnownError" && JToken.Parse(exp.Response)["error"]["message"].Value<string>() == "OnlyOwnerCanKickOtherUsers")
+                {
+
+                }
+            }
+        }
+
+        [TestMethod]
+        public async Task KickUserFromToDoGroupTest()
+        {
+            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
+            {
+                //first user
+                IODataClient client1 = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
+
+                string userName1 = Guid.NewGuid().ToString("N");
+
+                await client1.Controller<UserRegistrationController, UserRegistrationDto>()
+                    .Action(nameof(UserRegistrationController.Register))
+                    .Set(new UserRegistrationController.RegisterArgs { userRegistration = new UserRegistrationDto { UserName = userName1, Password = "P@ssw0rd" } })
+                    .ExecuteAsync();
+
+                var token1 = await testEnv.Server.Login(userName1, "P@ssw0rd", "ToDoLine", "secret");
+
+                client1 = testEnv.Server.BuildODataClient(token: token1, odataRouteName: "ToDoLine");
+
+                //second user
+                IODataClient client2 = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
+
+                string userName2 = Guid.NewGuid().ToString("N");
+
+                await client2.Controller<UserRegistrationController, UserRegistrationDto>()
+                    .Action(nameof(UserRegistrationController.Register))
+                    .Set(new UserRegistrationController.RegisterArgs { userRegistration = new UserRegistrationDto { UserName = userName2, Password = "P@ssw0rd" } })
+                    .ExecuteAsync();
+
+                //create ToDoGroup by first user
+                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
+                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Group1" })
+                    .ExecuteAsSingleAsync();
+
+                UserDto user2 = await client1.Controller<UsersController, UserDto>()
+                     .Function(nameof(UsersController.GetAllUsers))
+                     .Filter(u => u.UserName.ToLower().Contains(userName2))
+                     .FindEntryAsync();
+
+                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                   .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
+                   .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
+                   .ExecuteAsSingleAsync();
+
+                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                  .Action(nameof(ToDoGroupsController.KickUserFromToDoGroup))
+                  .Set(new ToDoGroupsController.KickAnotherUserFromMyToDoGroupArge { userId = user2.Id, toDoGroupId = toDoGroup.Id })
+                  .ExecuteAsSingleAsync();
+
+                ToDoGroupDto toDoGroupK = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                   .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
+                   .Filter(tdg => toDoGroup.Id == tdg.Id)
+                   .FindEntryAsync();
+
+                Assert.AreEqual(1, toDoGroupK.SharedByCount);
+            }
+        }
     }
 }

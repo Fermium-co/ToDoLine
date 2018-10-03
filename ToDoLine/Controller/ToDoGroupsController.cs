@@ -26,6 +26,8 @@ namespace ToDoLine.Controller
 
         public virtual IUserInformationProvider UserInformationProvider { get; set; }
 
+        public virtual IRepository<User> UsersRepository { get; set; }
+
         [Function]
         public virtual IQueryable<ToDoGroupDto> GetMyToDoGroups()
         {
@@ -45,21 +47,6 @@ namespace ToDoLine.Controller
                       Theme = tdgo.Theme,
                       Title = tdgo.ToDoGroup.Title
                   });
-
-            /*return ToDoGroupsRepository.GetAll()
-                .Join(ToDoGroupOptionsListRepository.GetAll().Where(tdgo => tdgo.UserId == userId), tdg => tdg.Id, tdgo => tdgo.ToDoGroupId, (tdg, tdgo) => new ToDoGroupDto
-                {
-                    Id = tdg.Id,
-                    CreatedBy = tdg.CreatedBy.UserName,
-                    CreatedOn = tdg.CreatedOn,
-                    HideCompletedToDoItems = tdgo.HideCompletedToDoItems,
-                    IsDefault = tdg.IsDefault,
-                    ModifiedOn = tdg.ModifiedOn,
-                    SharedByCount = tdg.Options.Count,
-                    SortedBy = tdgo.SortedBy,
-                    Theme = tdgo.Theme,
-                    Title = tdg.Title
-                });*/
         }
 
         public class CreateToDoGroupArgs
@@ -178,7 +165,7 @@ namespace ToDoLine.Controller
         }
 
         [Action]
-        public virtual async Task ShareToDoGroupWithAnotherUser(ShareToDoGroupWithAnotherUserArgs args, CancellationToken cancellationToken)
+        public virtual async Task<ToDoGroupDto> ShareToDoGroupWithAnotherUser(ShareToDoGroupWithAnotherUserArgs args, CancellationToken cancellationToken)
         {
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
@@ -200,6 +187,37 @@ namespace ToDoLine.Controller
                 ToDoGroupId = args.toDoGroupId,
                 UserId = args.anotherUserId
             }, cancellationToken);
+
+            return await GetMyToDoGroups().FirstAsync(tdg => tdg.Id == args.toDoGroupId, cancellationToken);
+        }
+
+        public class KickAnotherUserFromMyToDoGroupArge
+        {
+            public Guid userId { get; set; }
+            public Guid toDoGroupId { get; set; }
+        }
+
+        [Action]
+        public virtual async Task KickUserFromToDoGroup(KickAnotherUserFromMyToDoGroupArge args, CancellationToken cancellationToken)
+        {
+            Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
+
+            ToDoGroup toDoGroupsToBeKickFrom = await ToDoGroupsRepository.GetAll().FirstOrDefaultAsync(tdg => tdg.Id == args.toDoGroupId);
+
+            if (toDoGroupsToBeKickFrom == null)
+                throw new ResourceNotFoundException("ToDoGroupCouldNotBeFound");
+
+            if (toDoGroupsToBeKickFrom.CreatedById != userId)
+                throw new DomainLogicException("OnlyOwnerCanKickOtherUsers");
+
+            User kickedUser = await UsersRepository.GetByIdAsync(cancellationToken, args.userId);
+
+            if (kickedUser == null)
+                throw new ResourceNotFoundException("UserCouldNotBeFoundToBeKicked");
+
+            ToDoGroupOptions toDoGroupOptionsToBeDeleted = await ToDoGroupOptionsListRepository.GetAll().FirstOrDefaultAsync(tdo => tdo.ToDoGroupId == args.toDoGroupId && tdo.UserId == args.userId);
+
+            await ToDoGroupOptionsListRepository.DeleteAsync(toDoGroupOptionsToBeDeleted, cancellationToken);
         }
     }
 }

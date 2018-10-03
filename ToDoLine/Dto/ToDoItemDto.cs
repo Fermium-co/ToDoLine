@@ -29,13 +29,15 @@ namespace ToDoLine.Dto
 
         public virtual DateTimeOffset ModifiedOn { get; set; }
 
-        public virtual List<ToDoItemStepDto> Steps { get; set; }
-
         public virtual DateTimeOffset? RemindOn { get; set; }
 
         public virtual bool ShowInMyDay { get; set; }
 
         public virtual Guid ToDoGroupId { get; set; }
+
+        public virtual int ToDoItemStepsCount { get; set; }
+
+        public virtual int ToDoItemStepsCompletedCount { get; set; }
     }
 
     public class ToDoItemStepDto : IDto
@@ -45,8 +47,6 @@ namespace ToDoLine.Dto
         public virtual string Text { get; set; }
 
         public virtual Guid ToDoItemId { get; set; }
-
-        public virtual ToDoItemDto ToDoItem { get; set; }
 
         public virtual bool IsCompleted { get; set; }
     }
