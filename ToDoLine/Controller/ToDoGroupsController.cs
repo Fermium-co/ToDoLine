@@ -163,7 +163,7 @@ namespace ToDoLine.Controller
         }
 
         [Action]
-        public virtual async Task ShareToDoGroupWithAnotherUser(ShareToDoGroupWithAnotherUserArgs args, CancellationToken cancellationToken)
+        public virtual async Task<ToDoGroupDto> ShareToDoGroupWithAnotherUser(ShareToDoGroupWithAnotherUserArgs args, CancellationToken cancellationToken)
         {
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
@@ -185,6 +185,8 @@ namespace ToDoLine.Controller
                 ToDoGroupId = args.toDoGroupId,
                 UserId = args.anotherUserId
             }, cancellationToken);
+
+            return await GetMyToDoGroups().FirstAsync(tdg => tdg.Id == args.toDoGroupId, cancellationToken);
         }
     }
 }
