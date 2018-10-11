@@ -49,6 +49,64 @@ namespace ToDoLine.Test.Controller
         }
 
         [TestMethod]
+        public async Task CreatingToDoItemShouldCreateToDoItemOptionsPerUserTest()
+        {
+            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
+            {
+                IODataClient client1 = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
+
+                string userName1 = Guid.NewGuid().ToString("N");
+
+                await client1.Controller<UserRegistrationController, UserRegistrationDto>()
+                    .Action(nameof(UserRegistrationController.Register))
+                    .Set(new UserRegistrationController.RegisterArgs { userRegistration = new UserRegistrationDto { UserName = userName1, Password = "P@ssw0rd" } })
+                    .ExecuteAsync();
+
+                var token1 = await testEnv.Server.Login(userName1, "P@ssw0rd", "ToDoLine", "secret");
+
+                client1 = testEnv.Server.BuildODataClient(token: token1, odataRouteName: "ToDoLine");
+
+                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                   .Action(nameof(ToDoGroupsController.CreateToDoGroup))
+                   .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
+                   .ExecuteAsSingleAsync();
+
+                IODataClient client2 = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
+
+                string userName2 = Guid.NewGuid().ToString("N");
+
+                await client2.Controller<UserRegistrationController, UserRegistrationDto>()
+                    .Action(nameof(UserRegistrationController.Register))
+                    .Set(new UserRegistrationController.RegisterArgs { userRegistration = new UserRegistrationDto { UserName = userName2, Password = "P@ssw0rd" } })
+                    .ExecuteAsync();
+
+                UserDto user2 = (await client1.Controller<UsersController, UserDto>()
+                    .Function(nameof(UsersController.GetAllUsers))
+                    .Filter(u => u.UserName.ToLower().Contains(userName2.ToLower()))
+                    .FindEntriesAsync()).Single();
+
+                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                     .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
+                     .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
+                     .ExecuteAsync();
+
+                var token2 = await testEnv.Server.Login(userName2, "P@ssw0rd", "ToDoLine", "secret");
+
+                client2 = testEnv.Server.BuildODataClient(token: token2, odataRouteName: "ToDoLine");
+
+                ToDoItemDto toDoItem = await client2.Controller<ToDoItemsController, ToDoItemDto>()
+                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
+                   .InsertEntryAsync();
+
+                bool hasToDoItem = (await client1.Controller<ToDoItemsController, ToDoItemDto>()
+                    .Function(nameof(ToDoItemsController.GetMyToDoItems))
+                    .FindEntriesAsync()).Any();
+
+                Assert.AreEqual(true, hasToDoItem);
+            }
+        }
+
+        [TestMethod]
         public async Task ActiveShowInMyDayToDoItemTest()
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv(new TestEnvironmentArgs
