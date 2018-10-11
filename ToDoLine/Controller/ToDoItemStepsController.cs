@@ -26,7 +26,6 @@ namespace ToDoLine.Controller
             return ToDoItemStepMapper.FromEntityQueryToDtoQuery(ToDoItemStepsRepository.GetAll().Where(tdis => tdis.ToDoItemId == toDoItemId));
         }
 
-
         public class ToDoItemStepDtoCreateExamplesProvider : IExamplesProvider
         {
             public object GetExamples()

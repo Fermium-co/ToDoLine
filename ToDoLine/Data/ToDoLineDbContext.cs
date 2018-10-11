@@ -86,7 +86,7 @@ namespace ToDoLine.Data
             modelBuilder.Entity<ToDoItem>()
                 .HasMany(tdi => tdi.Options)
                 .WithOne(tdio => tdio.ToDoItem)
-                .HasForeignKey(tdoi => tdoi.ToDoItemId)
+                .HasForeignKey(tdio => tdio.ToDoItemId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 

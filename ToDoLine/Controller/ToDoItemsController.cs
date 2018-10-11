@@ -21,8 +21,6 @@ namespace ToDoLine.Controller
 
         public virtual IRepository<ToDoItem> ToDoItemsRepository { get; set; }
 
-        public virtual IRepository<ToDoGroup> ToDoGroupsRepository { get; set; }
-
         public virtual IRepository<ToDoGroupOptions> ToDoGroupOptionsListRepository { get; set; }
 
         public virtual IUserInformationProvider UserInformationProvider { get; set; }
