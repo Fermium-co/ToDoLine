@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Simple.OData.Client;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoLine.Controller;
@@ -16,18 +15,7 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                IODataClient client = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
-
-                string userName = Guid.NewGuid().ToString("N");
-
-                await client.Controller<UserRegistrationController, UserRegistrationDto>()
-                    .Action(nameof(UserRegistrationController.Register))
-                    .Set(new UserRegistrationController.RegisterArgs { userRegistration = new UserRegistrationDto { UserName = userName, Password = "P@ssw0rd" } })
-                    .ExecuteAsync();
-
-                var token = await testEnv.Server.Login(userName, "P@ssw0rd", "ToDoLine", "secret");
-
-                client = testEnv.Server.BuildODataClient(token: token, odataRouteName: "ToDoLine");
+                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
                 var defaultToDoGroup = (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
