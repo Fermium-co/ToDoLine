@@ -2,17 +2,15 @@
 
 To Do:
 
-1- Update/Create to do item tests (Show in my day & Completion)
+1- To Do Item Step >> tests
 
-2- To Do Item Step >> tests
+2- Refactor tests!
 
-3- Refactor tests!
+3- Google Auth
 
-4- Google Auth
+4- Xamarin Forms Client
 
-5- Xamarin Forms Client
-
-6- Angular Client
+5- Angular Client
 
 [ysmoradi-Twitter](https://twitter.com/ysmoradi)
 

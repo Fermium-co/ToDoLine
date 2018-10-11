@@ -114,7 +114,7 @@ namespace ToDoLine.Controller
         public virtual async Task<ToDoItemDto> UpdateToDoItem(Guid key, ToDoItemDto toDoItem, CancellationToken cancellationToken)
         {
             if (toDoItem == null)
-                throw new BadRequestException("ToDoItemMayNotBeNull");
+                throw new BadRequestException("ToDoItemCouldNotBeNull");
 
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
