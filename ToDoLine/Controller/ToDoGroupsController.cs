@@ -28,6 +28,8 @@ namespace ToDoLine.Controller
 
         public virtual IRepository<User> UsersRepository { get; set; }
 
+        public virtual IRepository<ToDoItemOptions> ToDoItemOptionsListRepository { get; set; }
+
         [Function]
         public virtual IQueryable<ToDoGroupDto> GetMyToDoGroups()
         {
@@ -170,7 +172,16 @@ namespace ToDoLine.Controller
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
             ToDoGroup toDoGroup = await ToDoGroupsRepository.GetAll()
-                .FirstOrDefaultAsync(tdg => tdg.CreatedById == userId && tdg.Id == args.toDoGroupId, cancellationToken);
+                .Where(tdg => tdg.CreatedById == userId && tdg.Id == args.toDoGroupId)
+                .Select(tdg => new ToDoGroup
+                {
+                    Id = tdg.Id,
+                    IsDefault = tdg.IsDefault,
+                    Items = tdg.Items.Select(tdi => new ToDoItem
+                    {
+                        Id = tdi.Id
+                    }).ToList()
+                }).FirstOrDefaultAsync(cancellationToken);
 
             if (toDoGroup == null)
                 throw new ResourceNotFoundException("ToDoGroupCouldNotBeFound");
@@ -188,6 +199,17 @@ namespace ToDoLine.Controller
                 UserId = args.anotherUserId
             }, cancellationToken);
 
+            foreach (ToDoItem toDoItem in toDoGroup.Items)
+            {
+                await ToDoItemOptionsListRepository.AddAsync(new ToDoItemOptions
+                {
+                    Id = Guid.NewGuid(),
+                    ToDoItemId = toDoItem.Id,
+                    UserId = args.anotherUserId,
+                    ShowInMyDayOn = null
+                }, cancellationToken);
+            }
+
             return await GetMyToDoGroups().FirstAsync(tdg => tdg.Id == args.toDoGroupId, cancellationToken);
         }
 
@@ -202,7 +224,22 @@ namespace ToDoLine.Controller
         {
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
-            ToDoGroup toDoGroupsToBeKickFrom = await ToDoGroupsRepository.GetAll().FirstOrDefaultAsync(tdg => tdg.Id == args.toDoGroupId);
+            ToDoGroup toDoGroupsToBeKickFrom = await ToDoGroupsRepository.GetAll()
+                .Where(tdg => tdg.Id == args.toDoGroupId)
+                .Select(tdg => new ToDoGroup
+                {
+                    Id = tdg.Id,
+                    CreatedById = tdg.CreatedById,
+                    Items = tdg.Items.Select(tdi => new ToDoItem
+                    {
+                        Id = tdi.Id,
+                        Options = tdi.Options.Select(tdo => new ToDoItemOptions
+                        {
+                            Id = tdo.Id,
+                            UserId = tdo.UserId
+                        }).ToList()
+                    }).ToList()
+                }).FirstOrDefaultAsync(cancellationToken); ;
 
             if (toDoGroupsToBeKickFrom == null)
                 throw new ResourceNotFoundException("ToDoGroupCouldNotBeFound");
@@ -215,9 +252,17 @@ namespace ToDoLine.Controller
             if (kickedUser == null)
                 throw new ResourceNotFoundException("UserCouldNotBeFoundToBeKicked");
 
+            foreach (ToDoItem toDoItem in toDoGroupsToBeKickFrom.Items)
+            {
+                ToDoItemOptions toDoItemOptionsToBeDeleted = toDoItem.Options.FirstOrDefault(tdio => tdio.UserId == args.userId);
+
+                await ToDoItemOptionsListRepository.DeleteAsync(toDoItemOptionsToBeDeleted, cancellationToken);
+            }
+
             ToDoGroupOptions toDoGroupOptionsToBeDeleted = await ToDoGroupOptionsListRepository.GetAll().FirstOrDefaultAsync(tdo => tdo.ToDoGroupId == args.toDoGroupId && tdo.UserId == args.userId);
 
             await ToDoGroupOptionsListRepository.DeleteAsync(toDoGroupOptionsToBeDeleted, cancellationToken);
+
         }
     }
 }
