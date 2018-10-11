@@ -21,6 +21,10 @@ namespace ToDoLine.Controller
 
         public virtual IRepository<ToDoItem> ToDoItemsRepository { get; set; }
 
+        public virtual IRepository<ToDoGroup> ToDoGroupsRepository { get; set; }
+
+        public virtual IRepository<ToDoGroupOptions> ToDoGroupOptionsListRepository { get; set; }
+
         public virtual IUserInformationProvider UserInformationProvider { get; set; }
 
         public virtual IDateTimeProvider DateTimeProvider { get; set; }
@@ -68,6 +72,26 @@ namespace ToDoLine.Controller
 
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
+            List<ToDoItemOptions> optionsList = new List<ToDoItemOptions> { };
+
+            List<Guid> usersOfThisToDoGroup = await ToDoGroupOptionsListRepository.GetAll().Where(tdgo => tdgo.ToDoGroupId == toDoItem.ToDoGroupId)
+                .Select(tdgo => tdgo.UserId)
+                .ToListAsync(cancellationToken);
+
+            foreach (Guid otherUserId in usersOfThisToDoGroup)
+            {
+                ToDoItemOptions options = new ToDoItemOptions
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = otherUserId
+                };
+
+                if (options.UserId == userId) /* For current user only */
+                    options.ShowInMyDayOn = toDoItem.ShowInMyDay == true ? (DateTimeOffset?)DateTimeProvider.GetCurrentUtcDateTime() : null;
+
+                optionsList.Add(options);
+            }
+
             ToDoItem addedToDoItem = await ToDoItemsRepository.AddAsync(new ToDoItem
             {
                 Id = Guid.NewGuid(),
@@ -77,15 +101,7 @@ namespace ToDoLine.Controller
                 Notes = toDoItem.Notes,
                 Title = toDoItem.Title,
                 ToDoGroupId = toDoItem.ToDoGroupId,
-                Options = new List<ToDoItemOptions>
-                {
-                    new ToDoItemOptions
-                    {
-                        Id = Guid.NewGuid(),
-                        ShowInMyDayOn = toDoItem.ShowInMyDay == true ? (DateTimeOffset?)DateTimeProvider.GetCurrentUtcDateTime() : null,
-                        UserId = userId
-                    }
-                }
+                Options = optionsList
             }, cancellationToken);
 
             return await GetMyToDoItems()
