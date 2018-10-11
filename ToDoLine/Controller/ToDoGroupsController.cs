@@ -233,10 +233,10 @@ namespace ToDoLine.Controller
                     Items = tdg.Items.Select(tdi => new ToDoItem
                     {
                         Id = tdi.Id,
-                        Options = tdi.Options.Select(tdo => new ToDoItemOptions
+                        Options = tdi.Options.Where(tdio => tdio.UserId == args.userId).Select(tdio => new ToDoItemOptions
                         {
-                            Id = tdo.Id,
-                            UserId = tdo.UserId
+                            Id = tdio.Id,
+                            UserId = tdio.UserId
                         }).ToList()
                     }).ToList()
                 }).FirstOrDefaultAsync(cancellationToken); ;
@@ -252,17 +252,14 @@ namespace ToDoLine.Controller
             if (kickedUser == null)
                 throw new ResourceNotFoundException("UserCouldNotBeFoundToBeKicked");
 
-            foreach (ToDoItem toDoItem in toDoGroupsToBeKickFrom.Items)
+            foreach (ToDoItemOptions toDoItemOptionsToBeDeleted in toDoGroupsToBeKickFrom.Items.SelectMany(tdi => tdi.Options) /* We've loaded options of to be kicked user only! */)
             {
-                ToDoItemOptions toDoItemOptionsToBeDeleted = toDoItem.Options.FirstOrDefault(tdio => tdio.UserId == args.userId);
-
                 await ToDoItemOptionsListRepository.DeleteAsync(toDoItemOptionsToBeDeleted, cancellationToken);
             }
 
             ToDoGroupOptions toDoGroupOptionsToBeDeleted = await ToDoGroupOptionsListRepository.GetAll().FirstOrDefaultAsync(tdo => tdo.ToDoGroupId == args.toDoGroupId && tdo.UserId == args.userId);
 
             await ToDoGroupOptionsListRepository.DeleteAsync(toDoGroupOptionsToBeDeleted, cancellationToken);
-
         }
     }
 }
