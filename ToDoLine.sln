@@ -12,7 +12,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{2B116A31
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{96319F34-2EC4-415C-BBCE-B00EE319E0A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{97499D1E-B212-4A83-8FF6-5309B394F2A2}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ToDoLine.Dto", "Shared\ToDoLine.Dto\ToDoLine.Dto.shproj", "{D5B119B5-872B-4313-BA61-29D00315EDC0}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{d5b119b5-872b-4313-ba61-29d00315edc0}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -29,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D5B119B5-872B-4313-BA61-29D00315EDC0} = {97499D1E-B212-4A83-8FF6-5309B394F2A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82805C73-5701-4C31-9EB6-E77A229E5705}

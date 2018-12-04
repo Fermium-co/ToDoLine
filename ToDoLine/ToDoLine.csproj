@@ -24,4 +24,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
   </ItemGroup>
 
+  <Import Project="..\Shared\ToDoLine.Dto\ToDoLine.Dto.projitems" Label="Shared" />
+
 </Project>
