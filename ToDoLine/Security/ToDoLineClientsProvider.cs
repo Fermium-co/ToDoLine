@@ -18,6 +18,15 @@ namespace ToDoLine.Security
                 Secret = "secret",
                 TokensLifetime = TimeSpan.FromDays(7)
             });
+
+            yield return GetResourceOwnerFlowClient(new BitResourceOwnerFlowClient
+            {
+                ClientId = "ToDoLineApp",
+                ClientName = "ToDoLineApp",
+                Enabled = true,
+                Secret = "secret",
+                TokensLifetime = TimeSpan.FromDays(7)
+            });
         }
     }
 }
