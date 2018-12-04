@@ -6,12 +6,13 @@
     <SharedGUID>d5b119b5-872b-4313-ba61-29d00315edc0</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ToDoLine.Dto</Import_RootNamespace>
+    <Import_RootNamespace>ToDoLine</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ToDoGroupDto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ToDoItemDto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UserDto.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UserRegistrationDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enum\SortBy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dto\ToDoGroupDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dto\ToDoItemDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dto\UserDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dto\UserRegistrationDto.cs" />
   </ItemGroup>
 </Project>
