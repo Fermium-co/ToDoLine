@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<bit:BitApplication
+    x:Class="ToDoLineApp.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bit="clr-namespace:Bit;assembly=Bit.CSharpClient.Prism">
+    <bit:BitApplication.Resources>
+        <ResourceDictionary>
+            <Style TargetType="StackLayout">
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style TargetType="Grid">
+                <Setter Property="RowSpacing" Value="0" />
+                <Setter Property="ColumnSpacing" Value="0" />
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
+        </ResourceDictionary>
+    </bit:BitApplication.Resources>
+</bit:BitApplication>
