@@ -106,7 +106,7 @@ namespace ToDoLine
             dependencyManager.RegisterRepository(typeof(EfCoreRepository<>).GetTypeInfo());
 
             dependencyManager.RegisterDtoEntityMapper();
-            dependencyManager.RegisterDtoEntityMapperConfiguration<DefaultDtoEntityMapperConfiguration>();
+            dependencyManager.RegisterMapperConfiguration<DefaultMapperConfiguration>();
 
             dependencyManager.RegisterSingleSignOnServer<ToDoLineUserService, ToDoLineClientsProvider>();
         }
