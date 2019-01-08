@@ -1,4 +1,6 @@
-﻿using Bit.ViewModel;
+﻿using Acr.UserDialogs;
+using Bit.ViewModel;
+using Syncfusion.XForms.UWP.TextInputLayout;
 using System.Linq;
 using System.Reflection;
 using ToDoLineApp.Implementations;
@@ -30,7 +32,8 @@ namespace ToDoLineApp.UWP
 
                 Xamarin.Forms.Forms.Init(e, new Assembly[]
                 {
-
+                    typeof(SfTextInputLayoutRenderer).Assembly,
+                    typeof(UserDialogs).Assembly
                 }.Union(Rg.Plugins.Popup.Popup.GetExtraAssemblies()));
 
                 Window.Current.Content = rootFrame;

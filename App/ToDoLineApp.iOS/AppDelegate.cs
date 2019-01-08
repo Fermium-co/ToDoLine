@@ -5,6 +5,7 @@ using Bit.ViewModel.Implementations;
 using Foundation;
 using Prism.Autofac;
 using Prism.Ioc;
+using Syncfusion.XForms.iOS.TextInputLayout;
 using ToDoLineApp.Implementations;
 using UIKit;
 using Xamarin.Forms;
@@ -19,6 +20,9 @@ namespace ToDoLineApp.iOS
             BitExceptionHandler.Current = new ToDoLineExceptionHandler();
 
             UseDefaultConfiguration();
+
+            SfTextInputLayoutRenderer.Init();
+
             Forms.Init();
 
             LoadApplication(new App(new ToDoLinePlatformInitializer()));
