@@ -1,17 +1,19 @@
-﻿using Autofac;
+﻿using Acr.UserDialogs;
+using Autofac;
 using Bit;
+using Bit.Model.Events;
 using Bit.ViewModel.Contracts;
 using Bit.ViewModel.Implementations;
 using Prism;
 using Prism.Autofac;
+using Prism.Events;
 using Prism.Ioc;
+using System;
 using System.Threading.Tasks;
 using ToDoLineApp.ViewModels;
 using ToDoLineApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Prism.Navigation;
-using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -41,29 +43,21 @@ namespace ToDoLineApp
         {
             InitializeComponent();
 
-            /*
-            
-            Copy from XamApp => Splash Screen (Android) + ProGurad(Android) + Linker (iOS/Android)
-
             bool isLoggedIn = await Container.Resolve<ISecurityService>().IsLoggedInAsync();
-
-            Add AcrUserDialogs & Loading for async-await
 
             if (isLoggedIn)
             {
-                await NavigationService.NavigateAsync("/Nav/Main");
+                await NavigationService.NavigateAsync("/Master/Nav/ToDoItems");
             }
             else
             {
-                await NavigationService.NavigateAsync("/Login");
+                await NavigationService.NavigateAsync("/Nav/Login");
             }
 
             IEventAggregator eventAggregator = Container.Resolve<IEventAggregator>();
 
             eventAggregator.GetEvent<TokenExpiredEvent>()
-                .SubscribeAsync(async tokenExpiredEvent => await NavigationService.NavigateAsync("/Login"), ThreadOption.UIThread); */
-
-            await NavigationService.NavigateAsync("/Nav/Test", animated: false);
+                .SubscribeAsync(async tokenExpiredEvent => await NavigationService.NavigateAsync("/Nav/Login"), ThreadOption.UIThread);
 
             await base.OnInitializedAsync();
         }
@@ -73,11 +67,14 @@ namespace ToDoLineApp
             ContainerBuilder containerBuilder = containerRegistry.GetBuilder();
 
             containerRegistry.RegisterForNav<NavigationPage>("Nav");
-            containerRegistry.RegisterForNav<TestView, TestViewModel>("Test");
+            containerRegistry.RegisterForNav<MasterView, MasterViewModel>("Master");
+            containerRegistry.RegisterPartialView<MenuView, MenuViewModel>();
+            containerRegistry.RegisterForNav<LoginView, LoginViewModel>("Login");
+            containerRegistry.RegisterForNav<ToDoItemsView, ToDoItemsViewModel>("ToDoItems");
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri("http://192.168.1.28:53149/"),
+                HostUri = new Uri("http://192.168.1.26:53149/"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
             }).SingleInstance();
@@ -86,6 +83,8 @@ namespace ToDoLineApp
             containerBuilder.RegisterHttpClient();
             containerBuilder.RegisterODataClient();
             containerBuilder.RegisterIdentityClient();
+
+            containerBuilder.Register(c => UserDialogs.Instance).SingleInstance();
 
             base.RegisterTypes(containerRegistry);
         }
