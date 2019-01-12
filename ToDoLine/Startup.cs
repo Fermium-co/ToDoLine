@@ -9,11 +9,13 @@ using Bit.OData.Contracts;
 using Bit.Owin.Implementations;
 using Bit.OwinCore;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO.Compression;
 using System.Reflection;
 using ToDoLine.Data;
 using ToDoLine.Security;
@@ -55,10 +57,19 @@ namespace ToDoLine
 
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
-            services.AddResponseCompression();
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>();
+            }).Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Optimal;
+            });
+
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
                 aspNetCoreApp.UseResponseCompression();
+                aspNetCoreApp.UseStaticFiles();
             });
 
             dependencyManager.RegisterMinimalAspNetCoreMiddlewares();
@@ -109,6 +120,8 @@ namespace ToDoLine
             dependencyManager.RegisterMapperConfiguration<DefaultMapperConfiguration>();
 
             dependencyManager.RegisterSingleSignOnServer<ToDoLineUserService, ToDoLineClientsProvider>();
+
+            dependencyManager.RegisterIndexPageMiddlewareUsingDefaultConfiguration();
         }
     }
 }

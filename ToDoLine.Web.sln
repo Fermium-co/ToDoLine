@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{97499D
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ToDoLine.Dto", "Shared\ToDoLine.Dto\ToDoLine.Dto.shproj", "{D5B119B5-872B-4313-BA61-29D00315EDC0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BitConfiguration", "BitConfiguration", "{6C71C834-2CCA-49E9-9DBC-AF70EECF798D}"
+	ProjectSection(SolutionItems) = preProject
+		BitConfigV1.json = BitConfigV1.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{d5b119b5-872b-4313-ba61-29d00315edc0}*SharedItemsImports = 13

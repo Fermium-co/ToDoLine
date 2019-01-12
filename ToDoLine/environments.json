@@ -15,6 +15,10 @@
       {
         "Key": "AppConnectionString",
         "Value": "Data Source=.;Initial Catalog=ToDoLineDb;Integrated Security=True"
+      },
+      {
+        "Key": "IndexPagePath",
+        "Value": "index.html"
       }
     ]
   }
