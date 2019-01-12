@@ -17,7 +17,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="LiveXAML" Version="2.1.58" />
+    <PackageReference Include="LiveXAML" Version="2.1.59" />
     <PackageReference Include="PropertyChanged.Fody" Version="2.6.0" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="16.4.0.46" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
