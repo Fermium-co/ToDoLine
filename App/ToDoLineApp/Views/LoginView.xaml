@@ -3,36 +3,60 @@
     x:Class="ToDoLineApp.Views.LoginView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:res="clr-namespace:ToDoLineApp.Resources"
+    xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
     x:DataType="vm:LoginViewModel"
     NavigationPage.HasNavigationBar="False">
-    <StackLayout
-        Padding="10"
-        HorizontalOptions="CenterAndExpand"
-        Orientation="Vertical"
-        WidthRequest="320">
-        <inputLayout:SfTextInputLayout
-            ContainerBackgroundColor="Transparent"
-            ErrorText="{Binding UserName_ErrorMessage}"
-            HasError="{Binding UserName_HasError}"
-            Hint="{x:Static res:Strings.UserName}">
-            <Entry Text="{Binding UserName}" />
-        </inputLayout:SfTextInputLayout>
-        <inputLayout:SfTextInputLayout
-            ContainerBackgroundColor="Transparent"
-            EnablePasswordVisibilityToggle="true"
-            ErrorText="{Binding Password_ErrorMessage}"
-            HasError="{Binding Password_HasError}"
-            Hint="{x:Static res:Strings.Password}">
-            <Entry IsPassword="True" Text="{Binding Password}" />
-        </inputLayout:SfTextInputLayout>
-        <Button
-            Command="{Binding LoginCommand}"
-            CornerRadius="10"
+    <StackLayout Padding="5">
+
+        <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+            <Label Text="{x:Static strRes:Strings.English}" />
+            <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.down_arrow}" Opacity="0.6" />
+        </StackLayout>
+
+        <StackLayout
             HorizontalOptions="Center"
-            Text="{x:Static res:Strings.Login}"
-            WidthRequest="100" />
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="300">
+            <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.ToDoLine}" />
+            <inputLayout:SfTextInputLayout
+                ErrorText="{Binding UserName_ErrorMessage}"
+                HasError="{Binding UserName_HasError}"
+                Hint="{x:Static strRes:Strings.UserName}"
+                Style="{StaticResource SfTextInputLayoutDefaultStyle}">
+                <Entry Text="{Binding UserName}" />
+            </inputLayout:SfTextInputLayout>
+            <inputLayout:SfTextInputLayout
+                EnablePasswordVisibilityToggle="true"
+                ErrorText="{Binding Password_ErrorMessage}"
+                HasError="{Binding Password_HasError}"
+                Hint="{x:Static strRes:Strings.Password}"
+                Style="{StaticResource SfTextInputLayoutDefaultStyle}">
+                <Entry IsPassword="True" Text="{Binding Password}" />
+            </inputLayout:SfTextInputLayout>
+            <Button
+                Padding="0,10"
+                BackgroundColor="#3897f0"
+                Command="{Binding LoginCommand}"
+                CornerRadius="3"
+                Text="{x:Static strRes:Strings.Login}"
+                TextColor="White" />
+        </StackLayout>
+
+        <StackLayout VerticalOptions="EndAndExpand">
+            <BoxView
+                BackgroundColor="LightGray"
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand" />
+            <Label
+                Margin="7"
+                HorizontalOptions="Center"
+                Text="{x:Static strRes:Strings.DoNotHaveAccountSignUp}"
+                TextColor="Gray" />
+        </StackLayout>
+
     </StackLayout>
 </ContentPage>
