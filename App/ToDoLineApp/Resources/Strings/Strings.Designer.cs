@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ToDoLineApp.Resources {
+namespace ToDoLineApp.Resources.Strings {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ToDoLineApp.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ToDoLineApp.Resources.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ToDoLineApp.Resources.Strings.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -72,9 +72,45 @@ namespace ToDoLineApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DoNotHaveAccountSignUp {
+            get {
+                return ResourceManager.GetString("DoNotHaveAccountSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ForgotLoginDetails {
+            get {
+                return ResourceManager.GetString("ForgotLoginDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string GetHelpSignIn {
+            get {
+                return ResourceManager.GetString("GetHelpSignIn", resourceCulture);
             }
         }
         
@@ -93,6 +129,24 @@ namespace ToDoLineApp.Resources {
         public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LoginWithMicrosoftAccount {
+            get {
+                return ResourceManager.GetString("LoginWithMicrosoftAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Or {
+            get {
+                return ResourceManager.GetString("Or", resourceCulture);
             }
         }
         

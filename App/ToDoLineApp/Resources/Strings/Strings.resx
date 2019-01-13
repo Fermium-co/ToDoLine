@@ -118,30 +118,48 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value>بی خیال</value>
+    <value />
+  </data>
+  <data name="DoNotHaveAccountSignUp" xml:space="preserve">
+    <value />
+  </data>
+  <data name="English" xml:space="preserve">
+    <value />
   </data>
   <data name="Error" xml:space="preserve">
-    <value>خطا</value>
+    <value />
+  </data>
+  <data name="ForgotLoginDetails" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GetHelpSignIn" xml:space="preserve">
+    <value />
   </data>
   <data name="InvalidUserNameAndOrPassword" xml:space="preserve">
-    <value>نام کاربری یا رمز عبور اشتباه است</value>
+    <value />
   </data>
   <data name="Login" xml:space="preserve">
-    <value>ورود</value>
+    <value />
+  </data>
+  <data name="LoginWithMicrosoftAccount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value />
   </data>
   <data name="Password" xml:space="preserve">
-    <value>رمز عبور</value>
+    <value />
   </data>
   <data name="PasswordIsRequired" xml:space="preserve">
-    <value>رمز عبور اجباری است</value>
+    <value />
   </data>
   <data name="ToDoLine" xml:space="preserve">
-    <value>ToDo Line</value>
+    <value />
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>نام کاربری</value>
+    <value />
   </data>
   <data name="UserNameIsRequired" xml:space="preserve">
-    <value>نام کاربری اجباری است</value>
+    <value />
   </data>
 </root>

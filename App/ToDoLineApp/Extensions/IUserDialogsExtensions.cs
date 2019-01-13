@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using ToDoLineApp.Resources;
+using ToDoLineApp.Resources.Strings;
 
 namespace Acr.UserDialogs
 {

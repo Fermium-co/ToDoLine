@@ -118,30 +118,48 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value />
+    <value>Cancel</value>
+  </data>
+  <data name="DoNotHaveAccountSignUp" xml:space="preserve">
+    <value>Don't have an account? Sign up.</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English (United States)</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value />
+    <value>Error</value>
+  </data>
+  <data name="ForgotLoginDetails" xml:space="preserve">
+    <value>Forgotten your login details?</value>
+  </data>
+  <data name="GetHelpSignIn" xml:space="preserve">
+    <value>Get Help Signing In.</value>
   </data>
   <data name="InvalidUserNameAndOrPassword" xml:space="preserve">
-    <value />
+    <value>Invalid user name and or password</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value />
+    <value>Login</value>
+  </data>
+  <data name="LoginWithMicrosoftAccount" xml:space="preserve">
+    <value>Log in with Microsoft.</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>OR</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value />
+    <value>Password</value>
   </data>
   <data name="PasswordIsRequired" xml:space="preserve">
-    <value />
+    <value>Password is required</value>
   </data>
   <data name="ToDoLine" xml:space="preserve">
-    <value />
+    <value>ToDo Line</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value />
+    <value>User name</value>
   </data>
   <data name="UserNameIsRequired" xml:space="preserve">
-    <value />
+    <value>User name is required</value>
   </data>
 </root>

@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using ToDoLineApp.Resources;
+using ToDoLineApp.Resources.Strings;
 
 namespace ToDoLineApp.ViewModels
 {
