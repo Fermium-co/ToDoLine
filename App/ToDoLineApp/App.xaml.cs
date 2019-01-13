@@ -4,11 +4,14 @@ using Bit;
 using Bit.Model.Events;
 using Bit.ViewModel.Contracts;
 using Bit.ViewModel.Implementations;
+using FFImageLoading;
+using FFImageLoading.Helpers;
 using Prism;
 using Prism.Autofac;
 using Prism.Events;
 using Prism.Ioc;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using ToDoLineApp.ViewModels;
 using ToDoLineApp.Views;
@@ -19,8 +22,32 @@ using Xamarin.Forms.Xaml;
 
 namespace ToDoLineApp
 {
+    public partial class App : IMiniLogger
+    {
+        public void Debug(string message)
+        {
+        }
+
+        public void Error(string errorMessage)
+        {
+            System.Diagnostics.Debugger.Break();
+        }
+
+        public void Error(string errorMessage, Exception ex)
+        {
+            System.Diagnostics.Debugger.Break();
+        }
+    }
+
     public partial class App : BitApplication
     {
+        static App()
+        {
+#if DEBUG
+            Xamarin.Forms.Internals.Log.Listeners.Add(new Xamarin.Forms.Internals.DelegateLogListener((category, message) => throw new Exception($"{category} {message}")));
+#endif
+        }
+
         public new static App Current
         {
             get { return (App)Application.Current; }
@@ -41,6 +68,16 @@ namespace ToDoLineApp
 
         protected async override Task OnInitializedAsync()
         {
+            ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
+            {
+                HttpClient = Container.Resolve<HttpClient>(),
+                AllowUpscale = false,
+                ClearMemoryCacheOnOutOfMemory = true,
+#if DEBUG
+                Logger = this
+#endif
+            });
+
             InitializeComponent();
 
             bool isLoggedIn = await Container.Resolve<ISecurityService>().IsLoggedInAsync();

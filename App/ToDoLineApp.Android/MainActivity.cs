@@ -31,6 +31,8 @@ namespace ToDoLineApp.Droid
 
             UserDialogs.Init(this);
 
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
+
             Forms.Init(this, savedInstanceState);
 
             LoadApplication(new App(new ToDoLinePlatformInitializer(this)));

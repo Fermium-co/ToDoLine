@@ -3,11 +3,13 @@
     x:Class="ToDoLineApp.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:bit="clr-namespace:Bit;assembly=Bit.CSharpClient.Prism">
+    xmlns:bit="clr-namespace:Bit;assembly=Bit.CSharpClient.Prism"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms">
     <bit:BitApplication.Resources>
         <ResourceDictionary>
             <Style TargetType="StackLayout">
-                <Setter Property="Padding" Value="0" />
+                <Setter Property="Spacing" Value="0" />
             </Style>
             <Style TargetType="Grid">
                 <Setter Property="RowSpacing" Value="0" />
@@ -16,6 +18,18 @@
             <Style TargetType="Frame">
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
+            <Style TargetType="ffImage:CachedImage">
+                <Setter Property="IsOpaque" Value="True" />
+                <Setter Property="BitmapOptimizations" Value="True" />
+                <Setter Property="FadeAnimationEnabled" Value="False" />
+                <Setter Property="FadeAnimationForCachedImages" Value="False" />
+                <Setter Property="CacheType" Value="All" />
+            </Style>
+            <Style x:Key="SfTextInputLayoutDefaultStyle" TargetType="inputLayout:SfTextInputLayout">
+                <Setter Property="ContainerType" Value="Outlined" />
+                <Setter Property="UnfocusedStrokeWidth" Value="2" />
+                <Setter Property="ContainerBackgroundColor" Value="Transparent" />
             </Style>
         </ResourceDictionary>
     </bit:BitApplication.Resources>

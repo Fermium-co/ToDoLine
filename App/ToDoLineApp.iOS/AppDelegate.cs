@@ -2,6 +2,7 @@
 using Bit.iOS;
 using Bit.ViewModel;
 using Bit.ViewModel.Implementations;
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using Prism.Autofac;
 using Prism.Ioc;
@@ -22,6 +23,8 @@ namespace ToDoLineApp.iOS
             UseDefaultConfiguration();
 
             SfTextInputLayoutRenderer.Init();
+
+            CachedImageRenderer.Init();
 
             Forms.Init();
 

@@ -1,10 +1,14 @@
 ﻿using Acr.UserDialogs;
 using Bit.ViewModel;
+using FFImageLoading.Forms;
+using FFImageLoading.Forms.Platform;
 using Syncfusion.XForms.UWP.TextInputLayout;
 using System.Linq;
 using System.Reflection;
 using ToDoLineApp.Implementations;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -30,11 +34,16 @@ namespace ToDoLineApp.UWP
 
                 UseDefaultConfiguration();
 
+                CachedImageRenderer.Init();
+
                 Xamarin.Forms.Forms.Init(e, new Assembly[]
-                {
+                {   typeof(CachedImage).GetTypeInfo().Assembly,
+                    typeof(CachedImageRenderer).GetTypeInfo().Assembly,
                     typeof(SfTextInputLayoutRenderer).Assembly,
                     typeof(UserDialogs).Assembly
                 }.Union(Rg.Plugins.Popup.Popup.GetExtraAssemblies()));
+
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Height = 1, Width = 1 });
 
                 Window.Current.Content = rootFrame;
             }
