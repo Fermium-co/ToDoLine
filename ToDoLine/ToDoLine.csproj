@@ -23,7 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
-    <!--<PackageReference Include="BitCodeGeneratorTask" Version="1.6.5" />-->
+    <PackageReference Include="BitCodeGeneratorTask" Version="1.6.5" />
   </ItemGroup>
 
   <Import Project="..\Shared\ToDoLine.Dto\ToDoLine.Dto.projitems" Label="Shared" />

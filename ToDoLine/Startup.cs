@@ -122,6 +122,8 @@ namespace ToDoLine
             dependencyManager.RegisterSingleSignOnServer<ToDoLineUserService, ToDoLineClientsProvider>();
 
             dependencyManager.RegisterIndexPageMiddlewareUsingDefaultConfiguration();
+
+            dependencyManager.RegisterAppEvents<RunMigrationsAppEvent>();
         }
     }
 }
