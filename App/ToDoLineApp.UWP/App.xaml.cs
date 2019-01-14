@@ -45,7 +45,7 @@ namespace ToDoLineApp.UWP
                     typeof(SfBadgeViewRenderer).GetTypeInfo().Assembly,
                     typeof(SfButtonRenderer).GetTypeInfo().Assembly,
                     typeof(UserDialogs).Assembly
-                }.Union(Rg.Plugins.Popup.Popup.GetExtraAssemblies()));
+                }.Union(GetBitRendererAssemblies()));
 
                 ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Height = 1, Width = 1 });
 
