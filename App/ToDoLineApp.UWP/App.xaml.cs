@@ -2,6 +2,8 @@
 using Bit.ViewModel;
 using FFImageLoading.Forms;
 using FFImageLoading.Forms.Platform;
+using Syncfusion.XForms.UWP.BadgeView;
+using Syncfusion.XForms.UWP.Buttons;
 using Syncfusion.XForms.UWP.TextInputLayout;
 using System.Linq;
 using System.Reflection;
@@ -40,6 +42,8 @@ namespace ToDoLineApp.UWP
                 {   typeof(CachedImage).GetTypeInfo().Assembly,
                     typeof(CachedImageRenderer).GetTypeInfo().Assembly,
                     typeof(SfTextInputLayoutRenderer).Assembly,
+                    typeof(SfBadgeViewRenderer).GetTypeInfo().Assembly,
+                    typeof(SfButtonRenderer).GetTypeInfo().Assembly,
                     typeof(UserDialogs).Assembly
                 }.Union(Rg.Plugins.Popup.Popup.GetExtraAssemblies()));
 

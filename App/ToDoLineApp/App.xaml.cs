@@ -13,6 +13,8 @@ using Prism.Ioc;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ToDoLineApp.Contracts;
+using ToDoLineApp.Implementations;
 using ToDoLineApp.ViewModels;
 using ToDoLineApp.Views;
 using Xamarin.Forms;
@@ -111,7 +113,7 @@ namespace ToDoLineApp
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri("http://192.168.1.26:53149/"),
+                HostUri = new Uri("http://192.168.1.151:53149/"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
             }).SingleInstance();
@@ -122,6 +124,7 @@ namespace ToDoLineApp
             containerBuilder.RegisterIdentityClient();
 
             containerBuilder.Register(c => UserDialogs.Instance).SingleInstance();
+            containerBuilder.RegisterType<DefaultToDoServie>().As<IToDoService>().PropertiesAutowired(PropertyWiringOptions.PreserveSetValues).SingleInstance();
 
             base.RegisterTypes(containerRegistry);
         }

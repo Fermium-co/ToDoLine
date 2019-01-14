@@ -3,5 +3,45 @@
     x:Class="ToDoLineApp.Views.MenuView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:view="clr-namespace:ToDoLineApp.Views"
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
-    x:DataType="vm:MenuViewModel" />
+    x:DataType="vm:MenuViewModel">
+    <ScrollView>
+        <StackLayout Padding="10,0,0,0">
+
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.MyDayToDoItemsCount}">
+                <buttons:SfButton HeightRequest="45" Text="My Day" />
+                <badge:SfBadgeView.BadgeSettings>
+                    <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
+                </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
+
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.ImportantToDoItemsCount}">
+                <buttons:SfButton HeightRequest="45" Text="Important" />
+                <badge:SfBadgeView.BadgeSettings>
+                    <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
+                </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
+
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.PlannedToDoItemsCount}">
+                <buttons:SfButton HeightRequest="45" Text="Planned" />
+                <badge:SfBadgeView.BadgeSettings>
+                    <badge:BadgeSetting
+                        BadgeType="{Binding ToDoService.AnyOverdueTask, Converter={view:AnyOverdueTaskToBadgeTypeConverter}}"
+                        Stroke="White"
+                        StrokeWidth="1" />
+                </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
+
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.ToDoItemsWithoutToDoGroupCount}">
+                <buttons:SfButton HeightRequest="45" Text="Tasks" />
+                <badge:SfBadgeView.BadgeSettings>
+                    <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
+                </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
+
+        </StackLayout>
+    </ScrollView>
+</ContentView>
