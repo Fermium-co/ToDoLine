@@ -14,8 +14,6 @@ namespace ToDoLine.Model
         [StringLength(50, MinimumLength = 3)]
         public virtual string Title { get; set; }
 
-        public virtual bool IsDefault { get; set; }
-
         public virtual Guid CreatedById { get; set; }
 
         public virtual User CreatedBy { get; set; }

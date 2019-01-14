@@ -10,14 +10,14 @@ using ToDoLine.Data;
 namespace ToDoLine.Migrations
 {
     [DbContext(typeof(ToDoLineDbContext))]
-    [Migration("20180924150328_InitialSchema")]
+    [Migration("20190114160259_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,8 +29,6 @@ namespace ToDoLine.Migrations
                     b.Property<Guid>("CreatedById");
 
                     b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<bool>("IsDefault");
 
                     b.Property<DateTimeOffset>("ModifiedOn");
 
@@ -95,7 +93,7 @@ namespace ToDoLine.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("ToDoGroupId");
+                    b.Property<Guid?>("ToDoGroupId");
 
                     b.HasKey("Id");
 

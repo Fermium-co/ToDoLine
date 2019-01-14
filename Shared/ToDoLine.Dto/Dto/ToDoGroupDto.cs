@@ -13,8 +13,6 @@ namespace ToDoLine.Dto
         [StringLength(50, MinimumLength = 3)]
         public virtual string Title { get; set; }
 
-        public virtual bool IsDefault { get; set; }
-
         public virtual string CreatedBy { get; set; }
 
         public virtual DateTimeOffset CreatedOn { get; set; }

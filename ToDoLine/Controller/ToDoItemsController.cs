@@ -72,9 +72,11 @@ namespace ToDoLine.Controller
 
             List<ToDoItemOptions> optionsList = new List<ToDoItemOptions> { };
 
-            List<Guid> usersOfThisToDoGroup = await ToDoGroupOptionsListRepository.GetAll().Where(tdgo => tdgo.ToDoGroupId == toDoItem.ToDoGroupId)
+            List<Guid> usersOfThisToDoGroup = toDoItem.ToDoGroupId == null ? (new List<Guid> { userId } /*ToDoItem has no to do group*/ ) : (await ToDoGroupOptionsListRepository
+                .GetAll()
+                .Where(tdgo => tdgo.ToDoGroupId == toDoItem.ToDoGroupId)
                 .Select(tdgo => tdgo.UserId)
-                .ToListAsync(cancellationToken);
+                .ToListAsync(cancellationToken));
 
             foreach (Guid otherUserId in usersOfThisToDoGroup)
             {
@@ -142,6 +144,9 @@ namespace ToDoLine.Controller
 
             if (toDoItemOptionsToBeModified == null)
                 throw new ResourceNotFoundException("ToDoItemCouldNotBeFound");
+
+            if (toDoItem.ToDoGroupId != toDoItemToBeModified.ToDoGroupId)
+                throw new BadRequestException("ChangingToDoGroupIdIsNotSupportedAtTheMoment");
 
             toDoItemToBeModified.Title = toDoItem.Title;
             toDoItemToBeModified.IsImportant = toDoItem.IsImportant;

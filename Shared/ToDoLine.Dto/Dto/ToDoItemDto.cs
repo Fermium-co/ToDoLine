@@ -1,6 +1,5 @@
 ﻿using Bit.Model.Contracts;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ToDoLine.Dto
@@ -33,7 +32,7 @@ namespace ToDoLine.Dto
 
         public virtual bool ShowInMyDay { get; set; }
 
-        public virtual Guid ToDoGroupId { get; set; }
+        public virtual Guid? ToDoGroupId { get; set; }
 
         public virtual int ToDoItemStepsCount { get; set; }
 

@@ -2,6 +2,7 @@
 using Bit.Test;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using Simple.OData.Client;
 using System;
 using System.Linq;
@@ -28,6 +29,21 @@ namespace ToDoLine.Test.Controller
 
                 ToDoItemDto toDoItem = await client.Controller<ToDoItemsController, ToDoItemDto>()
                    .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
+                   .InsertEntryAsync();
+
+                Assert.AreEqual("Task1", toDoItem.Title);
+            }
+        }
+
+        [TestMethod]
+        public async Task CreateToDoItemWithoutToDoGroupTest()
+        {
+            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
+            {
+                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+
+                ToDoItemDto toDoItem = await client.Controller<ToDoItemsController, ToDoItemDto>()
+                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = null })
                    .InsertEntryAsync();
 
                 Assert.AreEqual("Task1", toDoItem.Title);
@@ -128,6 +144,37 @@ namespace ToDoLine.Test.Controller
                 Assert.AreEqual("Task1!", updatedToDoItem.Title);
                 Assert.AreEqual(true, updatedToDoItem.IsCompleted);
                 Assert.AreEqual(userName, updatedToDoItem.CompletedBy);
+            }
+        }
+
+        [TestMethod]
+        public async Task UpdateToDoItemToDoGroupIdIsNotSupportedTest()
+        {
+            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
+            {
+                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+
+                ToDoItemDto toDoItem = await client.Controller<ToDoItemsController, ToDoItemDto>()
+                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = null })
+                   .InsertEntryAsync();
+
+                toDoItem.Title += "!";
+                toDoItem.IsCompleted = true;
+                toDoItem.ToDoGroupId = Guid.NewGuid();
+
+                try
+                {
+                    await client.Controller<ToDoItemsController, ToDoItemDto>()
+                       .Key(toDoItem.Id)
+                       .Set(toDoItem)
+                       .UpdateEntryAsync();
+
+                    Assert.Fail();
+                }
+                catch (WebRequestException exp) when (exp.Message == "KnownError" && JToken.Parse(exp.Response)["error"]["message"].Value<string>() == "ChangingToDoGroupIdIsNotSupportedAtTheMoment")
+                {
+
+                }
             }
         }
 

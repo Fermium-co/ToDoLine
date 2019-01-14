@@ -28,7 +28,6 @@ namespace ToDoLine.Test.Controller
                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
                    .ExecuteAsSingleAsync();
 
-                Assert.AreEqual(false, addedToDoGroup.IsDefault);
                 Assert.AreEqual(1, addedToDoGroup.SharedByCount);
                 Assert.AreEqual("Test", addedToDoGroup.Title);
 
@@ -36,7 +35,7 @@ namespace ToDoLine.Test.Controller
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                     .FindEntriesAsync()).ToArray();
 
-                Assert.AreEqual(2, toDoGroups.Length);
+                Assert.AreEqual(1, toDoGroups.Length);
             }
         }
 
@@ -78,35 +77,6 @@ namespace ToDoLine.Test.Controller
         }
 
         [TestMethod]
-        public async Task UpdateDefaultToDoGroupTitleIsDeniedTest()
-        {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
-
-                ToDoGroupDto toDoGroup = (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
-                   .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
-                   .FindEntriesAsync()).Single();
-
-                toDoGroup.Title += "?"; // Tasks?
-
-                try
-                {
-                    await client.Controller<ToDoGroupsController, ToDoGroupDto>()
-                        .Key(toDoGroup.Id)
-                        .Set(toDoGroup)
-                        .UpdateEntryAsync();
-
-                    Assert.Fail();
-                }
-                catch (WebRequestException exp) when (exp.Message == "KnownError" && JToken.Parse(exp.Response)["error"]["message"].Value<string>() == "CanNotChangeTitleOfDefaultToDoGroup")
-                {
-
-                }
-            }
-        }
-
-        [TestMethod]
         public async Task DeleteToDoGroupTest()
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
@@ -122,62 +92,9 @@ namespace ToDoLine.Test.Controller
                     .Key(toDoGroup.Id)
                     .DeleteEntryAsync();
 
-                (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                Assert.AreEqual(0, (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
-                    .FindEntriesAsync()).Single();
-            }
-        }
-
-        [TestMethod]
-        public async Task DeleteDefaultToDoGroupIsDeniedTest()
-        {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
-
-                ToDoGroupDto defaultToDoGroup = (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
-                   .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
-                   .FindEntriesAsync()).Single();
-
-                try
-                {
-                    await client.Controller<ToDoGroupsController, ToDoGroupDto>()
-                        .Key(defaultToDoGroup.Id)
-                        .DeleteEntryAsync();
-
-                    Assert.Fail();
-                }
-                catch (WebRequestException exp) when (exp.Message == "KnownError" && JToken.Parse(exp.Response)["error"]["message"].Value<string>() == "CanNotDeleteDefaultToDoGroup")
-                {
-
-                }
-            }
-        }
-
-        [TestMethod]
-        public async Task CanNotShareDefaultToDoGroupTest()
-        {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
-
-                ToDoGroupDto toDoGroup = (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
-                    .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
-                    .FindEntriesAsync()).Single();
-
-                try
-                {
-                    await client.Controller<ToDoGroupsController, ToDoGroupDto>()
-                         .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
-                         .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = Guid.Empty, toDoGroupId = toDoGroup.Id })
-                         .ExecuteAsync();
-
-                    Assert.Fail();
-                }
-                catch (WebRequestException exp) when (exp.Message == "KnownError" && JToken.Parse(exp.Response)["error"]["message"].Value<string>() == "CanNotShareDefaultToDoGroup")
-                {
-
-                }
+                    .FindEntriesAsync()).Count());
             }
         }
 
@@ -206,7 +123,7 @@ namespace ToDoLine.Test.Controller
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                     .FindEntriesAsync()).ToArray();
 
-                Assert.AreEqual(2, toDoGroups.Length);
+                Assert.AreEqual(1, toDoGroups.Length);
             }
         }
 
@@ -244,7 +161,7 @@ namespace ToDoLine.Test.Controller
                     .FindEntriesAsync()).ToArray();
 
 
-                Assert.AreEqual(2, toDoGroups.Length);
+                Assert.AreEqual(1, toDoGroups.Length);
                 Assert.AreEqual(1, toDoItems.Length);
             }
         }
@@ -272,7 +189,6 @@ namespace ToDoLine.Test.Controller
 
                 toDoGroup = (await client2.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
-                    .Filter(tdg => tdg.IsDefault == false)
                     .FindEntriesAsync()).Single();
 
                 try

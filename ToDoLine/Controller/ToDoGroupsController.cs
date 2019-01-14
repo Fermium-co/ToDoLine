@@ -42,7 +42,6 @@ namespace ToDoLine.Controller
                       CreatedBy = tdgo.ToDoGroup.CreatedBy.UserName,
                       CreatedOn = tdgo.ToDoGroup.CreatedOn,
                       HideCompletedToDoItems = tdgo.HideCompletedToDoItems,
-                      IsDefault = tdgo.ToDoGroup.IsDefault,
                       ModifiedOn = tdgo.ToDoGroup.ModifiedOn,
                       SharedByCount = tdgo.ToDoGroup.Options.Count,
                       SortedBy = tdgo.SortedBy,
@@ -69,7 +68,6 @@ namespace ToDoLine.Controller
                 Id = Guid.NewGuid(),
                 CreatedById = userId,
                 CreatedOn = DateTimeProvider.GetCurrentUtcDateTime(),
-                IsDefault = false,
                 ModifiedOn = DateTimeProvider.GetCurrentUtcDateTime(),
                 Title = args.title,
                 Options = new List<ToDoGroupOptions>
@@ -117,9 +115,6 @@ namespace ToDoLine.Controller
             if (toDoGroupToBeModified == null)
                 throw new ResourceNotFoundException("ToDoGroupCouldNotBeFound");
 
-            if (toDoGroupToBeModified.IsDefault == true && toDoGroup.Title != "Tasks")
-                throw new BadRequestException("CanNotChangeTitleOfDefaultToDoGroup");
-
             ToDoGroupOptions toDoGroupOptionsToBeModified = await ToDoGroupOptionsListRepository.GetAll()
                 .FirstAsync(tdgo => tdgo.UserId == userId && tdgo.ToDoGroupId == key, cancellationToken);
 
@@ -150,9 +145,6 @@ namespace ToDoLine.Controller
             if (toDoGroupToBeDeleted == null)
                 throw new ResourceNotFoundException("ToDoGroupCouldNotBeFound");
 
-            if (toDoGroupToBeDeleted.IsDefault == true)
-                throw new BadRequestException("CanNotDeleteDefaultToDoGroup");
-
             if (toDoGroupToBeDeleted.CreatedById != userId)
                 throw new DomainLogicException("OnlyOwnerCanDeleteTheToDoGroup");
 
@@ -176,7 +168,6 @@ namespace ToDoLine.Controller
                 .Select(tdg => new ToDoGroup
                 {
                     Id = tdg.Id,
-                    IsDefault = tdg.IsDefault,
                     Items = tdg.Items.Select(tdi => new ToDoItem
                     {
                         Id = tdi.Id
@@ -185,9 +176,6 @@ namespace ToDoLine.Controller
 
             if (toDoGroup == null)
                 throw new ResourceNotFoundException("ToDoGroupCouldNotBeFound");
-
-            if (toDoGroup.IsDefault == true)
-                throw new DomainLogicException("CanNotShareDefaultToDoGroup");
 
             await ToDoGroupOptionsListRepository.AddAsync(new ToDoGroupOptions
             {

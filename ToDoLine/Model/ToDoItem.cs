@@ -39,7 +39,7 @@ namespace ToDoLine.Model
 
         public ToDoGroup ToDoGroup { get; set; }
 
-        public Guid ToDoGroupId { get; set; }
+        public Guid? ToDoGroupId { get; set; }
     }
 
     public class ToDoItemOptions : IEntity

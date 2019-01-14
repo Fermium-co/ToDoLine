@@ -26,7 +26,6 @@ namespace ToDoLine.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(maxLength: 50, nullable: false),
-                    IsDefault = table.Column<bool>(nullable: false),
                     CreatedById = table.Column<Guid>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ModifiedOn = table.Column<DateTimeOffset>(nullable: false)
@@ -84,7 +83,7 @@ namespace ToDoLine.Migrations
                     CreatedById = table.Column<Guid>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ModifiedOn = table.Column<DateTimeOffset>(nullable: false),
-                    ToDoGroupId = table.Column<Guid>(nullable: false)
+                    ToDoGroupId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
