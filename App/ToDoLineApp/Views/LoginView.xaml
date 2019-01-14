@@ -30,12 +30,15 @@
                 <Entry Text="{Binding UserName}" />
             </inputLayout:SfTextInputLayout>
             <inputLayout:SfTextInputLayout
-                EnablePasswordVisibilityToggle="true"
+                EnablePasswordVisibilityToggle="{Binding IsFocused, Source={x:Reference Password}}"
                 ErrorText="{Binding Password_ErrorMessage}"
                 HasError="{Binding Password_HasError}"
                 Hint="{x:Static strRes:Strings.Password}"
                 Style="{StaticResource SfTextInputLayoutDefaultStyle}">
-                <Entry IsPassword="True" Text="{Binding Password}" />
+                <Entry
+                    x:Name="Password"
+                    IsPassword="True"
+                    Text="{Binding Password}" />
             </inputLayout:SfTextInputLayout>
             <Button
                 Padding="0,10"
