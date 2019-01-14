@@ -21,7 +21,7 @@
             HorizontalOptions="Center"
             VerticalOptions="CenterAndExpand"
             WidthRequest="300">
-            <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.ToDoLine}" />
+            <ffImage:CachedImage Margin="0,0,0,30" res:ImageProps.FileName="{x:Static res:ImageNames.ToDoLine}" />
             <inputLayout:SfTextInputLayout
                 ErrorText="{Binding UserName_ErrorMessage}"
                 HasError="{Binding UserName_HasError}"
