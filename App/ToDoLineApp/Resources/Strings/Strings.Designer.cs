@@ -117,6 +117,24 @@ namespace ToDoLineApp.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string GroupName {
+            get {
+                return ResourceManager.GetString("GroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Important {
+            get {
+                return ResourceManager.GetString("Important", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string InvalidUserNameAndOrPassword {
             get {
                 return ResourceManager.GetString("InvalidUserNameAndOrPassword", resourceCulture);
@@ -144,6 +162,33 @@ namespace ToDoLineApp.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string MyDay {
+            get {
+                return ResourceManager.GetString("MyDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NewList {
+            get {
+                return ResourceManager.GetString("NewList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NewToDoGroupName {
+            get {
+                return ResourceManager.GetString("NewToDoGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Or {
             get {
                 return ResourceManager.GetString("Or", resourceCulture);
@@ -165,6 +210,24 @@ namespace ToDoLineApp.Resources.Strings {
         public static string PasswordIsRequired {
             get {
                 return ResourceManager.GetString("PasswordIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Planned {
+            get {
+                return ResourceManager.GetString("Planned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Tasks {
+            get {
+                return ResourceManager.GetString("Tasks", resourceCulture);
             }
         }
         

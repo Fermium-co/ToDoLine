@@ -2,6 +2,7 @@
 using Bit.ViewModel;
 using FFImageLoading.Forms;
 using FFImageLoading.Forms.Platform;
+using Syncfusion.ListView.XForms.UWP;
 using Syncfusion.XForms.UWP.BadgeView;
 using Syncfusion.XForms.UWP.Buttons;
 using Syncfusion.XForms.UWP.TextInputLayout;
@@ -44,7 +45,8 @@ namespace ToDoLineApp.UWP
                     typeof(SfTextInputLayoutRenderer).Assembly,
                     typeof(SfBadgeViewRenderer).GetTypeInfo().Assembly,
                     typeof(SfButtonRenderer).GetTypeInfo().Assembly,
-                    typeof(UserDialogs).Assembly
+                    typeof(UserDialogs).Assembly,
+                    typeof(SfListViewRenderer).GetTypeInfo().Assembly
                 }.Union(GetBitRendererAssemblies()));
 
                 ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Height = 1, Width = 1 });

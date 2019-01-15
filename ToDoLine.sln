@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28407.52
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoLine", "ToDoLine\ToDoLine.csproj", "{4F250618-193A-4142-BADC-FF9058EB9A67}"
 EndProject
@@ -84,6 +84,8 @@ Global
 		{AEC091EC-DBAA-47D6-8C32-E549ABEF38DA}.Release|x64.ActiveCfg = Release|iPhone
 		{AEC091EC-DBAA-47D6-8C32-E549ABEF38DA}.Release|x86.ActiveCfg = Release|iPhone
 		{B95DCA34-4823-4A43-BE8E-D4135063C96E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B95DCA34-4823-4A43-BE8E-D4135063C96E}.Debug|Any CPU.Build.0 = Debug|x86
+		{B95DCA34-4823-4A43-BE8E-D4135063C96E}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{B95DCA34-4823-4A43-BE8E-D4135063C96E}.Debug|x64.ActiveCfg = Debug|x64
 		{B95DCA34-4823-4A43-BE8E-D4135063C96E}.Debug|x64.Build.0 = Debug|x64
 		{B95DCA34-4823-4A43-BE8E-D4135063C96E}.Debug|x64.Deploy.0 = Debug|x64

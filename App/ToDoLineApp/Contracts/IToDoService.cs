@@ -22,6 +22,8 @@ namespace ToDoLineApp.Contracts
 
         bool AnyOverdueTask { get; }
 
-        Task LoadDataAsync(CancellationToken cancellationToken);
+        Task LoadData(CancellationToken cancellationToken);
+
+        Task<ToDoGroupDto> AddNewGroup(string groupName, CancellationToken cancellationToken);
     }
 }

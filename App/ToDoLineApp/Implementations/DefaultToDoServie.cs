@@ -1,6 +1,7 @@
 ﻿using Bit.Model;
 using Bit.ViewModel.Contracts;
 using Simple.OData.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -31,12 +32,25 @@ namespace ToDoLineApp.Implementations
 
         public virtual bool AnyOverdueTask => PlannedToDoItems?.Any(tdi => tdi.RemindOn.Value < DateTimeProvider.GetCurrentUtcDateTime()) ?? false;
 
-        public virtual async Task LoadDataAsync(CancellationToken cancellationToken)
+
+        public virtual async Task LoadData(CancellationToken cancellationToken)
         {
             ODataBatch BatchClient = new ODataBatch(ODataClient, reuseSession: true);
             BatchClient += async client => ToDoGroups = (await client.For<ToDoGroupDto>("ToDoGroups").Function("GetMyToDoGroups").FindEntriesAsync(cancellationToken)).ToList();
             BatchClient += async client => ToDoItems = (await client.For<ToDoItemDto>("ToDoItems").Function("GetMyToDoItems").FindEntriesAsync(cancellationToken)).ToList();
             await BatchClient.ExecuteAsync(cancellationToken);
+        }
+
+        public virtual async Task<ToDoGroupDto> AddNewGroup(string groupName, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrEmpty(groupName))
+                throw new ArgumentException(nameof(groupName));
+
+            return await ODataClient
+                .For<ToDoGroupDto>("ToDoGroups")
+                .Action("CreateToDoGroup")
+                .Set(new { title = groupName })
+                .ExecuteAsSingleAsync(cancellationToken);
         }
     }
 }

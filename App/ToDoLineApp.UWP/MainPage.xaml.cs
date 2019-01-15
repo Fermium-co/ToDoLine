@@ -2,6 +2,7 @@
 using Bit.ViewModel.Implementations;
 using Prism.Autofac;
 using Prism.Ioc;
+using Syncfusion.ListView.XForms.UWP;
 
 namespace ToDoLineApp.UWP
 {
@@ -10,6 +11,8 @@ namespace ToDoLineApp.UWP
         public MainPage()
         {
             InitializeComponent();
+
+            SfListViewRenderer.Init();
 
             LoadApplication(new ToDoLineApp.App(new ToDoLinePlatformInitializer()));
         }

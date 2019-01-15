@@ -6,6 +6,7 @@ using FFImageLoading.Forms.Platform;
 using Foundation;
 using Prism.Autofac;
 using Prism.Ioc;
+using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.TextInputLayout;
@@ -29,6 +30,8 @@ namespace ToDoLineApp.iOS
             SfBadgeViewRenderer.Init();
 
             SfButtonRenderer.Init();
+
+            SfListViewRenderer.Init();
 
             CachedImageRenderer.Init();
 

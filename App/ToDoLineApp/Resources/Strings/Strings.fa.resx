@@ -122,7 +122,6 @@
   </data>
   <data name="DoNotHaveAccountSignUp" xml:space="preserve">
     <value>ثبت نام نکرده اید؟ ثبت نام کنید</value>
-    <comment> </comment>
   </data>
   <data name="English" xml:space="preserve">
     <value>English (United States)</value>
@@ -136,6 +135,12 @@
   <data name="GetHelpSignIn" xml:space="preserve">
     <value>اشکال در ورود</value>
   </data>
+  <data name="GroupName" xml:space="preserve">
+    <value>نام گروه</value>
+  </data>
+  <data name="Important" xml:space="preserve">
+    <value>مهم</value>
+  </data>
   <data name="InvalidUserNameAndOrPassword" xml:space="preserve">
     <value>نام کاربری یا رمز عبور اشتباه است</value>
   </data>
@@ -145,6 +150,15 @@
   <data name="LoginWithMicrosoftAccount" xml:space="preserve">
     <value>ورود با اکانت مایکروسافت</value>
   </data>
+  <data name="MyDay" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="NewList" xml:space="preserve">
+    <value>گروه جدید</value>
+  </data>
+  <data name="NewToDoGroupName" xml:space="preserve">
+    <value>نام گروه جدید</value>
+  </data>
   <data name="Or" xml:space="preserve">
     <value>یا</value>
   </data>
@@ -153,6 +167,12 @@
   </data>
   <data name="PasswordIsRequired" xml:space="preserve">
     <value>رمز عبور اجباری است</value>
+  </data>
+  <data name="Planned" xml:space="preserve">
+    <value>برنامه ریزی شده</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>کارها</value>
   </data>
   <data name="ToDoLine" xml:space="preserve">
     <value>ToDo Line</value>
