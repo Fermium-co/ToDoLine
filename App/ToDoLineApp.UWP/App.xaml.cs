@@ -10,8 +10,6 @@ using System.Linq;
 using System.Reflection;
 using ToDoLineApp.Implementations;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -48,8 +46,6 @@ namespace ToDoLineApp.UWP
                     typeof(UserDialogs).Assembly,
                     typeof(SfListViewRenderer).GetTypeInfo().Assembly
                 }.Union(GetBitRendererAssemblies()));
-
-                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Height = 1, Width = 1 });
 
                 Window.Current.Content = rootFrame;
             }

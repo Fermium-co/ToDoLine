@@ -1,5 +1,4 @@
 ﻿using Bit.ViewModel;
-using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,16 +14,16 @@ namespace ToDoLineApp.ViewModels
         public virtual IToDoService ToDoService { get; set; }
         public string NewGroupName { get; set; } = "";
 
-        public BitDelegateCommand AddNewToDoGroupCommand { get; set; }
+        public BitDelegateCommand AddNewGroupCommand { get; set; }
         public BitDelegateCommand CancelAddNewGroupCommand { get; set; }
         public BitDelegateCommand ShowNewGroupStackCommand { get; set; }
 
         public MenuViewModel()
         {
-            AddNewToDoGroupCommand = new BitDelegateCommand(AddNewToDoGroupAsync, () => !string.IsNullOrEmpty(NewGroupName));
-            AddNewToDoGroupCommand.ObservesProperty(() => NewGroupName);
+            AddNewGroupCommand = new BitDelegateCommand(AddNewGroupAsync, () => !string.IsNullOrEmpty(NewGroupName));
+            AddNewGroupCommand.ObservesProperty(() => NewGroupName);
             CancelAddNewGroupCommand = new BitDelegateCommand(CancelAddNewGroupAsync);
-            ShowNewGroupStackCommand = new BitDelegateCommand(async () => { NewGroupName = Strings.NewToDoGroupName; });
+            ShowNewGroupStackCommand = new BitDelegateCommand(async () => { NewGroupName = Strings.NewGroupName; });
         }
 
         private async Task CancelAddNewGroupAsync()
@@ -32,7 +31,7 @@ namespace ToDoLineApp.ViewModels
             NewGroupName = string.Empty;
         }
 
-        private async Task AddNewToDoGroupAsync()
+        private async Task AddNewGroupAsync()
         {
             ToDoGroupDto group = await ToDoService.AddNewGroup(NewGroupName, CancellationToken.None);
             ToDoService.ToDoGroups.Add(group);

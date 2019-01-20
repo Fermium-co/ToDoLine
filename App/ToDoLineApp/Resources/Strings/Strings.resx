@@ -153,10 +153,10 @@
   <data name="MyDay" xml:space="preserve">
     <value />
   </data>
-  <data name="NewList" xml:space="preserve">
+  <data name="NewGroupName" xml:space="preserve">
     <value />
   </data>
-  <data name="NewToDoGroupName" xml:space="preserve">
+  <data name="NewGroup" xml:space="preserve">
     <value />
   </data>
   <data name="Or" xml:space="preserve">
@@ -171,7 +171,7 @@
   <data name="Planned" xml:space="preserve">
     <value />
   </data>
-  <data name="Tasks" xml:space="preserve">
+  <data name="ToDoItems" xml:space="preserve">
     <value />
   </data>
   <data name="ToDoLine" xml:space="preserve">

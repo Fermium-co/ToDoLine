@@ -13,113 +13,113 @@
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
     x:Name="menuView"
     x:DataType="vm:MenuViewModel">
-    <StackLayout Padding="10">
+  <StackLayout Padding="10">
 
-        <Label Text="This is a test..." />
+    <Label Text="This is a test..." />
 
-        <sfListView:SfListView
-            HeaderSize="250"
-            IsStickyFooter="True"
-            ItemSize="55"
-            ItemsSource="{Binding ToDoService.ToDoGroups}"
-            SelectionMode="None"
-            VerticalOptions="FillAndExpand">
-            <sfListView:SfListView.HeaderTemplate>
-                <DataTemplate>
-                    <StackLayout>
+    <sfListView:SfListView
+        HeaderSize="250"
+        IsStickyFooter="True"
+        ItemSize="55"
+        ItemsSource="{Binding ToDoService.ToDoGroups}"
+        SelectionMode="None"
+        VerticalOptions="FillAndExpand">
+      <sfListView:SfListView.HeaderTemplate>
+        <DataTemplate>
+          <StackLayout>
 
-                        <badge:SfBadgeView BadgeText="{Binding ToDoService.MyDayToDoItemsCount}">
-                            <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.MyDay}" />
-                            <badge:SfBadgeView.BadgeSettings>
-                                <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
-                            </badge:SfBadgeView.BadgeSettings>
-                        </badge:SfBadgeView>
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.MyDayToDoItemsCount}">
+              <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.MyDay}" />
+              <badge:SfBadgeView.BadgeSettings>
+                <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
+              </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
 
 
-                        <badge:SfBadgeView BadgeText="{Binding ToDoService.ImportantToDoItemsCount}">
-                            <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.Important}" />
-                            <badge:SfBadgeView.BadgeSettings>
-                                <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
-                            </badge:SfBadgeView.BadgeSettings>
-                        </badge:SfBadgeView>
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.ImportantToDoItemsCount}">
+              <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.Important}" />
+              <badge:SfBadgeView.BadgeSettings>
+                <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
+              </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
 
-                        <badge:SfBadgeView BadgeText="{Binding ToDoService.PlannedToDoItemsCount}">
-                            <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.Planned}" />
-                            <badge:SfBadgeView.BadgeSettings>
-                                <badge:BadgeSetting
-                                    BadgeType="{Binding ToDoService.AnyOverdueTask, Converter={view:AnyOverdueTaskToBadgeTypeConverter}}"
-                                    Stroke="White"
-                                    StrokeWidth="1" />
-                            </badge:SfBadgeView.BadgeSettings>
-                        </badge:SfBadgeView>
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.PlannedToDoItemsCount}">
+              <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.Planned}" />
+              <badge:SfBadgeView.BadgeSettings>
+                <badge:BadgeSetting
+                    BadgeType="{Binding ToDoService.AnyOverdueTask, Converter={view:AnyOverdueTaskToBadgeTypeConverter}}"
+                    Stroke="White"
+                    StrokeWidth="1" />
+              </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
 
-                        <badge:SfBadgeView BadgeText="{Binding ToDoService.ToDoItemsWithoutToDoGroupCount}">
-                            <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.Tasks}" />
-                            <badge:SfBadgeView.BadgeSettings>
-                                <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
-                            </badge:SfBadgeView.BadgeSettings>
-                        </badge:SfBadgeView>
+            <badge:SfBadgeView BadgeText="{Binding ToDoService.ToDoItemsWithoutToDoGroupCount}">
+              <buttons:SfButton HeightRequest="45" Text="{x:Static strRes:Strings.ToDoItems}" />
+              <badge:SfBadgeView.BadgeSettings>
+                <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
+              </badge:SfBadgeView.BadgeSettings>
+            </badge:SfBadgeView>
 
-                        <BoxView
-                            Margin="0,10"
-                            HeightRequest="1"
-                            Color="LightGray" />
+            <BoxView
+                Margin="0,10"
+                HeightRequest="1"
+                Color="LightGray" />
 
-                    </StackLayout>
-                </DataTemplate>
-            </sfListView:SfListView.HeaderTemplate>
-            <sfListView:SfListView.FooterTemplate>
-                <DataTemplate>
-                    <StackLayout>
+          </StackLayout>
+        </DataTemplate>
+      </sfListView:SfListView.HeaderTemplate>
+      <sfListView:SfListView.FooterTemplate>
+        <DataTemplate>
+          <StackLayout>
 
-                        <buttons:SfButton
-                            BackgroundColor="Transparent"
-                            Command="{Binding ShowNewGroupStackCommand}"
-                            HeightRequest="64"
-                            HorizontalTextAlignment="Start"
-                            IsVisible="{Binding NewGroupName, Converter={view:NewGroupNameToVisibilityConverter}, ConverterParameter='AddButton'}"
-                            Text="{x:Static strRes:Strings.NewList}"
-                            TextColor="Accent"
-                            VerticalOptions="End" />
+            <buttons:SfButton
+                BackgroundColor="Transparent"
+                Command="{Binding ShowNewGroupStackCommand}"
+                HeightRequest="64"
+                HorizontalTextAlignment="Start"
+                IsVisible="{Binding NewGroupName, Converter={view:NewGroupNameToVisibilityConverter}, ConverterParameter='AddButton'}"
+                Text="{x:Static strRes:Strings.NewGroup}"
+                TextColor="Accent"
+                VerticalOptions="End" />
 
-                        <StackLayout
-                            HeightRequest="64"
-                            IsVisible="{Binding NewGroupName, Converter={view:NewGroupNameToVisibilityConverter}}"
-                            Orientation="Horizontal"
-                            VerticalOptions="EndAndExpand">
-                            <Entry
-                                HorizontalOptions="FillAndExpand"
-                                Text="{Binding NewGroupName, Mode=TwoWay}"
-                                VerticalOptions="EndAndExpand" />
-                            <buttons:SfButton
-                                BackgroundColor="Transparent"
-                                Command="{Binding AddNewToDoGroupCommand}"
-                                CommandParameter="{Binding NewGroupName}"
-                                Text="✓"
-                                TextColor="Accent"
-                                VerticalOptions="End" />
-                            <buttons:SfButton
-                                BackgroundColor="Transparent"
-                                Command="{Binding CancelAddNewGroupCommand}"
-                                Text="X"
-                                TextColor="Accent"
-                                VerticalOptions="End" />
-                        </StackLayout>
+            <StackLayout
+                HeightRequest="64"
+                IsVisible="{Binding NewGroupName, Converter={view:NewGroupNameToVisibilityConverter}}"
+                Orientation="Horizontal"
+                VerticalOptions="EndAndExpand">
+              <Entry
+                  HorizontalOptions="FillAndExpand"
+                  Text="{Binding NewGroupName, Mode=TwoWay}"
+                  VerticalOptions="EndAndExpand" />
+              <buttons:SfButton
+                  BackgroundColor="Transparent"
+                  Command="{Binding AddNewGroupCommand}"
+                  CommandParameter="{Binding NewGroupName}"
+                  Text="✓"
+                  TextColor="Accent"
+                  VerticalOptions="End" />
+              <buttons:SfButton
+                  BackgroundColor="Transparent"
+                  Command="{Binding CancelAddNewGroupCommand}"
+                  Text="X"
+                  TextColor="Accent"
+                  VerticalOptions="End" />
+            </StackLayout>
 
-                    </StackLayout>
-                </DataTemplate>
-            </sfListView:SfListView.FooterTemplate>
-            <sfListView:SfListView.ItemTemplate>
-                <DataTemplate x:DataType="dto:ToDoGroupDto">
-                    <badge:SfBadgeView BadgeText="{Binding Id, Converter={view:ToDoGroupIdToToDoItemsCountConverter}, ConverterParameter={x:Reference menuView}}">
-                        <buttons:SfButton HeightRequest="45" Text="{Binding Title}" />
-                        <badge:SfBadgeView.BadgeSettings>
-                            <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
-                        </badge:SfBadgeView.BadgeSettings>
-                    </badge:SfBadgeView>
-                </DataTemplate>
-            </sfListView:SfListView.ItemTemplate>
-        </sfListView:SfListView>
+          </StackLayout>
+        </DataTemplate>
+      </sfListView:SfListView.FooterTemplate>
+      <sfListView:SfListView.ItemTemplate>
+        <DataTemplate x:DataType="dto:ToDoGroupDto">
+          <badge:SfBadgeView BadgeText="{Binding Id, Converter={view:ToDoGroupIdToToDoItemsCountConverter}, ConverterParameter={x:Reference menuView}}">
+            <buttons:SfButton HeightRequest="45" Text="{Binding Title}" />
+            <badge:SfBadgeView.BadgeSettings>
+              <badge:BadgeSetting Stroke="White" StrokeWidth="1" />
+            </badge:SfBadgeView.BadgeSettings>
+          </badge:SfBadgeView>
+        </DataTemplate>
+      </sfListView:SfListView.ItemTemplate>
+    </sfListView:SfListView>
 
-    </StackLayout>
+  </StackLayout>
 </ContentView>

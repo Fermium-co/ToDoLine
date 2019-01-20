@@ -3,7 +3,7 @@
     "BitCodeGeneratorMappings": [
       {
         "Route": "ToDoLine",
-        "DestinationFileName": "WebSite/src/app/ToDoLine.Model.Context",
+        "DestinationFileName": "ngWebSite/src/app/ToDoLine.Model.Context",
         "TypingsPath": "../../node_modules/@bit/jaydata/jaydata.d.ts",
         "SourceProjects": [
           {

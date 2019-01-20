@@ -171,18 +171,18 @@ namespace ToDoLineApp.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string NewList {
+        public static string NewGroup {
             get {
-                return ResourceManager.GetString("NewList", resourceCulture);
+                return ResourceManager.GetString("NewGroup", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string NewToDoGroupName {
+        public static string NewGroupName {
             get {
-                return ResourceManager.GetString("NewToDoGroupName", resourceCulture);
+                return ResourceManager.GetString("NewGroupName", resourceCulture);
             }
         }
         
@@ -225,9 +225,9 @@ namespace ToDoLineApp.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Tasks {
+        public static string ToDoItems {
             get {
-                return ResourceManager.GetString("Tasks", resourceCulture);
+                return ResourceManager.GetString("ToDoItems", resourceCulture);
             }
         }
         

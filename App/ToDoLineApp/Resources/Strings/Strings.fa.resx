@@ -153,11 +153,11 @@
   <data name="MyDay" xml:space="preserve">
     <value>امروز</value>
   </data>
-  <data name="NewList" xml:space="preserve">
+  <data name="NewGroup" xml:space="preserve">
     <value>گروه جدید</value>
   </data>
-  <data name="NewToDoGroupName" xml:space="preserve">
-    <value>نام گروه جدید</value>
+  <data name="NewGroupName" xml:space="preserve">
+    <value>گروه جدید</value>
   </data>
   <data name="Or" xml:space="preserve">
     <value>یا</value>
@@ -171,7 +171,7 @@
   <data name="Planned" xml:space="preserve">
     <value>برنامه ریزی شده</value>
   </data>
-  <data name="Tasks" xml:space="preserve">
+  <data name="ToDoItems" xml:space="preserve">
     <value>کارها</value>
   </data>
   <data name="ToDoLine" xml:space="preserve">
