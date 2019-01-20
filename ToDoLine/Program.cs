@@ -16,7 +16,7 @@ namespace ToDoLine
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             BitWebHost.CreateDefaultBuilder(args)
 #if DEBUG
-                .UseUrls("http://*:53149/")
+                .UseUrls("http://*:53200/")
 #endif
                 .UseStartup<Startup>();
     }
