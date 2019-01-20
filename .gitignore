@@ -263,6 +263,6 @@ __pycache__/
 #ToDoLine
 
 resource.designer.cs
-/ToDoLine/WebSite/src/app/ToDoLine.Model.Context.js
-/ToDoLine/WebSite/src/app/ToDoLine.Model.Context.d.ts
+/ToDoLine/ngWebSite/src/app/ToDoLine.Model.Context.js
+/ToDoLine/ngWebSite/src/app/ToDoLine.Model.Context.d.ts
 /ToDoLine/wwwroot
