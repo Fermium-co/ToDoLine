@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ToDoLine.Controller;
 using ToDoLine.Dto;
 using ToDoLine.Enum;
+using ToDoLine.Messages;
 
 namespace ToDoLine.Test.Controller
 {
@@ -112,6 +113,13 @@ namespace ToDoLine.Test.Controller
 
                 var loginResult2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
+                TaskCompletionSource<bool> signalrMsgReceiveTaskSource = new TaskCompletionSource<bool>();
+
+                await testEnv.Server.BuildSignalRClient(loginResult2.Token, onMessageReceived: (key, data) =>
+                {
+                    signalrMsgReceiveTaskSource.SetResult(((ToDoGroupGetsSharedWithYou)data).NewToDoGroupTitle == "Test");
+                });
+
                 UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(loginResult2.UserName);
 
                 await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
@@ -124,6 +132,7 @@ namespace ToDoLine.Test.Controller
                     .FindEntriesAsync()).ToArray();
 
                 Assert.AreEqual(1, toDoGroups.Length);
+                Assert.IsTrue((await signalrMsgReceiveTaskSource.Task));
             }
         }
 

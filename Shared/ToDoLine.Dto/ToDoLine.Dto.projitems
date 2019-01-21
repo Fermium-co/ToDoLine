@@ -14,5 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Dto\ToDoItemDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dto\UserDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dto\UserRegistrationDto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Messages\ToDoGroupGetsSharedWithYou.cs" />
   </ItemGroup>
 </Project>

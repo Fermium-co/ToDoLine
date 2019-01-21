@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ToDoLine.Dto;
 using ToDoLine.Enum;
+using ToDoLine.Messages;
 using ToDoLine.Model;
 
 namespace ToDoLine.Controller
@@ -29,6 +30,8 @@ namespace ToDoLine.Controller
         public virtual IRepository<User> UsersRepository { get; set; }
 
         public virtual IRepository<ToDoItemOptions> ToDoItemOptionsListRepository { get; set; }
+
+        public virtual IMessageSender MessageSender { get; set; }
 
         [Function]
         public virtual IQueryable<ToDoGroupDto> GetMyToDoGroups()
@@ -168,6 +171,7 @@ namespace ToDoLine.Controller
                 .Select(tdg => new ToDoGroup
                 {
                     Id = tdg.Id,
+                    Title = tdg.Title,
                     Items = tdg.Items.Select(tdi => new ToDoItem
                     {
                         Id = tdi.Id
@@ -197,6 +201,8 @@ namespace ToDoLine.Controller
                     ShowInMyDayOn = null
                 }, cancellationToken);
             }
+
+            await MessageSender.SendMessageToUsersAsync(nameof(ToDoGroupGetsSharedWithYou), new ToDoGroupGetsSharedWithYou { NewToDoGroupTitle = toDoGroup.Title }, new[] { args.anotherUserId.ToString() });
 
             return await GetMyToDoGroups().FirstAsync(tdg => tdg.Id == args.toDoGroupId, cancellationToken);
         }

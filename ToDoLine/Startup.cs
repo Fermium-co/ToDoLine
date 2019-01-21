@@ -112,6 +112,8 @@ namespace ToDoLine
                 odataDependencyManager.RegisterWebApiODataMiddlewareUsingDefaultConfiguration();
             });
 
+            dependencyManager.RegisterSignalRMiddlewareUsingDefaultConfiguration();
+
             dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>();
             dependencyManager.RegisterEfCoreDbContext<ToDoLineDbContext, SqlServerDbContextObjectsProvider>();
             dependencyManager.RegisterRepository(typeof(EfCoreRepository<>).GetTypeInfo());
