@@ -21,9 +21,9 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoGroupDto addedToDoGroup = await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto addedToDoGroup = await loginResult.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
                    .ExecuteAsSingleAsync();
@@ -31,7 +31,7 @@ namespace ToDoLine.Test.Controller
                 Assert.AreEqual(1, addedToDoGroup.SharedByCount);
                 Assert.AreEqual("Test", addedToDoGroup.Title);
 
-                var toDoGroups = (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                var toDoGroups = (await loginResult.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                     .FindEntriesAsync()).ToArray();
 
@@ -55,9 +55,9 @@ namespace ToDoLine.Test.Controller
                 }
             }))
             {
-                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoGroupDto toDoGroup = await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
                    .ExecuteAsSingleAsync();
@@ -65,7 +65,7 @@ namespace ToDoLine.Test.Controller
                 toDoGroup.Title += "?"; // Test?
                 toDoGroup.SortedBy = SortBy.Importance;
 
-                toDoGroup = await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                toDoGroup = await loginResult.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Key(toDoGroup.Id)
                     .Set(toDoGroup)
                     .UpdateEntryAsync();
@@ -81,18 +81,18 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoGroupDto toDoGroup = await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
                    .ExecuteAsSingleAsync();
 
-                await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Key(toDoGroup.Id)
                     .DeleteEntryAsync();
 
-                Assert.AreEqual(0, (await client.Controller<ToDoGroupsController, ToDoGroupDto>()
+                Assert.AreEqual(0, (await loginResult.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                     .FindEntriesAsync()).Count());
             }
@@ -103,23 +103,23 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName1, client1) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
                    .ExecuteAsSingleAsync();
 
-                var (userName2, client2) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                UserDto user2 = await client1.GetUserByUserName(userName2);
+                UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(loginResult2.UserName);
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                      .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
                      .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
                      .ExecuteAsync();
 
-                var toDoGroups = (await client2.Controller<ToDoGroupsController, ToDoGroupDto>()
+                var toDoGroups = (await loginResult2.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                     .FindEntriesAsync()).ToArray();
 
@@ -132,31 +132,31 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName1, client1) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
                    .ExecuteAsSingleAsync();
 
-                ToDoItemDto toDoItem = await client1.Controller<ToDoItemsController, ToDoItemDto>()
+                ToDoItemDto toDoItem = await loginResult1.ODataClient.Controller<ToDoItemsController, ToDoItemDto>()
                    .Set(new ToDoItemDto { Title = "Test1", ToDoGroupId = toDoGroup.Id })
                    .InsertEntryAsync();
 
-                var (userName2, client2) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                UserDto user2 = await client1.GetUserByUserName(userName2);
+                UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(loginResult2.UserName);
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                      .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
                      .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
                      .ExecuteAsync();
 
-                ToDoGroupDto[] toDoGroups = (await client2.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto[] toDoGroups = (await loginResult2.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                     .FindEntriesAsync()).ToArray();
 
-                ToDoItemDto[] toDoItems = (await client2.Controller<ToDoItemsController, ToDoItemDto>()
+                ToDoItemDto[] toDoItems = (await loginResult2.ODataClient.Controller<ToDoItemsController, ToDoItemDto>()
                     .Function(nameof(ToDoItemsController.GetMyToDoItems))
                     .FindEntriesAsync()).ToArray();
 
@@ -171,29 +171,29 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName1, client1) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                    .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Test" })
                    .ExecuteAsSingleAsync();
 
-                var (userName2, client2) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                UserDto user2 = await client1.GetUserByUserName(userName2);
+                UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(loginResult2.UserName);
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                      .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
                      .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
                      .ExecuteAsync();
 
-                toDoGroup = (await client2.Controller<ToDoGroupsController, ToDoGroupDto>()
+                toDoGroup = (await loginResult2.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                     .FindEntriesAsync()).Single();
 
                 try
                 {
-                    await client2.Controller<ToDoGroupsController, ToDoGroupDto>()
+                    await loginResult2.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                         .Key(toDoGroup.Id)
                         .DeleteEntryAsync();
 
@@ -211,28 +211,28 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName1, client1) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                var (userName2, client2) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
                 //create ToDoGroup by first user
-                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                     .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Group1" })
                     .ExecuteAsSingleAsync();
 
-                UserDto user2 = await client1.GetUserByUserName(userName2);
+                UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(loginResult2.UserName);
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
                    .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
                    .ExecuteAsSingleAsync();
 
-                UserDto user1 = await client2.GetUserByUserName(userName2);
+                UserDto user1 = await loginResult2.ODataClient.GetUserByUserName(loginResult2.UserName);
 
                 try
                 {
-                    await client2.Controller<ToDoGroupsController, ToDoGroupDto>()
+                    await loginResult2.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                         .Action(nameof(ToDoGroupsController.KickUserFromToDoGroup))
                         .Set(new ToDoGroupsController.KickAnotherUserFromMyToDoGroupArge { userId = user1.Id, toDoGroupId = toDoGroup.Id })
                         .ExecuteAsSingleAsync();
@@ -251,29 +251,29 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName1, client1) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
                 string userName2 = await testEnv.RegisterNewUser();
 
                 //create ToDoGroup by first user
-                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                     .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Group1" })
                     .ExecuteAsSingleAsync();
 
-                UserDto user2 = await client1.GetUserByUserName(userName2);
+                UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(userName2);
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
                    .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
                    .ExecuteAsSingleAsync();
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                   .Action(nameof(ToDoGroupsController.KickUserFromToDoGroup))
                   .Set(new ToDoGroupsController.KickAnotherUserFromMyToDoGroupArge { userId = user2.Id, toDoGroupId = toDoGroup.Id })
                   .ExecuteAsSingleAsync();
 
-                ToDoGroupDto toDoGroupK = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroupK = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                    .Filter(tdg => toDoGroup.Id == tdg.Id)
                    .FindEntryAsync();
@@ -287,38 +287,38 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName1, client1) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                var (userName2, client2) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
                 //create ToDoGroup by first user
-                ToDoGroupDto toDoGroup = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroup = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                     .Action(nameof(ToDoGroupsController.CreateToDoGroup))
                     .Set(new ToDoGroupsController.CreateToDoGroupArgs { title = "Group1" })
                     .ExecuteAsSingleAsync();
 
-                ToDoItemDto toDoItem = await client1.Controller<ToDoItemsController, ToDoItemDto>()
+                ToDoItemDto toDoItem = await loginResult1.ODataClient.Controller<ToDoItemsController, ToDoItemDto>()
                    .Set(new ToDoItemDto { Title = "Test1", ToDoGroupId = toDoGroup.Id })
                    .InsertEntryAsync();
 
-                UserDto user2 = await client1.GetUserByUserName(userName2);
+                UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(loginResult2.UserName);
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Action(nameof(ToDoGroupsController.ShareToDoGroupWithAnotherUser))
                    .Set(new ToDoGroupsController.ShareToDoGroupWithAnotherUserArgs { anotherUserId = user2.Id, toDoGroupId = toDoGroup.Id })
                    .ExecuteAsSingleAsync();
 
-                await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                   .Action(nameof(ToDoGroupsController.KickUserFromToDoGroup))
                   .Set(new ToDoGroupsController.KickAnotherUserFromMyToDoGroupArge { userId = user2.Id, toDoGroupId = toDoGroup.Id })
                   .ExecuteAsSingleAsync();
 
-                ToDoGroupDto toDoGroupK = await client1.Controller<ToDoGroupsController, ToDoGroupDto>()
+                ToDoGroupDto toDoGroupK = await loginResult1.ODataClient.Controller<ToDoGroupsController, ToDoGroupDto>()
                    .Function(nameof(ToDoGroupsController.GetMyToDoGroups))
                    .Filter(tdg => toDoGroup.Id == tdg.Id)
                    .FindEntryAsync();
 
-                bool hasToDoItem = (await client2.Controller<ToDoItemsController, ToDoItemDto>()
+                bool hasToDoItem = (await loginResult2.ODataClient.Controller<ToDoItemsController, ToDoItemDto>()
                     .Function(nameof(ToDoItemsController.GetMyToDoItems))
                     .FindEntriesAsync()).Any();
 
