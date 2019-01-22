@@ -15,13 +15,13 @@ namespace ToDoLine.Test.Controller
         {
             using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
             {
-                var (userName, client) = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                UserDto currentUser = await client.Controller<UsersController, UserDto>()
+                UserDto currentUser = await loginResult.ODataClient.Controller<UsersController, UserDto>()
                     .Function(nameof(UsersController.GetCurrentUser))
                     .FindEntryAsync();
 
-                Assert.AreEqual(userName, currentUser.UserName);
+                Assert.AreEqual(loginResult.UserName, currentUser.UserName);
             }
         }
     }
