@@ -15,6 +15,8 @@ namespace ToDoLineApp.Contracts
         List<ToDoItemDto> PlannedToDoItems { get; }
         List<ToDoItemDto> ToDoItemsWithoutToDoGroup { get; }
 
+        UserDto User { get; set; }
+
         int MyDayToDoItemsCount { get; }
         int ImportantToDoItemsCount { get; }
         int PlannedToDoItemsCount { get; }
