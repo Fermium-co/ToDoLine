@@ -32,12 +32,14 @@ namespace ToDoLineApp.Implementations
 
         public virtual bool AnyOverdueTask => PlannedToDoItems?.Any(tdi => tdi.RemindOn.Value < DateTimeProvider.GetCurrentUtcDateTime()) ?? false;
 
+        public virtual UserDto User { get; set; }
 
         public virtual async Task LoadData(CancellationToken cancellationToken)
         {
             ODataBatch BatchClient = new ODataBatch(ODataClient, reuseSession: true);
             BatchClient += async client => ToDoGroups = (await client.For<ToDoGroupDto>("ToDoGroups").Function("GetMyToDoGroups").FindEntriesAsync(cancellationToken)).ToList();
             BatchClient += async client => ToDoItems = (await client.For<ToDoItemDto>("ToDoItems").Function("GetMyToDoItems").FindEntriesAsync(cancellationToken)).ToList();
+            BatchClient += async client => User = await client.For<UserDto>("User").Function("GetCurrentUser").FindEntryAsync(cancellationToken);
             await BatchClient.ExecuteAsync(cancellationToken);
         }
 
