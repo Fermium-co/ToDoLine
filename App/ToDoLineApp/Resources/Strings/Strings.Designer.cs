@@ -72,9 +72,45 @@ namespace ToDoLineApp.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DeleteGroup {
+            get {
+                return ResourceManager.GetString("DeleteGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DeleteGroupForever {
+            get {
+                return ResourceManager.GetString("DeleteGroupForever", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string DoNotHaveAccountSignUp {
             get {
                 return ResourceManager.GetString("DoNotHaveAccountSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -180,9 +216,9 @@ namespace ToDoLineApp.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string NewGroupName {
+        public static string NewGroupTitle {
             get {
-                return ResourceManager.GetString("NewGroupName", resourceCulture);
+                return ResourceManager.GetString("NewGroupTitle", resourceCulture);
             }
         }
         

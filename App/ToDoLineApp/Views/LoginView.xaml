@@ -10,6 +10,7 @@
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
     x:DataType="vm:LoginViewModel"
     NavigationPage.HasNavigationBar="False">
+
     <StackLayout Padding="5">
 
         <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
@@ -21,7 +22,10 @@
             HorizontalOptions="Center"
             VerticalOptions="CenterAndExpand"
             WidthRequest="300">
-            <ffImage:CachedImage Margin="0,0,0,30" res:ImageProps.FileName="{x:Static res:ImageNames.ToDoLine}" />
+            <ffImage:CachedImage
+                Margin="0,0,0,30"
+                res:ImageProps.FileName="{x:Static res:ImageNames.ToDoLine}"
+                HeightRequest="40" />
             <inputLayout:SfTextInputLayout
                 ErrorText="{Binding UserName_ErrorMessage}"
                 HasError="{Binding UserName_HasError}"

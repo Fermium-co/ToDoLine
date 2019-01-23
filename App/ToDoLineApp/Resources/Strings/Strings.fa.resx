@@ -120,8 +120,20 @@
   <data name="Cancel" xml:space="preserve">
     <value>بی خیال</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteGroup" xml:space="preserve">
+    <value>حذف گروه</value>
+  </data>
+  <data name="DeleteGroupForever" xml:space="preserve">
+    <value>"{0}" برای همیشه پاک خواهد شد.</value>
+  </data>
   <data name="DoNotHaveAccountSignUp" xml:space="preserve">
     <value>ثبت نام نکرده اید؟ ثبت نام کنید</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>ویرایش</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English (United States)</value>
@@ -156,7 +168,7 @@
   <data name="NewGroup" xml:space="preserve">
     <value>گروه جدید</value>
   </data>
-  <data name="NewGroupName" xml:space="preserve">
+  <data name="NewGroupTitle" xml:space="preserve">
     <value>گروه جدید</value>
   </data>
   <data name="Or" xml:space="preserve">
