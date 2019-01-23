@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using ToDoLine.Dto;
@@ -7,8 +8,8 @@ namespace ToDoLineApp.Contracts
 {
     public interface IToDoService
     {
-        List<ToDoGroupDto> ToDoGroups { get; set; }
-        List<ToDoItemDto> ToDoItems { get; set; }
+        ObservableCollection<ToDoGroupDto> ToDoGroups { get; set; }
+        ObservableCollection<ToDoItemDto> ToDoItems { get; set; }
 
         List<ToDoItemDto> MyDayToDoItems { get; }
         List<ToDoItemDto> ImportantToDoItems { get; }
@@ -26,6 +27,8 @@ namespace ToDoLineApp.Contracts
 
         Task LoadData(CancellationToken cancellationToken);
 
-        Task<ToDoGroupDto> AddNewGroup(string groupName, CancellationToken cancellationToken);
+        Task<ToDoGroupDto> AddNewGroup(string newGroupTitle, CancellationToken cancellationToken);
+        Task DeleteGroup(ToDoGroupDto group, CancellationToken cancellationToken);
+        Task UpdateGroup(ToDoGroupDto group, CancellationToken cancellationToken);
     }
 }
