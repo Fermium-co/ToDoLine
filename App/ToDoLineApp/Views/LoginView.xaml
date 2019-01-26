@@ -58,7 +58,7 @@
                 Margin="7"
                 HorizontalOptions="Center"
                 Text="{x:Static strRes:Strings.DoNotHaveAccountSignUp}"
-                TextColor="LightGray" />
+                TextColor="Gray" />
         </StackLayout>
 
     </StackLayout>
