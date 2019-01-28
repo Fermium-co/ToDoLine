@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddTask" xml:space="preserve">
+    <value>اضافه کردن تسک جدید</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>بی خیال</value>
   </data>
@@ -147,6 +150,9 @@
   <data name="GetHelpSignIn" xml:space="preserve">
     <value>اشکال در ورود</value>
   </data>
+  <data name="Group" xml:space="preserve">
+    <value>گروه</value>
+  </data>
   <data name="GroupName" xml:space="preserve">
     <value>نام گروه</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="InvalidUserNameAndOrPassword" xml:space="preserve">
     <value>نام کاربری یا رمز عبور اشتباه است</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>فهرست</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>ورود</value>
