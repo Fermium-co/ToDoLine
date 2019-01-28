@@ -94,26 +94,37 @@
                 <sfListView:SfListView.HeaderTemplate>
                     <DataTemplate>
                         <StackLayout Padding="5,0">
-
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.MyDay}" />
+                                </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Day}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.MyDay}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.MyDayToDoItemsCount}" Style="{StaticResource ToDoGroupCounterBadage}" />
                             </StackLayout>
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.Important}" />
+                                </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Star}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.Important}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.ImportantToDoItemsCount}" Style="{StaticResource ToDoGroupCounterBadage}" />
                             </StackLayout>
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.Planned}" />
+                                </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Planned}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.Planned}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.PlannedToDoItemsCount}" Style="{StaticResource ToDoGroupCounterBadage}" />
                             </StackLayout>
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.ToDoItems}" />
+                                </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Task}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.ToDoItems}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.ToDoItemsWithoutToDoGroupCount}" Style="{StaticResource ToDoGroupCounterBadage}" />
@@ -131,6 +142,9 @@
                     <DataTemplate x:DataType="dto:ToDoGroupDto">
 
                         <Frame Padding="5,0" BorderColor="LightGray">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
                             <StackLayout CompressedLayout.IsHeadless="False" Style="{StaticResource ToDoGroupStackLayout}">
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.List}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{Binding Title}" />

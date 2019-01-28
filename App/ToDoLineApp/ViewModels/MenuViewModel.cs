@@ -25,6 +25,7 @@ namespace ToDoLineApp.ViewModels
         public BitDelegateCommand<ToDoGroupDto> EditGroupNameCommand { get; set; }
         public BitDelegateCommand CancelAddNewGroupCommand { get; set; }
         public BitDelegateCommand BeginAddNewGroupCommand { get; set; }
+        public BitDelegateCommand<object> OpenToDoItemsCommand { get; set; }
 
         public MenuViewModel()
         {
@@ -34,6 +35,25 @@ namespace ToDoLineApp.ViewModels
             DeleteGroupCommand = new BitDelegateCommand<ToDoGroupDto>(DeleteGroupAsync);
             EditGroupNameCommand = new BitDelegateCommand<ToDoGroupDto>(EditGroupNameAsync);
             CancelAddNewGroupCommand = new BitDelegateCommand(CancelAddNewGroupAsync);
+            OpenToDoItemsCommand = new BitDelegateCommand<object>(OpenToDoItems);
+        }
+
+        async Task OpenToDoItems(object group)
+        {
+            ToDoGroupDto ToDoGroup = null;
+            string Title = Strings.MyDay;
+
+            if (group is ToDoGroupDto)
+            {
+                ToDoGroup = (ToDoGroupDto)group;
+                Title = Strings.List;
+            }
+            else if(group is string)
+            {
+                Title = (string)group;
+            }
+
+            await NavigationService.NavigateAsync("Nav/ToDoItems",(Strings.Group, ToDoGroup),(Strings.GroupName, Title) );
         }
 
         async Task EditGroupNameAsync(ToDoGroupDto group)
@@ -76,7 +96,7 @@ namespace ToDoLineApp.ViewModels
 
         async Task AddNewGroupAsync()
         {
-            ToDoGroupDto group = await ToDoService.AddNewGroup(NewGroupTitle, CancellationToken.None);
+            await ToDoService.AddNewGroup(NewGroupTitle, CancellationToken.None);
             NewGroupTitle = string.Empty;
         }
 
