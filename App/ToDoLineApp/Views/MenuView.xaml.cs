@@ -3,9 +3,7 @@ using Syncfusion.XForms.BadgeView;
 using System;
 using System.Globalization;
 using System.Linq;
-using ToDoLine.Dto;
 using ToDoLineApp.ViewModels;
-using Xamarin.Forms;
 
 namespace ToDoLineApp.Views
 {
