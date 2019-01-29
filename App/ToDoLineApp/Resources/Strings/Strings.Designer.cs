@@ -63,15 +63,6 @@ namespace ToDoLineApp.Resources.Strings {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string AddTask {
-            get {
-                return ResourceManager.GetString("AddTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
@@ -102,6 +93,24 @@ namespace ToDoLineApp.Resources.Strings {
         public static string DeleteGroupForever {
             get {
                 return ResourceManager.GetString("DeleteGroupForever", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DeleteItem {
+            get {
+                return ResourceManager.GetString("DeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DeleteItemForever {
+            get {
+                return ResourceManager.GetString("DeleteItemForever", resourceCulture);
             }
         }
         
@@ -246,6 +255,15 @@ namespace ToDoLineApp.Resources.Strings {
         public static string NewGroupTitle {
             get {
                 return ResourceManager.GetString("NewGroupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NewItemTitle {
+            get {
+                return ResourceManager.GetString("NewItemTitle", resourceCulture);
             }
         }
         

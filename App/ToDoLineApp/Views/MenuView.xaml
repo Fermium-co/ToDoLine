@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:contracts="clr-namespace:ToDoLineApp.Contracts"
     xmlns:dto="clr-namespace:ToDoLine.Dto"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:res="clr-namespace:ToDoLineApp.Resources"
@@ -64,7 +65,7 @@
                 SelectionMode="None"
                 VerticalOptions="FillAndExpand">
                 <sfListView:SfListView.LeftSwipeTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="dto:ToDoGroupDto">
                         <Grid CompressedLayout.IsHeadless="False">
                             <ContentView BackgroundColor="#db1d1d">
                                 <ffImage:CachedImage
@@ -77,6 +78,7 @@
                                     <TapGestureRecognizer Command="{Binding BindingContext.DeleteGroupCommand, Source={x:Reference menuView}}" CommandParameter="{Binding .}" />
                                 </ContentView.GestureRecognizers>
                             </ContentView>
+
                             <ContentView Grid.Column="1" BackgroundColor="#009EDA">
                                 <ffImage:CachedImage
                                     res:ImageProps.FileName="{x:Static res:ImageNames.Edit}"
@@ -96,7 +98,7 @@
                         <StackLayout Padding="5,0">
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.MyDay}" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static contracts:ItemCategory.MyDay}" />
                                 </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Day}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.MyDay}" />
@@ -105,7 +107,7 @@
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.Important}" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static contracts:ItemCategory.Important}" />
                                 </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Star}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.Important}" />
@@ -114,7 +116,7 @@
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.Planned}" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static contracts:ItemCategory.Planned}" />
                                 </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Planned}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.Planned}" />
@@ -123,7 +125,7 @@
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
                                 <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static strRes:Strings.ToDoItems}" />
+                                    <TapGestureRecognizer Command="{Binding BindingContext.OpenToDoItemsCommand, Source={x:Reference menuView}}" CommandParameter="{x:Static contracts:ItemCategory.WithoutGroup}" />
                                 </StackLayout.GestureRecognizers>
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Task}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.ToDoItems}" />
@@ -148,7 +150,7 @@
                             <StackLayout CompressedLayout.IsHeadless="False" Style="{StaticResource ToDoGroupStackLayout}">
                                 <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.List}" WidthRequest="20" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{Binding Title}" />
-                                <badge:SfBadgeView BadgeText="{Binding Id, Converter={view:ToDoGroupIdToToDoItemsCountConverter}, ConverterParameter={x:Reference menuView}}" Style="{StaticResource ToDoGroupCounterBadage}" />
+                                <badge:SfBadgeView BadgeText="{Binding ., Converter={view:ToDoGroupIdToToDoItemsCountConverter}, ConverterParameter={x:Reference menuView}}" Style="{StaticResource ToDoGroupCounterBadage}" />
                             </StackLayout>
                         </Frame>
 

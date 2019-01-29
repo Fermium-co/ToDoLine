@@ -5,7 +5,7 @@ using ToDoLine.Enum;
 
 namespace ToDoLine.Dto
 {
-    public class ToDoGroupDto : IDto
+    public partial class ToDoGroupDto : IDto
     {
         public virtual Guid Id { get; set; }
 

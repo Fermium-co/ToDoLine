@@ -30,35 +30,40 @@ namespace ToDoLineApp.ViewModels
         public MenuViewModel()
         {
             BeginAddNewGroupCommand = new BitDelegateCommand(BeginAddNewGroup);
-            AddNewGroupCommand = new BitDelegateCommand(AddNewGroupAsync, () => !string.IsNullOrEmpty(NewGroupTitle));
+            AddNewGroupCommand = new BitDelegateCommand(AddNewGroup, () => !string.IsNullOrEmpty(NewGroupTitle));
             AddNewGroupCommand.ObservesProperty(() => NewGroupTitle);
-            DeleteGroupCommand = new BitDelegateCommand<ToDoGroupDto>(DeleteGroupAsync);
-            EditGroupNameCommand = new BitDelegateCommand<ToDoGroupDto>(EditGroupNameAsync);
-            CancelAddNewGroupCommand = new BitDelegateCommand(CancelAddNewGroupAsync);
+            DeleteGroupCommand = new BitDelegateCommand<ToDoGroupDto>(DeleteGroup);
+            EditGroupNameCommand = new BitDelegateCommand<ToDoGroupDto>(EditGroupName);
+            CancelAddNewGroupCommand = new BitDelegateCommand(CancelAddNewGroup);
             OpenToDoItemsCommand = new BitDelegateCommand<object>(OpenToDoItems);
         }
 
         async Task OpenToDoItems(object group)
         {
             ToDoGroupDto ToDoGroup = null;
-            string Title = Strings.MyDay;
+            ItemCategory category;
 
             if (group is ToDoGroupDto)
             {
                 ToDoGroup = (ToDoGroupDto)group;
-                Title = Strings.List;
+                category = ItemCategory.UserDefinedGroup;
             }
-            else if(group is string)
+            else if(group is ItemCategory)
             {
-                Title = (string)group;
+                category = (ItemCategory)group;
+            }
+            else
+            {
+                throw new NotSupportedException("GroupType is not supported.");
             }
 
-            await NavigationService.NavigateAsync("Nav/ToDoItems",(Strings.Group, ToDoGroup),(Strings.GroupName, Title) );
+
+            await NavigationService.NavigateAsync("Nav/ToDoItems",(ToDoItemsViewModel.GroupParameterKey, ToDoGroup),(ToDoItemsViewModel.ItemCategoryParameterKey, category) );
         }
 
-        async Task EditGroupNameAsync(ToDoGroupDto group)
+        async Task EditGroupName(ToDoGroupDto group)
         {
-             var editResult = await UserDialogs.PromptAsync(new PromptConfig()
+            var editResult = await UserDialogs.PromptAsync(new PromptConfig()
             {
                 InputType = InputType.Name,
                 CancelText = Strings.Cancel,
@@ -76,7 +81,7 @@ namespace ToDoLineApp.ViewModels
             }
         }
 
-        async Task DeleteGroupAsync(ToDoGroupDto group)
+        async Task DeleteGroup(ToDoGroupDto group)
         {
             if (await PageDialogService.DisplayAlertAsync(Strings.DeleteGroup, string.Format(Strings.DeleteGroupForever, group.Title), Strings.Delete, Strings.Cancel))
             {
@@ -84,7 +89,7 @@ namespace ToDoLineApp.ViewModels
             }
         }
 
-        async Task CancelAddNewGroupAsync()
+        async Task CancelAddNewGroup()
         {
             NewGroupTitle = string.Empty;
         }
@@ -94,7 +99,7 @@ namespace ToDoLineApp.ViewModels
             NewGroupTitle = Strings.NewGroupTitle;
         }
 
-        async Task AddNewGroupAsync()
+        async Task AddNewGroup()
         {
             await ToDoService.AddNewGroup(NewGroupTitle, CancellationToken.None);
             NewGroupTitle = string.Empty;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,5 +31,17 @@ namespace ToDoLineApp.Contracts
         Task<ToDoGroupDto> AddNewGroup(string newGroupTitle, CancellationToken cancellationToken);
         Task DeleteGroup(ToDoGroupDto group, CancellationToken cancellationToken);
         Task UpdateGroup(ToDoGroupDto group, CancellationToken cancellationToken);
+        Task<ToDoItemDto> AddNewItem(string newItemTitle, ItemCategory categoty, Guid? groupId, CancellationToken cancellationToken);
+        Task DeleteItem(ToDoItemDto todoItem, CancellationToken cancellationToken);
+        Task UpdateItem(ToDoItemDto todoItem, CancellationToken cancellationToken);
+    }
+
+    public enum ItemCategory
+    {
+        MyDay,
+        Important,
+        Planned,
+        WithoutGroup,
+        UserDefinedGroup
     }
 }

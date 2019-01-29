@@ -9,7 +9,9 @@
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
-    x:DataType="vm:ToDoItemsViewModel">
+    x:Name="toDoItemsView"
+    x:DataType="vm:ToDoItemsViewModel"
+    NavigationPage.HasNavigationBar="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -26,12 +28,14 @@
                 VerticalOptions="EndAndExpand" />
         </StackLayout>
         <sfListView:SfListView
+            x:Name="itemsListView"
             Grid.Row="1"
+            AllowSwiping="True"
             FooterSize="40"
             IsStickyFooter="True"
             ItemSize="50"
             ItemSpacing="2"
-            ItemsSource="{Binding ToDoItems}"
+            ItemsSource="{Binding ToDoService.ToDoItems}"
             SelectionMode="None">
             <sfListView:SfListView.ItemTemplate>
                 <DataTemplate>
@@ -51,6 +55,37 @@
                     </StackLayout>
                 </DataTemplate>
             </sfListView:SfListView.ItemTemplate>
+            <sfListView:SfListView.LeftSwipeTemplate>
+                <DataTemplate>
+                    <ContentView BackgroundColor="#db1d1d">
+                        <ffImage:CachedImage
+                            res:ImageProps.FileName="{x:Static res:ImageNames.Trash}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <ContentView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference toDoItemsView}}" CommandParameter="{Binding .}" />
+                        </ContentView.GestureRecognizers>
+                    </ContentView>
+                </DataTemplate>
+            </sfListView:SfListView.LeftSwipeTemplate>
+            <sfListView:SfListView.RightSwipeTemplate>
+                <DataTemplate>
+                    <ContentView BackgroundColor="#009EDA">
+                        <ffImage:CachedImage
+                            res:ImageProps.FileName="{x:Static res:ImageNames.Edit}"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <ContentView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.EditItemCommand, Source={x:Reference toDoItemsView}}" CommandParameter="{Binding .}" />
+                        </ContentView.GestureRecognizers>
+                    </ContentView>
+                </DataTemplate>
+            </sfListView:SfListView.RightSwipeTemplate>
+
             <sfListView:SfListView.FooterTemplate>
                 <DataTemplate>
                     <StackLayout
@@ -59,7 +94,7 @@
                         VerticalOptions="EndAndExpand">
                         <Entry
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="{x:Static strRes:Strings.AddTask}"
+                            Placeholder="{x:Static strRes:Strings.NewItemTitle}"
                             Text="{Binding NewItemTitle, Mode=TwoWay}" />
                         <buttons:SfButton
                             BackgroundColor="Transparent"

@@ -201,7 +201,13 @@
   <data name="Group" xml:space="preserve">
     <value />
   </data>
-  <data name="AddTask" xml:space="preserve">
+  <data name="NewItemTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteItem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteItemForever" xml:space="preserve">
     <value />
   </data>
 </root>
