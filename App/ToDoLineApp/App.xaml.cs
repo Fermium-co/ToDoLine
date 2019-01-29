@@ -6,6 +6,7 @@ using Bit.ViewModel.Contracts;
 using Bit.ViewModel.Implementations;
 using FFImageLoading;
 using FFImageLoading.Helpers;
+using Microsoft.Extensions.DependencyInjection;
 using Prism;
 using Prism.Autofac;
 using Prism.Events;
@@ -101,10 +102,8 @@ namespace ToDoLineApp
             await base.OnInitializedAsync();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        protected override void RegisterTypes(IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
         {
-            ContainerBuilder containerBuilder = containerRegistry.GetBuilder();
-
             containerRegistry.RegisterForNav<NavigationPage>("Nav");
             containerRegistry.RegisterForNav<MasterView, MasterViewModel>("Master");
             containerRegistry.RegisterPartialView<MenuView, MenuViewModel>();
@@ -126,7 +125,7 @@ namespace ToDoLineApp
             containerBuilder.Register(c => UserDialogs.Instance).SingleInstance();
             containerBuilder.RegisterType<DefaultToDoServie>().As<IToDoService>().PropertiesAutowired(PropertyWiringOptions.PreserveSetValues).SingleInstance();
 
-            base.RegisterTypes(containerRegistry);
+            base.RegisterTypes(containerRegistry, containerBuilder, services);
         }
     }
 }
