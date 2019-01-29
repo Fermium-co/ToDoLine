@@ -14,6 +14,7 @@ namespace ToDoLineApp.ViewModels
     public class ToDoItemsViewModel : BitViewModelBase
     {
         public virtual IToDoService ToDoService { get; set; }
+        public BitDelegateCommand AddNewItemCommand { get; set; }
         public List<ToDoItemDto> ToDoItems { get; set; }
         public string Title { get; set; }
         public string NewItemTitle { get; set; }
@@ -21,9 +22,14 @@ namespace ToDoLineApp.ViewModels
 
         public ToDoItemsViewModel()
         {
-
+            AddNewItemCommand = new BitDelegateCommand(AddNewItem , () => !string.IsNullOrEmpty(NewItemTitle));
+            AddNewItemCommand.ObservesProperty(() => NewItemTitle);
         }
 
+        async Task AddNewItem()
+        {
+            await ToDoService.AddNewItem(NewItemTitle, Group?.Id, CancellationToken.None);
+        }
 
         public async override Task OnNavigatedToAsync(INavigationParameters parameters)
         {

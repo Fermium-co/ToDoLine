@@ -3,5 +3,73 @@
     x:Class="ToDoLineApp.Views.ToDoItemsView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:res="clr-namespace:ToDoLineApp.Resources"
+    xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
-    x:DataType="vm:ToDoItemsViewModel" />
+    x:DataType="vm:ToDoItemsViewModel">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <StackLayout
+            Grid.Row="0"
+            Padding="10"
+            BackgroundColor="#ec7e76">
+            <Label
+                FontSize="Large"
+                Text="{Binding Title}"
+                TextColor="White"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+        <sfListView:SfListView
+            Grid.Row="1"
+            FooterSize="40"
+            IsStickyFooter="True"
+            ItemSize="50"
+            ItemSpacing="2"
+            ItemsSource="{Binding ToDoItems}"
+            SelectionMode="None">
+            <sfListView:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout
+                        Padding="10"
+                        MinimumWidthRequest="150"
+                        Spacing="10"
+                        WidthRequest="150">
+                        <StackLayout Orientation="Horizontal">
+                            <Label HorizontalOptions="StartAndExpand" Text="{Binding Title}" />
+                            <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.GrayStar}" WidthRequest="20" />
+                        </StackLayout>
+                        <BoxView
+                            BackgroundColor="LightGray"
+                            HeightRequest="1"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </DataTemplate>
+            </sfListView:SfListView.ItemTemplate>
+            <sfListView:SfListView.FooterTemplate>
+                <DataTemplate>
+                    <StackLayout
+                        HeightRequest="64"
+                        Orientation="Horizontal"
+                        VerticalOptions="EndAndExpand">
+                        <Entry
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="{x:Static strRes:Strings.AddTask}"
+                            Text="{Binding NewItemTitle, Mode=TwoWay}" />
+                        <buttons:SfButton
+                            BackgroundColor="Transparent"
+                            Command="{Binding AddNewItemCommand}"
+                            CommandParameter="{Binding NewItemTitle}"
+                            Text="✓"
+                            TextColor="Accent" />
+                    </StackLayout>
+                </DataTemplate>
+            </sfListView:SfListView.FooterTemplate>
+        </sfListView:SfListView>
+    </Grid>
+</ContentPage>
