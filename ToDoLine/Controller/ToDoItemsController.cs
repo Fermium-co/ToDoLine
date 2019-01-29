@@ -101,7 +101,9 @@ namespace ToDoLine.Controller
                 Notes = toDoItem.Notes,
                 Title = toDoItem.Title,
                 ToDoGroupId = toDoItem.ToDoGroupId,
-                Options = optionsList
+                Options = optionsList,
+                IsImportant = toDoItem.IsImportant,
+                IsCompleted = toDoItem.IsCompleted
             }, cancellationToken);
 
             return await GetMyToDoItems()
