@@ -112,7 +112,7 @@ namespace ToDoLineApp
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri("http://192.168.1.215:53200/"),
+                HostUri = new Uri("http://localhost:53200/"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
             }).SingleInstance();
