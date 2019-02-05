@@ -3,10 +3,34 @@
     x:Class="ToDoLineApp.Views.MasterView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bitView="clr-namespace:Bit.View;assembly=Bit.CSharpClient.Prism"
     xmlns:bitViewProps="clr-namespace:Bit.View.Props;assembly=Bit.CSharpClient.Prism"
     xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
     xmlns:view="clr-namespace:ToDoLineApp.Views"
     x:Name="master">
+    <!--<MasterDetailPage.Behaviors>
+        <bitView:OrientationAndScreenSizeAwareBehavior />
+        <bitView:AdaptiveBehavior MaxWidth="500">
+            <bitView:SetPropertyAction
+                TargetElement="{x:Reference master}"
+                Property="MasterBehavior"
+                Value="Popover" />
+            <bitView:SetPropertyAction
+                TargetElement="{x:Reference master}"
+                Property="RotationX"
+                Value="10" />
+        </bitView:AdaptiveBehavior>
+        <bitView:AdaptiveBehavior MinWidth="500">
+            <bitView:SetPropertyAction
+                TargetElement="{x:Reference master}"
+                Property="MasterBehavior"
+                Value="Split" />
+            <bitView:SetPropertyAction
+                TargetElement="{x:Reference master}"
+                Property="RotationX"
+                Value="20" />
+        </bitView:AdaptiveBehavior>
+    </MasterDetailPage.Behaviors>-->
     <MasterDetailPage.Master>
         <ContentPage Title="{x:Static strRes:Strings.ToDoLine}">
             <view:MenuView bitViewProps:PartialViewProps.PartialViewParentPage="{x:Reference master}" />

@@ -45,7 +45,7 @@
     <EmbeddedResource Update="Resources\Strings\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    </EmbeddedResource>    
   </ItemGroup>
 
   <ItemGroup>

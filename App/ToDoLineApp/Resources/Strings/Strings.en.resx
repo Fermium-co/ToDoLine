@@ -120,8 +120,26 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteGroup" xml:space="preserve">
+    <value>Delete Group</value>
+  </data>
+  <data name="DeleteGroupForever" xml:space="preserve">
+    <value>"{0}" will be deleted forever.</value>
+  </data>
+  <data name="DeleteItem" xml:space="preserve">
+    <value>Delete Item</value>
+  </data>
+  <data name="DeleteItemForever" xml:space="preserve">
+    <value>"{0}" will be deleted forever.</value>
+  </data>
   <data name="DoNotHaveAccountSignUp" xml:space="preserve">
     <value>Don't have an account? Sign up.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English (United States)</value>
@@ -135,6 +153,9 @@
   <data name="GetHelpSignIn" xml:space="preserve">
     <value>Get Help Signing In.</value>
   </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
   <data name="GroupName" xml:space="preserve">
     <value>Group Name</value>
   </data>
@@ -143,6 +164,9 @@
   </data>
   <data name="InvalidUserNameAndOrPassword" xml:space="preserve">
     <value>Invalid user name and or password</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>List</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -156,8 +180,11 @@
   <data name="NewGroup" xml:space="preserve">
     <value>New To Do Group</value>
   </data>
-  <data name="NewGroupName" xml:space="preserve">
+  <data name="NewGroupTitle" xml:space="preserve">
     <value>New To Do Group</value>
+  </data>
+  <data name="NewItemTitle" xml:space="preserve">
+    <value>New Item Title</value>
   </data>
   <data name="Or" xml:space="preserve">
     <value>OR</value>

@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popupPage:PopupPage
+    x:Class="ToDoLineApp.Views.TodoItemStepsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bitControls="clr-namespace:Bit.CSharpClient.Controls;assembly=Bit.CSharpClient.Controls"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:dto="clr-namespace:ToDoLine.Dto"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:popupPage="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:popupPageAnimations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:res="clr-namespace:ToDoLineApp.Resources"
+    xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
+    x:Name="todoItemStepsView">
+    <popupPage:PopupPage.Animation>
+        <popupPageAnimations:MoveAnimation
+            DurationIn="800"
+            DurationOut="800"
+            EasingIn="Linear"
+            EasingOut="Linear"
+            HasBackgroundAnimation="True"
+            PositionIn="Left"
+            PositionOut="Right" />
+    </popupPage:PopupPage.Animation>
+    <popupPage:PopupPage.Content>
+        <StackLayout
+            BackgroundColor="#f5f5f5"
+            HorizontalOptions="{OnIdiom Desktop=End}"
+            Spacing="10"
+            WidthRequest="{OnIdiom Desktop=350}">
+            <StackLayout
+                Padding="10"
+                BackgroundColor="White"
+                Spacing="10">
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    Spacing="10"
+                    VerticalOptions="Start">
+                    <bitControls:BitCheckbox IsChecked="{Binding TodoItem.IsCompleted, Mode=TwoWay}" IsCheckedChangedCommand="{Binding UpdateTodoItemCommand}" />
+                    <Label
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding TodoItem.Title}"
+                        VerticalOptions="Center" />
+                    <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.GrayStar}" HorizontalOptions="End">
+                        <ffImage:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ReverseIsImportantCommand}" />
+                        </ffImage:CachedImage.GestureRecognizers>
+                        <ffImage:CachedImage.Triggers>
+                            <DataTrigger
+                                Binding="{Binding TodoItem.IsImportant}"
+                                TargetType="ffImage:CachedImage"
+                                Value="True">
+                                <Setter Property="res:ImageProps.FileName" Value="{x:Static res:ImageNames.FillStar}" />
+                            </DataTrigger>
+                        </ffImage:CachedImage.Triggers>
+                    </ffImage:CachedImage>
+                </StackLayout>
+
+                <sfListView:SfListView ItemsSource="{Binding Steps}" SelectionMode="None">
+                    <sfListView:SfListView.ItemTemplate>
+                        <DataTemplate x:DataType="dto:ToDoItemStepDto">
+                            <StackLayout Orientation="Horizontal">
+                                <!--<bitControls:BitCheckbox IsChecked="{Binding IsCompleted, Mode=TwoWay}" IsCheckedChangedCommand="{Binding BindingContext.UpdateTodoItemStepCommand, Source={x:Reference todoItemStepsView}}" />-->
+                                <Label
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="{Binding Text}"
+                                    VerticalOptions="Center" />
+                                <buttons:SfButton
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding BindingContext.DeleteTodoItemStepCommand, Source={x:Reference todoItemStepsView}}"
+                                    CommandParameter="{Binding .}"
+                                    HorizontalOptions="End"
+                                    Text="Remove"
+                                    TextColor="Red" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </sfListView:SfListView.ItemTemplate>
+                    <sfListView:SfListView.FooterTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                HeightRequest="64"
+                                Orientation="Horizontal"
+                                VerticalOptions="EndAndExpand">
+                                <Entry
+                                    HorizontalOptions="FillAndExpand"
+                                    Placeholder="{x:Static strRes:Strings.NewItemTitle}"
+                                    ReturnCommand="{Binding AddNewItemStepCommand}"
+                                    Text="{Binding NewItemStepTitle, Mode=TwoWay}" />
+                                <buttons:SfButton
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding AddNewItemStepCommand}"
+                                    Text="✓"
+                                    TextColor="Accent" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </sfListView:SfListView.FooterTemplate>
+                </sfListView:SfListView>
+            </StackLayout>
+
+
+            <Frame Margin="10" BackgroundColor="White">
+                <StackLayout>
+                    <buttons:SfButton
+                        res:ImageProps.FileName="{x:Static res:ImageNames.Day}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="80"
+                        HorizontalTextAlignment="Start"
+                        ImageAlignment="Start"
+                        ImageWidth="30"
+                        ShowIcon="True"
+                        Text="Add To My Day"
+                        TextColor="Gray" />
+
+                    <BoxView
+                        Margin="30,5,5,0"
+                        HeightRequest="1"
+                        Color="Gray" />
+
+                    <buttons:SfButton
+                        res:ImageProps.FileName="{x:Static res:ImageNames.Day}"
+                        BackgroundColor="Transparent"
+                        HeightRequest="80"
+                        HorizontalTextAlignment="Start"
+                        ImageAlignment="Start"
+                        ImageWidth="30"
+                        ShowIcon="True"
+                        Text="Remind Me"
+                        TextColor="Gray" />
+
+                </StackLayout>
+
+            </Frame>
+
+        </StackLayout>
+    </popupPage:PopupPage.Content>
+</popupPage:PopupPage>

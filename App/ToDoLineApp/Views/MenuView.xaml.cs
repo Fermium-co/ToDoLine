@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using ToDoLine.Dto;
 using ToDoLineApp.ViewModels;
-using Xamarin.Forms;
 
 namespace ToDoLineApp.Views
 {
@@ -25,13 +24,16 @@ namespace ToDoLineApp.Views
         }
     }
 
-    public class ToDoGroupIdToToDoItemsCountConverter : ValueConverter<Guid, int, MenuView>
+    public class ToDoGroupIdToToDoItemsCountConverter : ValueConverter<ToDoGroupDto, int, MenuView>
     {
-        protected override int Convert(Guid toDoGroupId, Type targetType, MenuView menuView, CultureInfo culture)
+        protected override int Convert(ToDoGroupDto group, Type targetType, MenuView menuView, CultureInfo culture)
         {
+            if (group == null)
+                return 0;
+
             MenuViewModel viewModel = (MenuViewModel)menuView.BindingContext;
 
-            return viewModel.ToDoService.ToDoItems.Count(tdi => tdi.ToDoGroupId == toDoGroupId);
+            return viewModel.ToDoService.ToDoItems.Count(tdi => tdi.ToDoGroupId == group.Id);
         }
     }
 

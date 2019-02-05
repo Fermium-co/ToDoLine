@@ -10,5 +10,9 @@
         public static string Planned = nameof(Planned);
         public static string Star = nameof(Star);
         public static string Task = nameof(Task);
+        public static string Trash = nameof(Trash);
+        public static string Edit = nameof(Edit);
+        public static string GrayStar = nameof(GrayStar);
+        public static string FillStar = nameof(FillStar);
     }
 }

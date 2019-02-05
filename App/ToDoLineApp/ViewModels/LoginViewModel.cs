@@ -1,8 +1,7 @@
 ﻿using Acr.UserDialogs;
 using Bit.ViewModel;
 using Bit.ViewModel.Contracts;
-using Newtonsoft.Json.Linq;
-using System;
+using Bit.ViewModel.Exceptions;
 using System.Threading;
 using System.Threading.Tasks;
 using ToDoLineApp.Resources.Strings;
@@ -34,7 +33,7 @@ namespace ToDoLineApp.ViewModels
             LoginCommand = new BitDelegateCommand(Login);
         }
 
-        async Task Login()
+        private async Task Login()
         {
             try
             {
@@ -42,7 +41,9 @@ namespace ToDoLineApp.ViewModels
                 Password = Password ?? "";
 
                 if (UserName_HasError || Password_HasError)
+                {
                     return;
+                }
 
                 using (UserDialogs.Loading(Strings.Login, out CancellationToken cancellationToken))
                 {
@@ -54,20 +55,9 @@ namespace ToDoLineApp.ViewModels
 
                 await NavigationService.NavigateAsync("/Master/Nav/ToDoItems");
             }
-            catch (Exception ex)
+            catch (LoginFailureException)
             {
-                if (ex.Message.StartsWith("invalid_grant "))
-                {
-                    string error_description = JToken.Parse(ex.Message.Replace("invalid_grant ", ""))["error_description"].Value<string>();
-
-                    if (error_description == "InvalidUserNameAndOrPassword")
-                    {
-                        await UserDialogs.AlertAsync(Strings.InvalidUserNameAndOrPassword, Strings.Error);
-                        return; // don't throw it.
-                    }
-                }
-
-                throw;
+                await UserDialogs.AlertAsync(Strings.InvalidUserNameAndOrPassword, Strings.Error);
             }
         }
     }

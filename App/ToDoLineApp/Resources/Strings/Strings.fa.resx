@@ -120,8 +120,26 @@
   <data name="Cancel" xml:space="preserve">
     <value>بی خیال</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeleteGroup" xml:space="preserve">
+    <value>حذف گروه</value>
+  </data>
+  <data name="DeleteGroupForever" xml:space="preserve">
+    <value>گروه "{0}" برای همیشه پاک خواهد شد.</value>
+  </data>
+  <data name="DeleteItem" xml:space="preserve">
+    <value>حذف آیتم</value>
+  </data>
+  <data name="DeleteItemForever" xml:space="preserve">
+    <value>آیتم "{0}" برای همیشه پاک خواهد شد.</value>
+  </data>
   <data name="DoNotHaveAccountSignUp" xml:space="preserve">
     <value>ثبت نام نکرده اید؟ ثبت نام کنید</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>ویرایش</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English (United States)</value>
@@ -135,6 +153,9 @@
   <data name="GetHelpSignIn" xml:space="preserve">
     <value>اشکال در ورود</value>
   </data>
+  <data name="Group" xml:space="preserve">
+    <value>گروه</value>
+  </data>
   <data name="GroupName" xml:space="preserve">
     <value>نام گروه</value>
   </data>
@@ -143,6 +164,9 @@
   </data>
   <data name="InvalidUserNameAndOrPassword" xml:space="preserve">
     <value>نام کاربری یا رمز عبور اشتباه است</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>فهرست</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>ورود</value>
@@ -156,8 +180,11 @@
   <data name="NewGroup" xml:space="preserve">
     <value>گروه جدید</value>
   </data>
-  <data name="NewGroupName" xml:space="preserve">
+  <data name="NewGroupTitle" xml:space="preserve">
     <value>گروه جدید</value>
+  </data>
+  <data name="NewItemTitle" xml:space="preserve">
+    <value>عنوان آیتم جدید</value>
   </data>
   <data name="Or" xml:space="preserve">
     <value>یا</value>

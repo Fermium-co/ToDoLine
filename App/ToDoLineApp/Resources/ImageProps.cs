@@ -1,4 +1,5 @@
 ﻿using FFImageLoading.Forms;
+using Syncfusion.XForms.Buttons;
 using System;
 using Xamarin.Forms;
 
@@ -23,6 +24,8 @@ namespace ToDoLineApp.Resources
                         ((CachedImage)view).Source = null;
                     if (view is ImageButton)
                         ((ImageButton)view).Source = null;
+                    if (view is SfButton)
+                        ((SfButton)view).ImageSource = null;
 
                     return;
                 }
@@ -37,6 +40,8 @@ namespace ToDoLineApp.Resources
                     ((CachedImage)view).Source = new EmbeddedResourceImageSource(resource, typeof(ImageProps).Assembly);
                 else if (view is ImageButton)
                     ((ImageButton)view).Source = ImageSource.FromResource(resource, typeof(ImageProps).Assembly);
+                else if(view is SfButton)
+                    ((SfButton)view).ImageSource = ImageSource.FromResource(resource, typeof(ImageProps).Assembly);
                 else
                     throw new NotSupportedException();
             });

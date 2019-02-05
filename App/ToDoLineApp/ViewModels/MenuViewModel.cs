@@ -1,6 +1,10 @@
-﻿using Bit.ViewModel;
+﻿using Acr.UserDialogs;
+using Bit.ViewModel;
 using Prism.Navigation;
+using Prism.Services;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 using ToDoLine.Dto;
@@ -11,32 +15,94 @@ namespace ToDoLineApp.ViewModels
 {
     public class MenuViewModel : BitViewModelBase
     {
+        public virtual IPageDialogService PageDialogService { get; set; }
+        public virtual IUserDialogs UserDialogs { get; set; }
         public virtual IToDoService ToDoService { get; set; }
-        public string NewGroupName { get; set; } = "";
+        public virtual string NewGroupTitle { get; set; } = "";
 
         public BitDelegateCommand AddNewGroupCommand { get; set; }
+        public BitDelegateCommand<ToDoGroupDto> DeleteGroupCommand { get; set; }
+        public BitDelegateCommand<ToDoGroupDto> EditGroupNameCommand { get; set; }
         public BitDelegateCommand CancelAddNewGroupCommand { get; set; }
-        public BitDelegateCommand ShowNewGroupStackCommand { get; set; }
+        public BitDelegateCommand BeginAddNewGroupCommand { get; set; }
+        public BitDelegateCommand<object> OpenToDoItemsCommand { get; set; }
 
         public MenuViewModel()
         {
-            AddNewGroupCommand = new BitDelegateCommand(AddNewGroupAsync, () => !string.IsNullOrEmpty(NewGroupName));
-            AddNewGroupCommand.ObservesProperty(() => NewGroupName);
-            CancelAddNewGroupCommand = new BitDelegateCommand(CancelAddNewGroupAsync);
-            ShowNewGroupStackCommand = new BitDelegateCommand(async () => { NewGroupName = Strings.NewGroupName; });
+            BeginAddNewGroupCommand = new BitDelegateCommand(BeginAddNewGroup);
+            AddNewGroupCommand = new BitDelegateCommand(AddNewGroup, () => !string.IsNullOrEmpty(NewGroupTitle));
+            AddNewGroupCommand.ObservesProperty(() => NewGroupTitle);
+            DeleteGroupCommand = new BitDelegateCommand<ToDoGroupDto>(DeleteGroup);
+            EditGroupNameCommand = new BitDelegateCommand<ToDoGroupDto>(EditGroupName);
+            CancelAddNewGroupCommand = new BitDelegateCommand(CancelAddNewGroup);
+            OpenToDoItemsCommand = new BitDelegateCommand<object>(OpenToDoItems);
         }
 
-        private async Task CancelAddNewGroupAsync()
+        async Task OpenToDoItems(object group)
         {
-            NewGroupName = string.Empty;
+            ToDoGroupDto ToDoGroup = null;
+            ItemCategory category;
+
+            if (group is ToDoGroupDto)
+            {
+                ToDoGroup = (ToDoGroupDto)group;
+                category = ItemCategory.UserDefinedGroup;
+            }
+            else if(group is ItemCategory)
+            {
+                category = (ItemCategory)group;
+            }
+            else
+            {
+                throw new NotSupportedException("GroupType is not supported.");
+            }
+
+
+            await NavigationService.NavigateAsync("Nav/ToDoItems",(ToDoItemsViewModel.GroupParameterKey, ToDoGroup),(ToDoItemsViewModel.ItemCategoryParameterKey, category) );
         }
 
-        private async Task AddNewGroupAsync()
+        async Task EditGroupName(ToDoGroupDto group)
         {
-            ToDoGroupDto group = await ToDoService.AddNewGroup(NewGroupName, CancellationToken.None);
-            ToDoService.ToDoGroups.Add(group);
-            ToDoService.ToDoGroups = new List<ToDoGroupDto>(ToDoService.ToDoGroups);
-            NewGroupName = string.Empty;
+            var editResult = await UserDialogs.PromptAsync(new PromptConfig()
+            {
+                InputType = InputType.Name,
+                CancelText = Strings.Cancel,
+                OkText = Strings.Edit,
+                Placeholder = group.Title,
+            });
+
+            if (editResult.Ok)
+            {
+                using (UserDialogs.Loading(Strings.Login, out CancellationToken cancellationToken))
+                {
+                    group.Title = editResult.Text;
+                    await ToDoService.UpdateGroup(group, cancellationToken);
+                }
+            }
+        }
+
+        async Task DeleteGroup(ToDoGroupDto group)
+        {
+            if (await PageDialogService.DisplayAlertAsync(Strings.DeleteGroup, string.Format(Strings.DeleteGroupForever, group.Title), Strings.Delete, Strings.Cancel))
+            {
+                await ToDoService.DeleteGroup(group, CancellationToken.None);
+            }
+        }
+
+        async Task CancelAddNewGroup()
+        {
+            NewGroupTitle = string.Empty;
+        }
+
+        async Task BeginAddNewGroup()
+        {
+            NewGroupTitle = Strings.NewGroupTitle;
+        }
+
+        async Task AddNewGroup()
+        {
+            await ToDoService.AddNewGroup(NewGroupTitle, CancellationToken.None);
+            NewGroupTitle = string.Empty;
         }
 
         public async override Task OnNavigatedToAsync(INavigationParameters parameters)

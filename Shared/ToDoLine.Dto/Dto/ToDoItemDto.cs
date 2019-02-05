@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ToDoLine.Dto
 {
-    public class ToDoItemDto : IDto
+    public partial class ToDoItemDto : IDto
     {
         public virtual Guid Id { get; set; }
 
@@ -39,7 +39,7 @@ namespace ToDoLine.Dto
         public virtual int ToDoItemStepsCompletedCount { get; set; }
     }
 
-    public class ToDoItemStepDto : IDto
+    public partial class ToDoItemStepDto : IDto
     {
         public virtual Guid Id { get; set; }
 
