@@ -18,8 +18,8 @@ namespace ToDoLineApp.Implementations
 
         public virtual IDateTimeProvider DateTimeProvider { get; set; }
         public virtual ObservableCollection<ToDoGroupDto> ToDoGroups { get; set; }
-
         public virtual ObservableCollection<ToDoItemDto> ToDoItems { get; set; }
+
         public virtual List<ToDoItemDto> MyDayToDoItems => ToDoItems?.Where(tdi => tdi.ShowInMyDay == true).ToList();
         public virtual List<ToDoItemDto> ImportantToDoItems => ToDoItems?.Where(tdi => tdi.IsImportant == true).ToList();
         public virtual List<ToDoItemDto> PlannedToDoItems => ToDoItems?.Where(tdi => tdi.RemindOn != null).ToList();
@@ -149,6 +149,52 @@ namespace ToDoLineApp.Implementations
             todoItem.DueDate = serverItem.DueDate;
             todoItem.CompletedBy = serverItem.CompletedBy;
             todoItem.CreatedOn = serverItem.CreatedOn;
+
+            RaisePropertyChanged(nameof(ImportantToDoItemsCount));
+            RaisePropertyChanged(nameof(ImportantToDoItems));            
+        }
+
+        public async Task<List<ToDoItemStepDto>> GetToDoItemSteps(ToDoItemDto toDoItem, CancellationToken cancellationToken)
+        {
+            return (await ODataClient
+                .For<ToDoItemStepDto>("ToDoItemSteps")
+                .Set(new { todoItemId = toDoItem.Id })
+                .Function("GetToDoItemSteps")
+                .FindEntriesAsync(cancellationToken)).ToList();
+        }
+
+        public async Task UpdateTodoItemStep(ToDoItemStepDto todoItemStep, CancellationToken cancellationToken)
+        {
+            var serverItemStep = await ODataClient.For<ToDoItemStepDto>("ToDoItemSteps")
+                .Key(todoItemStep.Id)
+                .Set(todoItemStep)
+                .UpdateEntryAsync(cancellationToken);
+
+            todoItemStep.IsCompleted = serverItemStep.IsCompleted;
+            todoItemStep.Text = serverItemStep.Text;
+            todoItemStep.ToDoItemId = serverItemStep.ToDoItemId;          
+        }
+
+        public async Task DeleteItemStep(ToDoItemStepDto toDoItemStep, CancellationToken cancellationToken)
+        {
+            await ODataClient
+                .For<ToDoItemStepDto>("ToDoItemSteps")
+                .Key(toDoItemStep.Id)
+                .DeleteEntryAsync(cancellationToken);
+        }
+
+        public async Task<ToDoItemStepDto> AddNewItemStep(string newItemStepTitle, ToDoItemDto toDoItem, CancellationToken cancellationToken)
+        {
+            ToDoItemStepDto addedToDoItemStep = await ODataClient
+                .For<ToDoItemStepDto>("ToDoItemSteps")
+                .Set(new ToDoItemStepDto
+                {
+                    Text = newItemStepTitle,
+                    IsCompleted = false,
+                    ToDoItemId = toDoItem.Id
+                }).InsertEntryAsync(cancellationToken);
+
+            return addedToDoItemStep;
         }
     }
 }

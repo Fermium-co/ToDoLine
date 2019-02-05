@@ -13,6 +13,7 @@ using Prism.Events;
 using Prism.Ioc;
 using System;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ToDoLineApp.Contracts;
 using ToDoLineApp.Implementations;
@@ -109,6 +110,7 @@ namespace ToDoLineApp
             containerRegistry.RegisterPartialView<MenuView, MenuViewModel>();
             containerRegistry.RegisterForNav<LoginView, LoginViewModel>("Login");
             containerRegistry.RegisterForNav<ToDoItemsView, ToDoItemsViewModel>("ToDoItems");
+            containerRegistry.RegisterForNav<TodoItemStepsView, TodoItemStepsViewModel>("ToDoItemSteps");
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
@@ -126,6 +128,16 @@ namespace ToDoLineApp
             containerBuilder.RegisterType<DefaultToDoServie>().As<IToDoService>().PropertiesAutowired(PropertyWiringOptions.PreserveSetValues).SingleInstance();
 
             base.RegisterTypes(containerRegistry, containerBuilder, services);
+        }
+
+
+        protected override void PublishOrientationAndOrSizeChangedEvent()
+        {
+            var width = App.Current?.MainPage?.Width;
+
+            System.Diagnostics.Debug.WriteLine(width);
+
+            base.PublishOrientationAndOrSizeChangedEvent();
         }
     }
 }

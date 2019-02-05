@@ -2,6 +2,8 @@
 using Bit.ViewModel;
 using Prism.Navigation;
 using Prism.Services;
+using Syncfusion.ListView.XForms;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ToDoLine.Dto;
@@ -23,6 +25,8 @@ namespace ToDoLineApp.ViewModels
         public BitDelegateCommand AddNewItemCommand { get; set; }
         public BitDelegateCommand<ToDoItemDto> DeleteItemCommand { get; set; }
         public BitDelegateCommand<ToDoItemDto> EditItemCommand { get; set; }
+        public BitDelegateCommand<ToDoItemDto> ReverseIsImportantCommand { get; set; }
+        public BitDelegateCommand<ItemTappedEventArgs> ShowTodoItemStepsCommand { get; set; }
 
         public string Title { get; set; }
         public string NewItemTitle { get; set; }
@@ -35,6 +39,20 @@ namespace ToDoLineApp.ViewModels
 
             EditItemCommand = new BitDelegateCommand<ToDoItemDto>(EditItem);
             DeleteItemCommand = new BitDelegateCommand<ToDoItemDto>(DeleteItem);
+            ReverseIsImportantCommand = new BitDelegateCommand<ToDoItemDto>(ReverseIsImportant);
+            ShowTodoItemStepsCommand = new BitDelegateCommand<ItemTappedEventArgs>(ShowTodoItemSteps);
+        }
+
+        private async Task ShowTodoItemSteps(ItemTappedEventArgs eventArgs)
+        {
+            var todoItem = (ToDoItemDto)eventArgs.ItemData;
+            await NavigationService.NavigateAsync("ToDoItemSteps", (TodoItemStepsViewModel.TodoItemParameterKey, todoItem));
+        }
+
+        private async Task ReverseIsImportant(ToDoItemDto todoItem)
+        {
+            todoItem.IsImportant = !todoItem.IsImportant;
+            await ToDoService.UpdateItem(todoItem, CancellationToken.None);
         }
 
         private async Task DeleteItem(ToDoItemDto todoItem)

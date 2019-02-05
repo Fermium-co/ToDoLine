@@ -34,6 +34,10 @@ namespace ToDoLineApp.Contracts
         Task<ToDoItemDto> AddNewItem(string newItemTitle, ItemCategory categoty, Guid? groupId, CancellationToken cancellationToken);
         Task DeleteItem(ToDoItemDto todoItem, CancellationToken cancellationToken);
         Task UpdateItem(ToDoItemDto todoItem, CancellationToken cancellationToken);
+        Task UpdateTodoItemStep(ToDoItemStepDto todoItemStep, CancellationToken cancellationToken);
+        Task<List<ToDoItemStepDto>> GetToDoItemSteps(ToDoItemDto toDoItem, CancellationToken cancellationToken);
+        Task DeleteItemStep(ToDoItemStepDto toDoItemStep, CancellationToken cancellationToken);
+        Task<ToDoItemStepDto> AddNewItemStep(string newItemStepTitle, ToDoItemDto toDoItem, CancellationToken cancellationToken);
     }
 
     public enum ItemCategory

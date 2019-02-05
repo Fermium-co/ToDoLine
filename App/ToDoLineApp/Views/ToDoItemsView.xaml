@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:dto="clr-namespace:ToDoLine.Dto"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:res="clr-namespace:ToDoLineApp.Resources"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
@@ -36,9 +37,10 @@
             ItemSize="50"
             ItemSpacing="2"
             ItemsSource="{Binding ToDoService.ToDoItems}"
-            SelectionMode="None">
+            SelectionMode="None"
+            TapCommand="{Binding ShowTodoItemStepsCommand}">
             <sfListView:SfListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="dto:ToDoItemDto">
                     <StackLayout
                         Padding="10"
                         MinimumWidthRequest="150"
@@ -46,7 +48,19 @@
                         WidthRequest="150">
                         <StackLayout Orientation="Horizontal">
                             <Label HorizontalOptions="StartAndExpand" Text="{Binding Title}" />
-                            <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.GrayStar}" WidthRequest="20" />
+                            <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.GrayStar}" WidthRequest="20">
+                                <ffImage:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ReverseIsImportantCommand, Source={x:Reference toDoItemsView}}" CommandParameter="{Binding .}" />
+                                </ffImage:CachedImage.GestureRecognizers>
+                                <ffImage:CachedImage.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsImportant}"
+                                        TargetType="ffImage:CachedImage"
+                                        Value="True">
+                                        <Setter Property="res:ImageProps.FileName" Value="{x:Static res:ImageNames.FillStar}" />
+                                    </DataTrigger>
+                                </ffImage:CachedImage.Triggers>
+                            </ffImage:CachedImage>
                         </StackLayout>
                         <BoxView
                             BackgroundColor="LightGray"
@@ -95,11 +109,11 @@
                         <Entry
                             HorizontalOptions="FillAndExpand"
                             Placeholder="{x:Static strRes:Strings.NewItemTitle}"
+                            ReturnCommand="{Binding AddNewItemCommand}"
                             Text="{Binding NewItemTitle, Mode=TwoWay}" />
                         <buttons:SfButton
                             BackgroundColor="Transparent"
                             Command="{Binding AddNewItemCommand}"
-                            CommandParameter="{Binding NewItemTitle}"
                             Text="✓"
                             TextColor="Accent" />
                     </StackLayout>

@@ -1,4 +1,7 @@
-﻿namespace ToDoLineApp.Views
+﻿using Bit.View;
+using Xamarin.Forms;
+
+namespace ToDoLineApp.Views
 {
     public partial class MasterView
     {
