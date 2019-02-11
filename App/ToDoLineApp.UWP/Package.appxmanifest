@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="a698038a-b60b-45a6-afcc-d68ccd90ab12" Publisher="CN=f88dfba6-7d4e-43a2-97f8-3e2bd2e844d8" Version="1.0.0.0" />
+  <Identity Name="a698038a-b60b-45a6-afcc-d68ccd90ab13" Publisher="CN=f88dfba6-7d4e-43a2-97f8-3e2bd2e844d8" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ToDoLineApp.UWP</DisplayName>
-    <PublisherDisplayName>f88dfba6-7d4e-43a2-97f8-3e2bd2e844d8</PublisherDisplayName>
+    <PublisherDisplayName>f88dfba6-7d4e-43a2-97f8-3e2bd2e844d9</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

@@ -15,4 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Dto\UserDto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Dto\UserRegistrationDto.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Service\" />
+  </ItemGroup>
 </Project>
