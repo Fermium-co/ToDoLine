@@ -151,7 +151,9 @@ namespace ToDoLineApp.Implementations
             todoItem.CreatedOn = serverItem.CreatedOn;
 
             RaisePropertyChanged(nameof(ImportantToDoItemsCount));
-            RaisePropertyChanged(nameof(ImportantToDoItems));            
+            RaisePropertyChanged(nameof(ImportantToDoItems));
+            RaisePropertyChanged(nameof(MyDayToDoItemsCount));
+            RaisePropertyChanged(nameof(MyDayToDoItems));
         }
 
         public async Task<List<ToDoItemStepDto>> GetToDoItemSteps(ToDoItemDto toDoItem, CancellationToken cancellationToken)

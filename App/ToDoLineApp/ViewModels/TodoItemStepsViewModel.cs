@@ -23,6 +23,7 @@ namespace ToDoLineApp.ViewModels
             ReverseIsImportantCommand = new BitDelegateCommand(ReverseIsImportant);
             DeleteTodoItemStepCommand = new BitDelegateCommand<ToDoItemStepDto>(DeleteTodoItemStep);
             AddNewItemStepCommand = new BitDelegateCommand(AddNewItemStep);
+            ChangeMyDayCommand = new BitDelegateCommand<bool?>(ChangeMyDay);
         }
 
         public virtual IToDoService ToDoService { get; set; }
@@ -35,9 +36,20 @@ namespace ToDoLineApp.ViewModels
         public BitDelegateCommand ReverseIsImportantCommand { get; set; }
         public BitDelegateCommand<ToDoItemStepDto> DeleteTodoItemStepCommand { get; set; }
         public BitDelegateCommand AddNewItemStepCommand { get; set; }
+        public BitDelegateCommand<bool?> ChangeMyDayCommand { get; set; }        
+
+        public override async Task OnNavigatedFromAsync(INavigationParameters parameters)
+        {
+            await base.OnNavigatedFromAsync(parameters);
+
+            // Update TodoItem
+            await ToDoService.UpdateItem(TodoItem, CancellationToken.None); // How to update TodoItemOptions?
+        }
 
         public override async Task OnNavigatedToAsync(INavigationParameters parameters)
         {
+            await base.OnNavigatedToAsync(parameters);
+
             TodoItem = parameters.GetValue<ToDoItemDto>(TodoItemParameterKey);
 
             Steps = new ObservableCollection<ToDoItemStepDto>(await ToDoService.GetToDoItemSteps(TodoItem, CancellationToken.None));
@@ -70,6 +82,10 @@ namespace ToDoLineApp.ViewModels
             var todoItemStep = await ToDoService.AddNewItemStep(NewItemStepTitle, TodoItem,  CancellationToken.None);
             Steps.Add(todoItemStep);
             NewItemStepTitle = string.Empty;
+        }
+        private async Task ChangeMyDay(bool? showInMyDay)
+        {
+            TodoItem.ShowInMyDay = showInMyDay.HasValue ? showInMyDay.Value : false;
         }
     }
 }
