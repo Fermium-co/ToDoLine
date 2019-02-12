@@ -5,8 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:bitControls="clr-namespace:Bit.CSharpClient.Controls;assembly=Bit.CSharpClient.Controls"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:converters="clr-namespace:ToDoLineApp.Converters"
     xmlns:dto="clr-namespace:ToDoLine.Dto"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:noda="clr-namespace:NodaTime;assembly=NodaTime"
     xmlns:popupPage="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:popupPageAnimations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:prism="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
@@ -154,33 +156,84 @@
                 Padding="10"
                 BackgroundColor="White">
                 <StackLayout>
-                    <buttons:SfButton
-                        res:ImageProps.FileName="{x:Static res:ImageNames.Day}"
-                        BackgroundColor="Transparent"
-                        HeightRequest="100"
-                        HorizontalTextAlignment="Start"
-                        ImageAlignment="Start"
-                        ImageWidth="30"
-                        ShowIcon="True"
-                        Text="Remind Me"
-                        TextColor="Gray" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <bitControls:BitDatePicker
+                            DateDisplayFormat="dd MMM yyyy"
+                            HorizontalOptions="FillAndExpand"
+                            SelectedColor="Accent"
+                            SelectedDate="{Binding TodoItem.RemindOn, Mode=TwoWay, Converter={converters:DateTimeOffsetToDateTimeConverter}}">
+                            <bitControls:BitDatePicker.ControlTemplate>
+                                <ControlTemplate>
+
+                                    <buttons:SfButton
+                                        res:ImageProps.FileName="{x:Static res:ImageNames.Day}"
+                                        BackgroundColor="Transparent"
+                                        Command="{TemplateBinding OpenPopupCommand}"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        HeightRequest="100"
+                                        HorizontalTextAlignment="Start"
+                                        ImageAlignment="Start"
+                                        ImageWidth="30"
+                                        ShowIcon="True"
+                                        Text="{TemplateBinding DisplayText,
+                                                               StringFormat='Remind Me at {0}'}"
+                                        TextColor="Gray" />
+
+
+                                </ControlTemplate>
+                            </bitControls:BitDatePicker.ControlTemplate>
+                        </bitControls:BitDatePicker>
+
+                        <buttons:SfButton
+                            BackgroundColor="Transparent"
+                            Command="{Binding RemoveRemindMeCommand}"
+                            FontSize="Large"
+                            IsVisible="{Binding TodoItem.RemindOn, Converter={converters:IsNullToBooleanConverter}}"
+                            Text="ˣ"
+                            TextColor="Red" />
+                    </StackLayout>
+
 
                     <BoxView
                         Margin="30,7,0,7"
                         HeightRequest="1"
                         Color="Gray" />
 
-                    <buttons:SfButton
-                        res:ImageProps.FileName="{x:Static res:ImageNames.Day}"
-                        BackgroundColor="Transparent"
-                        HeightRequest="100"
-                        HorizontalTextAlignment="Start"
-                        ImageAlignment="Start"
-                        ImageWidth="30"
-                        ShowIcon="True"
-                        Text="Due Date"
-                        TextColor="Gray" />
+                    <StackLayout Orientation="Horizontal">
+                        <bitControls:BitDatePicker
+                            DateDisplayFormat="dd MMM yyyy"
+                            HorizontalOptions="FillAndExpand"
+                            SelectedColor="Accent"
+                            SelectedDate="{Binding TodoItem.DueDate, Mode=TwoWay, Converter={converters:DateTimeOffsetToDateTimeConverter}}">
+                            <bitControls:BitDatePicker.ControlTemplate>
+                                <ControlTemplate>
 
+                                    <buttons:SfButton
+                                        res:ImageProps.FileName="{x:Static res:ImageNames.Day}"
+                                        BackgroundColor="Transparent"
+                                        Command="{TemplateBinding OpenPopupCommand}"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        HeightRequest="100"
+                                        HorizontalTextAlignment="Start"
+                                        ImageAlignment="Start"
+                                        ImageWidth="30"
+                                        ShowIcon="True"
+                                        Text="{TemplateBinding DisplayText,
+                                                               StringFormat='Due {0}'}"
+                                        TextColor="Gray" />
+
+                                </ControlTemplate>
+                            </bitControls:BitDatePicker.ControlTemplate>
+                        </bitControls:BitDatePicker>
+                        <buttons:SfButton
+                            BackgroundColor="Transparent"
+                            Command="{Binding RemoveDueDateCommand}"
+                            FontSize="Large"
+                            IsVisible="{Binding TodoItem.DueDate, Converter={converters:IsNullToBooleanConverter}}"
+                            Text="ˣ"
+                            TextColor="Red" />
+                    </StackLayout>
                 </StackLayout>
 
             </Frame>
@@ -213,7 +266,6 @@
                         VerticalTextAlignment="Center" />
                     <buttons:SfButton
                         BackgroundColor="Transparent"
-                        HorizontalOptions="Start"
                         Text="Remove"
                         TextColor="Red" />
                 </StackLayout>

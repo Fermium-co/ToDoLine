@@ -24,6 +24,8 @@ namespace ToDoLineApp.ViewModels
             DeleteTodoItemStepCommand = new BitDelegateCommand<ToDoItemStepDto>(DeleteTodoItemStep);
             AddNewItemStepCommand = new BitDelegateCommand(AddNewItemStep);
             ChangeMyDayCommand = new BitDelegateCommand<bool?>(ChangeMyDay);
+            RemoveRemindMeCommand = new BitDelegateCommand(RemoveRemindMe);
+            RemoveDueDateCommand = new BitDelegateCommand(RemoveDueDate);
         }
 
         public virtual IToDoService ToDoService { get; set; }
@@ -36,7 +38,9 @@ namespace ToDoLineApp.ViewModels
         public BitDelegateCommand ReverseIsImportantCommand { get; set; }
         public BitDelegateCommand<ToDoItemStepDto> DeleteTodoItemStepCommand { get; set; }
         public BitDelegateCommand AddNewItemStepCommand { get; set; }
-        public BitDelegateCommand<bool?> ChangeMyDayCommand { get; set; }        
+        public BitDelegateCommand<bool?> ChangeMyDayCommand { get; set; }
+        public BitDelegateCommand RemoveRemindMeCommand { get; set; }
+        public BitDelegateCommand RemoveDueDateCommand { get; set; }
 
         public override async Task OnNavigatedFromAsync(INavigationParameters parameters)
         {
@@ -86,6 +90,16 @@ namespace ToDoLineApp.ViewModels
         private async Task ChangeMyDay(bool? showInMyDay)
         {
             TodoItem.ShowInMyDay = showInMyDay.HasValue ? showInMyDay.Value : false;
+        }
+
+        private async Task RemoveDueDate()
+        {
+            TodoItem.DueDate = null;
+        }
+
+        private async Task RemoveRemindMe()
+        {
+            TodoItem.RemindOn = null;
         }
     }
 }
