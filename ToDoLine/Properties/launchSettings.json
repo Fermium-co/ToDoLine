@@ -1,12 +1,2 @@
 {
-  "profiles": {
-    "ToDoLine": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "odata/swagger", 
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      } 
-    }
-  }
 }

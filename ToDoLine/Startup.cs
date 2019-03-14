@@ -57,18 +57,18 @@ namespace ToDoLine
 
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
-            services.AddResponseCompression(options =>
+            /*services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
                 options.Providers.Add<GzipCompressionProvider>();
             }).Configure<GzipCompressionProviderOptions>(options =>
             {
                 options.Level = CompressionLevel.Optimal;
-            });
+            });*/
 
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
-                aspNetCoreApp.UseResponseCompression();
+                // aspNetCoreApp.UseResponseCompression(); // => It's not working fine with AllowSynchronousIO = false;
                 aspNetCoreApp.UseStaticFiles();
             });
 
