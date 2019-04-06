@@ -35,9 +35,8 @@ namespace ToDoLine.Test.Controller
 
             IODataClient client = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
 
-            await client.Controller<UserRegistrationController, UserRegistrationDto>()
-                .Action(nameof(UserRegistrationController.Register))
-                .Set(new UserRegistrationController.RegisterArgs { userRegistration = new UserRegistrationDto { UserName = userName, Password = password } })
+            await client.UserRegistration()
+                .Register(new UserRegistrationDto { UserName = userName, Password = password })
                 .ExecuteAsync();
 
             return userName;
@@ -68,8 +67,8 @@ namespace ToDoLine.Test.Controller
 
         public static async Task<UserDto> GetUserByUserName(this IODataClient client, string userName)
         {
-            return (await client.Controller<UsersController, UserDto>()
-                    .Function(nameof(UsersController.GetAllUsers))
+            return (await client.Users()
+                    .GetAllUsers()
                     .Filter(u => u.UserName.ToLower().Contains(userName.ToLower()))
                     .FindEntriesAsync()).Single();
         }
