@@ -7,12 +7,14 @@ using Bit.ViewModel.Implementations;
 using FFImageLoading;
 using FFImageLoading.Helpers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Prism;
-using Prism.Autofac;
 using Prism.Events;
 using Prism.Ioc;
 using System;
+using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using ToDoLineApp.Contracts;
 using ToDoLineApp.Implementations;
@@ -69,6 +71,14 @@ namespace ToDoLineApp
 #endif
         }
 
+        public class User
+        {
+            public int id { get; set; }
+            public string title { get; set; }
+            public string body { get; set; }
+            public int userId { get; set; }
+        }
+
         protected async override Task OnInitializedAsync()
         {
             ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
@@ -81,9 +91,17 @@ namespace ToDoLineApp
 #endif
             });
 
+            HttpClient client = Container.Resolve<HttpClient>();
+
+            await client.GetAsync("api/swagger/docs/v1");
+
+            HttpResponseMessage response = await client.PostAsJsonAsync("posts", new { title = "foo", body = "bar", userId = 1 });
+
+            User user = await response.Content.ReadAsAsync<User>();
+
             InitializeComponent();
 
-            bool isLoggedIn = await Container.Resolve<ISecurityService>().IsLoggedInAsync();
+            bool isLoggedIn = await Container.Resolve<ITokenService>().IsLoggedIn();
 
             if (isLoggedIn)
             {
@@ -97,7 +115,7 @@ namespace ToDoLineApp
             IEventAggregator eventAggregator = Container.Resolve<IEventAggregator>();
 
             eventAggregator.GetEvent<TokenExpiredEvent>()
-                .SubscribeAsync(async tokenExpiredEvent => await NavigationService.NavigateAsync("/Nav/Login"), ThreadOption.UIThread);
+                            .SubscribeAsync(async tokenExpiredEvent => await NavigationService.NavigateAsync("/Nav/Login"), ThreadOption.UIThread);
 
             await base.OnInitializedAsync();
         }
@@ -112,7 +130,8 @@ namespace ToDoLineApp
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri("http://192.168.1.215:53200/"),
+                HostUri = new Uri("http://192.168.1.215:53200/api/swagger/docs/v1"),
+                // HostUri = new Uri("https://jsonplaceholder.typicode.com/"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
             }).SingleInstance();
@@ -121,11 +140,95 @@ namespace ToDoLineApp
             containerBuilder.RegisterHttpClient();
             containerBuilder.RegisterODataClient();
             containerBuilder.RegisterIdentityClient();
+            containerBuilder.Register<HttpMessageHandler>(c =>
+            {
+                return new ToDoLineAuthenticatedHttpMessageHandler(c.Resolve<IEventAggregator>(), c.Resolve<ITokenService>(), c.ResolveNamed<HttpMessageHandler>(ContractKeys.DefaultHttpMessageHandler));
+            })
+            .Named<HttpMessageHandler>(ContractKeys.AuthenticatedHttpMessageHandler)
+            .SingleInstance();
 
             containerBuilder.Register(c => UserDialogs.Instance).SingleInstance();
             containerBuilder.RegisterType<DefaultToDoServie>().As<IToDoService>().PropertiesAutowired(PropertyWiringOptions.PreserveSetValues).SingleInstance();
+            containerBuilder.RegisterType<ToDoLineTokenService>().As<ITokenService>().PropertiesAutowired(PropertyWiringOptions.PreserveSetValues).SingleInstance();
+
+#if DEBUG
+            services.AddLogging(config =>
+            {
+                config.AddDebug();
+            });
+#endif
 
             base.RegisterTypes(containerRegistry, containerBuilder, services);
+        }
+    }
+
+    public interface ITokenService
+    {
+        Task AcqTokens(); // send data such as phone number to server to get both access/refresh tokens and store them into preferences
+        Task ReNew(); // send both tokens to get new one from server
+        Task<string> GetAuthToken(); // get access token from preferences
+        Task ClearTokens(); // clear both tokens
+        Task<bool> IsLoggedIn(); // check if token exitst
+    }
+
+    public class ToDoLineTokenService : ITokenService
+    {
+        public Task AcqTokens()
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task ClearTokens()
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetAuthToken()
+        {
+            return Task.FromResult(string.Empty);
+        }
+
+        public Task<bool> IsLoggedIn()
+        {
+            return Task.FromResult(true);
+        }
+
+        public Task ReNew()
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    public class ToDoLineAuthenticatedHttpMessageHandler : DelegatingHandler
+    {
+        readonly ITokenService _tokenService;
+        readonly IEventAggregator _eventAggregator;
+
+        public ToDoLineAuthenticatedHttpMessageHandler(IEventAggregator eventAggregator, ITokenService tokenService, HttpMessageHandler defaultHttpMessageHandler)
+            : base(defaultHttpMessageHandler)
+        {
+            _tokenService = tokenService;
+            _eventAggregator = eventAggregator;
+        }
+
+        protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            if (!request.Headers.Contains("Request-Id"))
+                request.Headers.Add("Request-Id", Guid.NewGuid().ToString());
+
+            // request.Headers.Authorization = new AuthenticationHeaderValue("", _tokenService.GetAuthToken());
+
+            HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                await _tokenService.ReNew();
+                // request.Headers.Authorization = new AuthenticationHeaderValue("", _tokenService.GetAuthToken());
+                response = await base.SendAsync(request, cancellationToken);
+                // if re new wasn't successful, _tokenService.ClearTokens() && call _eventAggregator.GetEvent<TokenExpiredEvent>().Publish(new TokenExpiredEven {}) to go to login form!
+            }
+
+            return response;
         }
     }
 }
