@@ -36,6 +36,8 @@ namespace ToDoLineApp.ViewModels
 
         async Task Login()
         {
+            // await SecurityService.Login(new { SignInType = "Google" }, client_id: "Test");
+
             try
             {
                 UserName = UserName ?? "";

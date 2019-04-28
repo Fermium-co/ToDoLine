@@ -19,6 +19,14 @@
       {
         "Key": "IndexPagePath",
         "Value": "index.html"
+      },
+      {
+        "Key": "GoogleClientId",
+        "Value": "792673568264-2jd0kngs19lb2mqs10biios50k6ogf2v.apps.googleusercontent.com"
+      },
+      {
+        "Key": "GoogleSecret",
+        "Value": "gZsibbjqfSbAiKbd6XbnBn1T"
       }
     ]
   }

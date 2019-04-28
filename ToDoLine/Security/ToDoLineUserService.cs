@@ -30,5 +30,15 @@ namespace ToDoLine.Security
 
             return new BitJwtToken { UserId = user.Id.ToString() };
         }
+
+        protected async override Task<BitJwtToken> ExternalLogin(ExternalAuthenticationContext context, CancellationToken cancellationToken)
+        {
+            if (context.ExternalIdentity.Provider == "Google")
+            {
+
+            }
+            // get claims from google/facebook etc and create a user if required. Then return expected user id.
+            return new BitJwtToken { UserId = "1" };
+        }
     }
 }

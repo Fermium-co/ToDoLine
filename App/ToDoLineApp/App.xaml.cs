@@ -112,9 +112,10 @@ namespace ToDoLineApp
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri("http://192.168.1.215:53200/"),
+                HostUri = new Uri("http://0f87b1dc.ngrok.io/"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
+                OAuthRedirectUri = new Uri(@"toDoLine://oauth2redirect")
             }).SingleInstance();
 
             containerBuilder.RegisterRequiredServices();
