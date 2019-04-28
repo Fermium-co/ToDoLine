@@ -1,7 +1,4 @@
-﻿using Bit.Core.Implementations;
-using Bit.Core.Models;
-using Bit.Data.EntityFrameworkCore.Contracts;
-using Bit.Data.EntityFrameworkCore.Implementations;
+﻿using Bit.Data.EntityFrameworkCore.Implementations;
 using Microsoft.EntityFrameworkCore;
 using ToDoLine.Model;
 
@@ -9,13 +6,8 @@ namespace ToDoLine.Data
 {
     public class ToDoLineDbContext : EfCoreDbContextBase
     {
-        public ToDoLineDbContext()
-            : base(new DbContextOptionsBuilder<ToDoLineDbContext>().UseSqlServer(DefaultAppEnvironmentsProvider.Current.GetActiveAppEnvironment().GetConfig<string>("AppConnectionString")).Options)
-        {
-        }
-
-        public ToDoLineDbContext(AppEnvironment appEnv, IDbContextObjectsProvider dbContextCreationOptionsProvider)
-            : base(appEnv.GetConfig<string>("AppConnectionString"), dbContextCreationOptionsProvider)
+        public ToDoLineDbContext(DbContextOptions<ToDoLineDbContext> options) 
+            : base(options)
         {
         }
 

@@ -6,14 +6,17 @@ namespace ToDoLine.Data
 {
     public class RunMigrationsAppEvent : IAppEvents
     {
+        public virtual IDependencyManager DependencyManager { get; set; }
+
         public virtual AppEnvironment AppEnvironment { get; set; }
 
         public virtual void OnAppStartup()
         {
             if (AppEnvironment.DebugMode == true)
             {
-                using (ToDoLineDbContext dbContext = new ToDoLineDbContext())
+                using (IDependencyResolver dependencyResolver = DependencyManager.CreateChildDependencyResolver())
                 {
+                    ToDoLineDbContext dbContext = dependencyResolver.Resolve<ToDoLineDbContext>();
                     dbContext.Database.Migrate();
                 }
             }

@@ -3,7 +3,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Autofac;
-using Bit.Droid;
+using Bit.Android;
 using Bit.ViewModel;
 using Bit.ViewModel.Implementations;
 using Prism.Autofac;
