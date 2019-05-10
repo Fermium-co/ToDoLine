@@ -1,0 +1,43 @@
+﻿{
+  "BitCodeGeneratorConfigs": {
+    "BitCodeGeneratorMappings": [
+      {
+        "Route": "ToDoLine",
+        "DestinationFileName": "ngWebSite/src/app/ToDoLine.Model.Context",
+        "TypingsPath": "../../node_modules/@bit/jaydata/jaydata.d.ts",
+        "SourceProjects": [
+          {
+            "Name": "ToDoLine"
+          }
+        ],
+        "DestinationProject": {
+          "Name": "ToDoLine"
+        }
+      },
+      {
+        "Route": "ToDoLine",
+        "DestinationFileName": "Extensions/ToDoLine.Model.Context",
+        "SourceProjects": [
+          {
+            "Name": "ToDoLine"
+          }
+        ],
+        "DestinationProject": {
+          "Name": "ToDoLineApp"
+        }
+      },
+      {
+        "Route": "ToDoLine",
+        "DestinationFileName": "Extensions/ToDoLine.Model.Context",
+        "SourceProjects": [
+          {
+            "Name": "ToDoLine"
+          }
+        ],
+        "DestinationProject": {
+          "Name": "ToDoLine.Test"
+        }
+      }
+    ]
+  }
+}

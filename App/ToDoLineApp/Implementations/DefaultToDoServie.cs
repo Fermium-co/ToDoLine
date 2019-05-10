@@ -37,9 +37,9 @@ namespace ToDoLineApp.Implementations
         public virtual async Task LoadData(CancellationToken cancellationToken)
         {
             ODataBatch BatchClient = new ODataBatch(ODataClient, reuseSession: true);
-            BatchClient += async client => ToDoGroups = (await client.For<ToDoGroupDto>("ToDoGroups").Function("GetMyToDoGroups").FindEntriesAsync(cancellationToken)).ToList();
-            BatchClient += async client => ToDoItems = (await client.For<ToDoItemDto>("ToDoItems").Function("GetMyToDoItems").FindEntriesAsync(cancellationToken)).ToList();
-            BatchClient += async client => User = await client.For<UserDto>("User").Function("GetCurrentUser").FindEntryAsync(cancellationToken);
+            BatchClient += async client => ToDoGroups = (await client.ToDoGroups().GetMyToDoGroups().FindEntriesAsync(cancellationToken)).ToList();
+            BatchClient += async client => ToDoItems = (await client.ToDoItems().GetMyToDoItems().FindEntriesAsync(cancellationToken)).ToList();
+            BatchClient += async client => User = await client.Users().GetCurrentUser().FindEntryAsync(cancellationToken);
             await BatchClient.ExecuteAsync(cancellationToken);
         }
 
@@ -49,9 +49,8 @@ namespace ToDoLineApp.Implementations
                 throw new ArgumentException(nameof(groupName));
 
             return await ODataClient
-                .For<ToDoGroupDto>("ToDoGroups")
-                .Action("CreateToDoGroup")
-                .Set(new { title = groupName })
+                .ToDoGroups()
+                .CreateToDoGroup(groupName)
                 .ExecuteAsSingleAsync(cancellationToken);
         }
     }

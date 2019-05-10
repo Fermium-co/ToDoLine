@@ -8,6 +8,7 @@
     xmlns:res="clr-namespace:ToDoLineApp.Resources"
     xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
+    xmlns:bit="clr-namespace:Bit.View;assembly=Bit.CSharpClient.Prism"
     x:DataType="vm:LoginViewModel"
     NavigationPage.HasNavigationBar="False">
     <StackLayout Padding="5">
@@ -27,7 +28,7 @@
                 HasError="{Binding UserName_HasError}"
                 Hint="{x:Static strRes:Strings.UserName}"
                 Style="{StaticResource SfTextInputLayoutDefaultStyle}">
-                <Entry Text="{Binding UserName}" />
+                <Entry Text="{Binding UserName}" ReturnType="Next" ReturnCommand="{bit:GoToNextViewCommand Next={x:Reference Password}}" />
             </inputLayout:SfTextInputLayout>
             <inputLayout:SfTextInputLayout
                 EnablePasswordVisibilityToggle="{Binding IsFocused, Source={x:Reference Password}}"
@@ -38,7 +39,7 @@
                 <Entry
                     x:Name="Password"
                     IsPassword="True"
-                    Text="{Binding Password}" />
+                    Text="{Binding Password}" ReturnCommand="{Binding LoginCommand}" />
             </inputLayout:SfTextInputLayout>
             <Button
                 Padding="0,10"

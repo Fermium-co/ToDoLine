@@ -19,7 +19,7 @@ namespace ToDoLine.Controller
 
         public class RegisterArgs
         {
-            public UserRegistrationDto userRegistration { get; set; }
+            public UserRegistrationDto userInfo { get; set; }
         }
 
         [Action]
@@ -31,8 +31,8 @@ namespace ToDoLine.Controller
             await UsersRepository.AddAsync(new User
             {
                 Id = newUserId,
-                Password = HashUtility.Hash(args.userRegistration.Password),
-                UserName = args.userRegistration.UserName
+                Password = HashUtility.Hash(args.userInfo.Password),
+                UserName = args.userInfo.UserName
             }, cancellationToken);
         }
     }

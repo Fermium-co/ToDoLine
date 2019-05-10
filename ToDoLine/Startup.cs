@@ -1,5 +1,6 @@
 ﻿using Bit.Core;
 using Bit.Core.Contracts;
+using Bit.Core.Models;
 using Bit.Data;
 using Bit.Data.Contracts;
 using Bit.Data.EntityFrameworkCore.Implementations;
@@ -9,13 +10,12 @@ using Bit.OData.Contracts;
 using Bit.Owin.Implementations;
 using Bit.OwinCore;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.IO.Compression;
 using System.Reflection;
 using ToDoLine.Data;
 using ToDoLine.Security;
@@ -57,18 +57,18 @@ namespace ToDoLine
 
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
-            services.AddResponseCompression(options =>
+            /*services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
                 options.Providers.Add<GzipCompressionProvider>();
             }).Configure<GzipCompressionProviderOptions>(options =>
             {
                 options.Level = CompressionLevel.Optimal;
-            });
+            });*/
 
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
-                aspNetCoreApp.UseResponseCompression();
+                // aspNetCoreApp.UseResponseCompression(); // => It's not working fine with AllowSynchronousIO = false;
                 aspNetCoreApp.UseStaticFiles();
             });
 
@@ -113,7 +113,10 @@ namespace ToDoLine
             });
 
             dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>();
-            dependencyManager.RegisterEfCoreDbContext<ToDoLineDbContext, SqlServerDbContextObjectsProvider>();
+            dependencyManager.RegisterEfCoreDbContext<ToDoLineDbContext>((serviceProvider, options) =>
+            {
+                options.UseSqlServer(serviceProvider.GetRequiredService<IDbConnectionProvider>().GetDbConnection(serviceProvider.GetService<AppEnvironment>().GetConfig<string>("AppConnectionString"), rollbackOnScopeStatusFailure: true));
+            });
             dependencyManager.RegisterRepository(typeof(EfCoreRepository<>).GetTypeInfo());
 
             dependencyManager.RegisterDtoEntityMapper();
