@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 using ToDoLine.Dto;
 using ToDoLine.Model;
 
@@ -63,7 +64,7 @@ namespace ToDoLine.Controller
 
         [Create]
         [SwaggerRequestExample(typeof(ToDoItemDto), typeof(ToDoItemDtoCreateExamplesProvider), jsonConverter: typeof(StringEnumConverter))]
-        public virtual async Task<ToDoItemDto> CreateToDoItem(ToDoItemDto toDoItem, CancellationToken cancellationToken)
+        public virtual async Task<SingleResult<ToDoItemDto>> CreateToDoItem(ToDoItemDto toDoItem, CancellationToken cancellationToken)
         {
             if (toDoItem == null)
                 throw new BadRequestException("ToDoItemMayNotBeNull");
@@ -104,8 +105,7 @@ namespace ToDoLine.Controller
                 Options = optionsList
             }, cancellationToken);
 
-            return await GetMyToDoItems()
-                .FirstAsync(tdi => tdi.Id == addedToDoItem.Id, cancellationToken);
+            return SingleResult(GetMyToDoItems().Where(tdi => tdi.Id == addedToDoItem.Id));
         }
 
         public class UpdateToDoItemExamplesProvider : IExamplesProvider
@@ -127,7 +127,7 @@ namespace ToDoLine.Controller
 
         [PartialUpdate]
         [SwaggerRequestExample(typeof(ToDoItemDto), typeof(UpdateToDoItemExamplesProvider), jsonConverter: typeof(StringEnumConverter))]
-        public virtual async Task<ToDoItemDto> UpdateToDoItem(Guid key, ToDoItemDto toDoItem, CancellationToken cancellationToken)
+        public virtual async Task<SingleResult<ToDoItemDto>> UpdateToDoItem(Guid key, ToDoItemDto toDoItem, CancellationToken cancellationToken)
         {
             if (toDoItem == null)
                 throw new BadRequestException("ToDoItemCouldNotBeNull");
@@ -172,8 +172,7 @@ namespace ToDoLine.Controller
             await ToDoItemsRepository.UpdateAsync(toDoItemToBeModified, cancellationToken);
             await ToDoItemOptionsListRepository.UpdateAsync(toDoItemOptionsToBeModified, cancellationToken);
 
-            return await GetMyToDoItems()
-                .FirstAsync(tdi => tdi.Id == key, cancellationToken);
+            return SingleResult(GetMyToDoItems().Where(tdi => tdi.Id == key));
         }
 
         [Delete]

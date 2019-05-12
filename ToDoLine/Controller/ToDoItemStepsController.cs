@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 using ToDoLine.Dto;
 using ToDoLine.Model;
 
@@ -36,11 +37,11 @@ namespace ToDoLine.Controller
 
         [Create]
         [SwaggerRequestExample(typeof(ToDoItemStepDto), typeof(ToDoItemStepDtoCreateExamplesProvider), jsonConverter: typeof(StringEnumConverter))]
-        public virtual async Task<ToDoItemStepDto> CreateToDoItemSteps(ToDoItemStepDto toDoItemStep, CancellationToken cancellationToken)
+        public virtual async Task<SingleResult<ToDoItemStepDto>> CreateToDoItemSteps(ToDoItemStepDto toDoItemStep, CancellationToken cancellationToken)
         {
             ToDoItemStep addedToDoItemStep = await ToDoItemStepsRepository.AddAsync(ToDoItemStepMapper.FromDtoToEntity(toDoItemStep), cancellationToken);
 
-            return ToDoItemStepMapper.FromEntityToDto(addedToDoItemStep);
+            return SingleResult(ToDoItemStepMapper.FromEntityToDto(addedToDoItemStep));
         }
 
 
@@ -54,9 +55,9 @@ namespace ToDoLine.Controller
 
         [PartialUpdate]
         [SwaggerRequestExample(typeof(ToDoItemStepDto), typeof(ToDoItemStepDtoUpdateExamplesProvider), jsonConverter: typeof(StringEnumConverter))]
-        public virtual async Task<ToDoItemStepDto> UpdateToDoItemSteps(Guid Key, ToDoItemStepDto toDoItemStep, CancellationToken cancellationToken)
+        public virtual async Task<SingleResult<ToDoItemStepDto>> UpdateToDoItemSteps(Guid key, ToDoItemStepDto toDoItemStep, CancellationToken cancellationToken)
         {
-            ToDoItemStep updatedToDoItemSteps = await ToDoItemStepsRepository.GetByIdAsync(cancellationToken, Key);
+            ToDoItemStep updatedToDoItemSteps = await ToDoItemStepsRepository.GetByIdAsync(cancellationToken, key);
 
             if (updatedToDoItemSteps == null)
                 throw new BadRequestException("ToDoItemStepMayBeNull");
@@ -66,7 +67,7 @@ namespace ToDoLine.Controller
 
             await ToDoItemStepsRepository.UpdateAsync(updatedToDoItemSteps, cancellationToken);
 
-            return ToDoItemStepMapper.FromEntityToDto(updatedToDoItemSteps);
+            return SingleResult(ToDoItemStepMapper.FromEntityToDto(updatedToDoItemSteps));
         }
 
         [Delete]
