@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http;
 using ToDoLine.Dto;
 using ToDoLine.Enum;
 using ToDoLine.Model;
@@ -56,7 +57,7 @@ namespace ToDoLine.Controller
         }
 
         [Action]
-        public virtual async Task<ToDoGroupDto> CreateToDoGroup(CreateToDoGroupArgs args, CancellationToken cancellationToken)
+        public virtual async Task<SingleResult<ToDoGroupDto>> CreateToDoGroup(CreateToDoGroupArgs args, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(args.title))
                 throw new BadRequestException("TitleMayNotBeEmpty");
@@ -83,8 +84,7 @@ namespace ToDoLine.Controller
                 }
             }, cancellationToken);
 
-            return await GetMyToDoGroups()
-                .FirstAsync(tdg => tdg.Id == addedToDoGroup.Id, cancellationToken);
+            return SingleResult(GetMyToDoGroups().Where(tdg => tdg.Id == addedToDoGroup.Id));
         }
 
         public class UpdateToDoGroupExamplesProvider : IExamplesProvider
@@ -103,7 +103,7 @@ namespace ToDoLine.Controller
 
         [PartialUpdate]
         [SwaggerRequestExample(typeof(ToDoGroupDto), typeof(UpdateToDoGroupExamplesProvider), jsonConverter: typeof(StringEnumConverter))]
-        public virtual async Task<ToDoGroupDto> UpdateToDoGroup(Guid key, ToDoGroupDto toDoGroup, CancellationToken cancellationToken)
+        public virtual async Task<SingleResult<ToDoGroupDto>> UpdateToDoGroup(Guid key, ToDoGroupDto toDoGroup, CancellationToken cancellationToken)
         {
             if (toDoGroup == null)
                 throw new BadRequestException("ToDoGroupMayNotBeNull");
@@ -131,8 +131,7 @@ namespace ToDoLine.Controller
             await ToDoGroupsRepository.UpdateAsync(toDoGroupToBeModified, cancellationToken);
             await ToDoGroupOptionsListRepository.UpdateAsync(toDoGroupOptionsToBeModified, cancellationToken);
 
-            return await GetMyToDoGroups()
-                .FirstAsync(tdg => tdg.Id == key, cancellationToken);
+            return SingleResult(GetMyToDoGroups().Where(tdg => tdg.Id == key));
         }
 
         [Delete]
@@ -159,7 +158,7 @@ namespace ToDoLine.Controller
         }
 
         [Action]
-        public virtual async Task<ToDoGroupDto> ShareToDoGroupWithAnotherUser(ShareToDoGroupWithAnotherUserArgs args, CancellationToken cancellationToken)
+        public virtual async Task<SingleResult<ToDoGroupDto>> ShareToDoGroupWithAnotherUser(ShareToDoGroupWithAnotherUserArgs args, CancellationToken cancellationToken)
         {
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
@@ -198,7 +197,7 @@ namespace ToDoLine.Controller
                 }, cancellationToken);
             }
 
-            return await GetMyToDoGroups().FirstAsync(tdg => tdg.Id == args.toDoGroupId, cancellationToken);
+            return SingleResult(GetMyToDoGroups().Where(tdg => tdg.Id == args.toDoGroupId));
         }
 
         public class KickAnotherUserFromMyToDoGroupArge

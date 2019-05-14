@@ -17,22 +17,17 @@ namespace ToDoLine.Controller
 
         public virtual IDateTimeProvider DateTimeProvider { get; set; }
 
-        public class RegisterArgs
-        {
-            public UserRegistrationDto userInfo { get; set; }
-        }
-
         [Action]
         [AllowAnonymous]
-        public virtual async Task Register(RegisterArgs args, CancellationToken cancellationToken)
+        public virtual async Task Register(UserRegistrationDto userInfo, CancellationToken cancellationToken)
         {
             Guid newUserId = Guid.NewGuid();
 
             await UsersRepository.AddAsync(new User
             {
                 Id = newUserId,
-                Password = HashUtility.Hash(args.userInfo.Password),
-                UserName = args.userInfo.UserName
+                Password = HashUtility.Hash(userInfo.Password),
+                UserName = userInfo.UserName
             }, cancellationToken);
         }
     }

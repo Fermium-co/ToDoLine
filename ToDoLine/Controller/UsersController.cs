@@ -31,7 +31,7 @@ namespace ToDoLine.Controller
         {
             Guid userId = Guid.Parse(UserInformationProvider.GetCurrentUserId());
 
-            return SingleResult.Create(GetAllUsers()
+            return SingleResult(GetAllUsers()
                 .Where(u => u.Id == userId));
         }
     }

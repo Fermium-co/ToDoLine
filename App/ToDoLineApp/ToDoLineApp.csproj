@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BitCodeAnalyzer" Version="2.2.0" />
-    <PackageReference Include="Fody" Version="5.0.1">
+    <PackageReference Include="BitCodeAnalyzer" Version="2.3.0" />
+    <PackageReference Include="Fody" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -20,14 +20,14 @@
 
     <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
 
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.42" />
-    <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.1.0.42" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.1.0.42" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.1.0.42" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.44" />
+    <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.1.0.44" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.1.0.44" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.1.0.44" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
-    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.5.922" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.9.961" />
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
-    <PackageReference Include="Bit.CSharpClient.OData" Version="2.2.0" />
+    <PackageReference Include="Bit.CSharpClient.OData" Version="2.3.0" />
 
     <PackageReference Include="Xamarin.LiveReload" Version="0.3.27" Condition=" '$(Configuration)' == 'Debug' " />
     <PackageReference Include="LiveXAML" Version="2.1.72" Condition=" '$(Configuration)' == 'Debug' " />
