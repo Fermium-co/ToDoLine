@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<bit:BitApplication
+<bitPrism:BitApplication
+    xmlns:bitPrism="clr-namespace:Bit;assembly=Bit.CSharpClient.Prism"
     x:Class="ToDoLineApp.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:bit="clr-namespace:Bit;assembly=Bit.CSharpClient.Prism"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms">
-    <!-- Don't use xmlns:bit="https://bit-framework.com" in App.xaml. Using that in other xaml files is fine. -->
-    <!-- Don't forget to call BitCSharpClientControls.XamlInit(); in your project. -->
-    <bit:BitApplication.Resources>
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:bit="https://bit-framework.com">
+    <bitPrism:BitApplication.Resources>
         <ResourceDictionary>
             <Style TargetType="StackLayout">
                 <Setter Property="Spacing" Value="0" />
@@ -34,5 +33,5 @@
                 <Setter Property="ContainerBackgroundColor" Value="Transparent" />
             </Style>
         </ResourceDictionary>
-    </bit:BitApplication.Resources>
-</bit:BitApplication>
+    </bitPrism:BitApplication.Resources>
+</bitPrism:BitApplication>
