@@ -2,13 +2,13 @@
 using Autofac;
 using Bit;
 using Bit.Model.Events;
+using Bit.View;
 using Bit.ViewModel.Contracts;
 using Bit.ViewModel.Implementations;
 using FFImageLoading;
 using FFImageLoading.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Prism;
-using Prism.Autofac;
 using Prism.Events;
 using Prism.Ioc;
 using System;
@@ -49,6 +49,7 @@ namespace ToDoLineApp
 #if DEBUG
             Xamarin.Forms.Internals.Log.Listeners.Add(new Xamarin.Forms.Internals.DelegateLogListener((category, message) => throw new Exception($"{category} {message}")));
 #endif
+            BitCSharpClientControls.XamlInit();
         }
 
         public new static App Current
@@ -64,9 +65,6 @@ namespace ToDoLineApp
         public App(IPlatformInitializer platformInitializer)
             : base(platformInitializer)
         {
-#if DEBUG
-            LiveReload.Init();
-#endif
         }
 
         protected async override Task OnInitializedAsync()
