@@ -23,7 +23,7 @@
     "rxjs": "~6.5.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1",
-    "@bit/bit-framework": "^2.5.0",
+    "@bit/bit-framework": "^2.6.0",
     "@bit/jaydata": "^1.5.20"
   },
   "devDependencies": {
