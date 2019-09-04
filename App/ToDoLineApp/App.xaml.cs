@@ -47,7 +47,7 @@ namespace ToDoLineApp
         static App()
         {
 #if DEBUG
-            Xamarin.Forms.Internals.Log.Listeners.Add(new Xamarin.Forms.Internals.DelegateLogListener((category, message) => throw new Exception($"{category} {message}")));
+            Xamarin.Forms.Internals.Log.Listeners.Add(new Xamarin.Forms.Internals.DelegateLogListener((category, message) => Console.WriteLine($"{category} {message}")));
 #endif
             BitCSharpClientControls.XamlInit();
         }
