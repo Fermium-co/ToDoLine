@@ -120,7 +120,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.848062" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991221" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ToDoLineApp\ToDoLineApp.csproj">

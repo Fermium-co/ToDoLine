@@ -1,12 +1,23 @@
-﻿using Bit.Data.EntityFrameworkCore.Implementations;
+﻿using Bit.Core.Implementations;
+using Bit.Data.EntityFrameworkCore.Implementations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using ToDoLine.Model;
 
 namespace ToDoLine.Data
 {
+    public class ToDoLineDbContextFactory : IDesignTimeDbContextFactory<ToDoLineDbContext>
+    {
+        public ToDoLineDbContext CreateDbContext(string[] args)
+        {
+            return new ToDoLineDbContext(new DbContextOptionsBuilder<ToDoLineDbContext>()
+                .UseSqlServer(connectionString: DefaultAppEnvironmentsProvider.Current.GetActiveAppEnvironment().GetConfig<string>("AppConnectionString")).Options);
+        }
+    }
+
     public class ToDoLineDbContext : EfCoreDbContextBase
     {
-        public ToDoLineDbContext(DbContextOptions<ToDoLineDbContext> options) 
+        public ToDoLineDbContext(DbContextOptions<ToDoLineDbContext> options)
             : base(options)
         {
         }
