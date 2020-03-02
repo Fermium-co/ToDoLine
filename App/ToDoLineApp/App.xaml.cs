@@ -14,6 +14,7 @@ using Prism.Ioc;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Prism.Services;
 using ToDoLineApp.Contracts;
 using ToDoLineApp.Implementations;
 using ToDoLineApp.ViewModels;
@@ -110,7 +111,7 @@ namespace ToDoLineApp
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri("http://192.168.50.87:53200/"),
+                HostUri = new Uri(Device.RuntimePlatform == DeviceService.Android ? "http://10.0.2.2:53200/" : "http://localhost:53200/"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
             }).SingleInstance();
