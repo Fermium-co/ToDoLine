@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoLineApp", "App\ToDoLine
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{00976895-0f23-43ca-823f-890ad20ce5e8}*SharedItemsImports = 5
+		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{4f250618-193a-4142-badc-ff9058eb9a67}*SharedItemsImports = 5
 		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{d5b119b5-872b-4313-ba61-29d00315edc0}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

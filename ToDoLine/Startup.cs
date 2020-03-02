@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Reflection;
+using ToDoLine.Controller;
 using ToDoLine.Data;
 using ToDoLine.Security;
 
@@ -121,6 +122,7 @@ namespace ToDoLine
 
             dependencyManager.RegisterDtoEntityMapper();
             dependencyManager.RegisterMapperConfiguration<DefaultMapperConfiguration>();
+            dependencyManager.RegisterMapperConfiguration<ToDoLineMapperConfiguration>();
 
             dependencyManager.RegisterSingleSignOnServer<ToDoLineUserService, ToDoLineClientsProvider>();
 
