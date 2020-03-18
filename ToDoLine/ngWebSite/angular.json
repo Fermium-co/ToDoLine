@@ -30,13 +30,13 @@
               "src/styles.less"
             ],
             "scripts": [
-              "node_modules/@bit/bit-framework/bit.core.js",
+              "node_modules/@bit/bitframework/bit.core.js",
               "node_modules/@bit/jaydata/jaydata.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/oDataProvider.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/SqLiteProvider.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/InMemoryProvider.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/IndexedDbProvider.min.js",
-              "node_modules/@bit/bit-framework/Bit.Model.Context.js",
+              "node_modules/@bit/bitframework/Bit.Model.Context.js",
               "src/app/ToDoLine.Model.Context.js"
             ]
           },
@@ -95,13 +95,13 @@
               "src/styles.less"
             ],
             "scripts": [
-              "node_modules/@bit/bit-framework/bit.core.js",
+              "node_modules/@bit/bitframework/bit.core.js",
               "node_modules/@bit/jaydata/jaydata.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/oDataProvider.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/SqLiteProvider.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/InMemoryProvider.min.js",
               "node_modules/@bit/jaydata/jaydataproviders/IndexedDbProvider.min.js",
-              "node_modules/@bit/bit-framework/Bit.Model.Context.js",
+              "node_modules/@bit/bitframework/Bit.Model.Context.js",
               "src/app/ToDoLine.Model.Context.js"
             ],
             "assets": [

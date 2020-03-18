@@ -21,6 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoLineApp.UWP", "App\ToDo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoLineApp", "App\ToDoLineApp\ToDoLineApp.csproj", "{00976895-0F23-43CA-823F-890AD20CE5E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D2B763F-2E6E-4E27-8F39-18E61B38C613}"
+	ProjectSection(SolutionItems) = preProject
+		BitConfig.json = BitConfig.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{00976895-0f23-43ca-823f-890ad20ce5e8}*SharedItemsImports = 5

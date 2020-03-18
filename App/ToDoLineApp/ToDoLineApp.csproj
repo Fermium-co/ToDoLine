@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BitCodeAnalyzer" Version="3.9.0" />
+    <PackageReference Include="BitCodeAnalyzer" Version="3.9.1" />
     <PackageReference Include="Fody" Version="6.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -20,12 +20,12 @@
 
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.440" />
 
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.4.0.51" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.4.0.51" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.4.0.51" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.4.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.4.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.4.0.55" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
-    <PackageReference Include="Bit.CSharpClient.OData" Version="3.9.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
+    <PackageReference Include="Bit.CSharpClient.OData" Version="3.9.1" />
   </ItemGroup>
 
   <ItemGroup>

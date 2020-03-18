@@ -23,8 +23,8 @@
     "rxjs": "~6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2",
-    "@bit/bit-framework": "^2.9.0",
-    "@bit/jaydata": "^1.5.20"
+    "@bit/bitframework": "^3.9.1",
+    "@bit/jaydata": "^1.5.22"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.2",

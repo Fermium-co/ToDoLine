@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <bitPrism:BitApplication
-    xmlns:bitPrism="clr-namespace:Bit;assembly=Bit.CSharpClient.Prism"
     x:Class="ToDoLineApp.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bit="https://bitframework.com"
+    xmlns:bitPrism="clr-namespace:Bit;assembly=Bit.CSharpClient.Prism"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:bit="https://bit-framework.com">
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms">
     <bitPrism:BitApplication.Resources>
         <ResourceDictionary>
             <Style TargetType="StackLayout">

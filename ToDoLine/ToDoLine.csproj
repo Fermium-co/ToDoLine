@@ -12,19 +12,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Next" Version="3.2.1" />
-    <PackageReference Include="Bit.Data.EntityFrameworkCore" Version="3.9.0" />
-    <PackageReference Include="Bit.IdentityServer" Version="3.9.0" />
-    <PackageReference Include="Bit.OData" Version="3.9.0" />
-    <PackageReference Include="Bit.OwinCore" Version="3.9.0" />
-    <PackageReference Include="BitCodeAnalyzer" Version="3.9.0" />
+    <PackageReference Include="BCrypt.Net-Next" Version="3.3.3" />
+    <PackageReference Include="Bit.Data.EntityFrameworkCore" Version="3.9.1" />
+    <PackageReference Include="Bit.IdentityServer" Version="3.9.1" />
+    <PackageReference Include="Bit.OData" Version="3.9.1" />
+    <PackageReference Include="Bit.OwinCore" Version="3.9.1" />
+    <PackageReference Include="BitCodeAnalyzer" Version="3.9.1" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
-    <PackageReference Include="BitCodeGeneratorTask" Version="3.9.0" />
+    <PackageReference Include="BitCodeGeneratorTask" Version="3.9.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
