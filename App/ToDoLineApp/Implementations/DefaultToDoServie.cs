@@ -1,5 +1,5 @@
-﻿using Bit.Model;
-using Bit.ViewModel.Contracts;
+﻿using Bit.Core.Contracts;
+using Bit.Core.Models;
 using Simple.OData.Client;
 using System;
 using System.Collections.Generic;

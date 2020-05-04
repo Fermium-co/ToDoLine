@@ -1,7 +1,7 @@
-﻿using Bit.Core.Contracts;
+﻿using Bit.Core.Exceptions;
+using Bit.Core.Models;
 using Bit.Data.Contracts;
 using Bit.IdentityServer.Implementations;
-using Bit.Owin.Exceptions;
 using IdentityServer3.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;

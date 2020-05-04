@@ -17,7 +17,6 @@ namespace ToDoLine.Test
         {
             args = args ?? new TestEnvironmentArgs();
             args.CustomAppModulesProvider = args.CustomAppModulesProvider ?? new ToDoLineAppModulesProvider();
-            args.UseAspNetCore = true;
             return args;
         }
 

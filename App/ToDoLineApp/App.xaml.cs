@@ -1,10 +1,7 @@
 ﻿using Acr.UserDialogs;
 using Autofac;
 using Bit;
-using Bit.Model.Events;
 using Bit.View;
-using Bit.ViewModel.Contracts;
-using Bit.ViewModel.Implementations;
 using FFImageLoading;
 using FFImageLoading.Helpers;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +18,10 @@ using ToDoLineApp.ViewModels;
 using ToDoLineApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Bit.Core.Models.Events;
+using Bit.Http.Contracts;
+using Bit.Core.Contracts;
+using Bit.Core.Implementations;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -101,7 +102,7 @@ namespace ToDoLineApp
             await base.OnInitializedAsync();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
+        protected override void RegisterTypes(IDependencyManager dependencyManager, IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
         {
             containerRegistry.RegisterForNav<NavigationPage>("Nav");
             containerRegistry.RegisterForNav<MasterView, MasterViewModel>("Master");
@@ -116,15 +117,15 @@ namespace ToDoLineApp
                 AppName = "ToDoLine",
             }).SingleInstance();
 
-            containerBuilder.RegisterRequiredServices();
-            containerBuilder.RegisterHttpClient();
-            containerBuilder.RegisterODataClient();
-            containerBuilder.RegisterIdentityClient();
+            dependencyManager.RegisterRequiredServices();
+            dependencyManager.RegisterHttpClient();
+            dependencyManager.RegisterODataClient();
+            dependencyManager.RegisterIdentityClient();
 
             containerBuilder.Register(c => UserDialogs.Instance).SingleInstance();
-            containerBuilder.RegisterType<DefaultToDoServie>().As<IToDoService>().PropertiesAutowired(PropertyWiringOptions.PreserveSetValues).SingleInstance();
+            dependencyManager.Register<IToDoService, DefaultToDoServie>(lifeCycle: DependencyLifeCycle.SingleInstance);
 
-            base.RegisterTypes(containerRegistry, containerBuilder, services);
+            base.RegisterTypes(dependencyManager, containerRegistry, containerBuilder, services);
         }
     }
 }
