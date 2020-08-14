@@ -9,17 +9,9 @@
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms">
     <bitPrism:BitApplication.Resources>
         <ResourceDictionary>
-            <Style TargetType="StackLayout">
-                <Setter Property="Spacing" Value="0" />
-            </Style>
-            <Style TargetType="Grid">
-                <Setter Property="RowSpacing" Value="0" />
-                <Setter Property="ColumnSpacing" Value="0" />
-            </Style>
-            <Style TargetType="Frame">
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <bit:BitGlobalStyles />
+            </ResourceDictionary.MergedDictionaries>
             <Style TargetType="ffImage:CachedImage">
                 <Setter Property="IsOpaque" Value="True" />
                 <Setter Property="BitmapOptimizations" Value="True" />
