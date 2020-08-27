@@ -22,6 +22,7 @@ using Bit.Core.Models.Events;
 using Bit.Http.Contracts;
 using Bit.Core.Contracts;
 using Bit.Core.Implementations;
+using Xamarin.Essentials;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -110,9 +111,11 @@ namespace ToDoLineApp
             containerRegistry.RegisterForNav<LoginView, LoginViewModel>("Login");
             containerRegistry.RegisterForNav<ToDoItemsView, ToDoItemsViewModel>("ToDoItems");
 
+            const string developerMachineIp = "192.168.43.153";
+
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri(Device.RuntimePlatform == DeviceService.Android ? "http://10.0.2.2:53200/" : "http://localhost:53200/"),
+                HostUri = new Uri((Device.RuntimePlatform == Device.Android && Xamarin.Essentials.DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:53200" : Device.RuntimePlatform == Device.UWP ? "http://127.0.0.1:53200" : $"http://{developerMachineIp}:53200"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
             }).SingleInstance();
