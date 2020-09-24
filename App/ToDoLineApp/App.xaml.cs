@@ -23,6 +23,7 @@ using Bit.Http.Contracts;
 using Bit.Core.Contracts;
 using Bit.Core.Implementations;
 using Xamarin.Essentials;
+using Simple.OData.Client;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -122,7 +123,7 @@ namespace ToDoLineApp
 
             dependencyManager.RegisterRequiredServices();
             dependencyManager.RegisterHttpClient();
-            dependencyManager.RegisterODataClient();
+            dependencyManager.RegisterODataClient((serviceProvider, settings) => settings.MetadataDocument = ToDoLineMetadata.MetadataString);
             dependencyManager.RegisterIdentityClient();
 
             containerBuilder.Register(c => UserDialogs.Instance).SingleInstance();

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Bit.Core.Implementations;
 using Bit.ViewModel.Implementations;
 using Prism.Autofac;
 using Prism.Ioc;
@@ -11,6 +12,10 @@ namespace ToDoLineApp.UWP
         public MainPage()
         {
             InitializeComponent();
+
+#if DEBUG
+            DebugTelemetryService.Current.Init();
+#endif
 
             SfListViewRenderer.Init();
 
