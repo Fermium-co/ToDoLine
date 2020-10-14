@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bit.Client.Xamarin.Prism" Version="5.9.3" />
-    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="5.9.3" />
-    <PackageReference Include="Bit.Universal.Model" Version="5.9.3" />
+    <PackageReference Include="Bit.Client.Xamarin.Prism" Version="6.2.0" />
+    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="6.2.0" />
+    <PackageReference Include="Bit.Universal.Model" Version="6.2.0" />
     <PackageReference Include="Fody" Version="6.2.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -22,12 +22,12 @@
 
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.454" />
 
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.2.0.59" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.3.0.40" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.3.0.40" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
-    <PackageReference Include="Bit.Universal.OData" Version="5.9.3" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1534" />
+    <PackageReference Include="Bit.Universal.OData" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>
