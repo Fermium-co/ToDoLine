@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoLine", "ToDoLine\ToDoLine.csproj", "{4F250618-193A-4142-BADC-FF9058EB9A67}"
 EndProject
@@ -13,11 +13,12 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ToDoLine.Dto", "Shared\ToDo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BitConfiguration", "BitConfiguration", "{6C71C834-2CCA-49E9-9DBC-AF70EECF798D}"
 	ProjectSection(SolutionItems) = preProject
-		BitConfigV1.json = BitConfigV1.json
+		BitConfig.json = BitConfig.json
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{4f250618-193a-4142-badc-ff9058eb9a67}*SharedItemsImports = 5
 		Shared\ToDoLine.Dto\ToDoLine.Dto.projitems*{d5b119b5-872b-4313-ba61-29d00315edc0}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

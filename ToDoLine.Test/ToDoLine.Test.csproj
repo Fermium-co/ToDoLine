@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bit.Server.Test" Version="6.3.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0-preview-20200812-03" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
@@ -28,4 +27,11 @@
   <ItemGroup>
     <ProjectReference Include="..\ToDoLine\ToDoLine.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup Label="Bit Packages">
+    <PackageReference Include="Bit.Server.Test" Version="$(BitVersion)" />
+  </ItemGroup>
+  
+  
 </Project>

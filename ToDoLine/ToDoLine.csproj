@@ -13,18 +13,11 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.0" />
-    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="6.3.0" />
-    <PackageReference Include="Bit.Server.IdentityServer" Version="6.3.0" />
-    <PackageReference Include="Bit.Server.OData" Version="6.3.0" />
-    <PackageReference Include="Bit.Server.Owin" Version="6.3.0" />
-    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="6.3.0" />
-    <PackageReference Include="Bit.Universal.AutoMapper" Version="6.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-rc.1.20451.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-rc.1.20451.13" />
-    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="6.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0-rc.1.20451.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -33,4 +26,15 @@
 
   <Import Project="..\Shared\ToDoLine.Dto\ToDoLine.Dto.projitems" Label="Shared" />
 
+  
+  <ItemGroup Label="Bit Packages">
+    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="$(BitVersion)" />
+    <PackageReference Include="Bit.Server.IdentityServer" Version="$(BitVersion)" />
+    <PackageReference Include="Bit.Server.OData" Version="$(BitVersion)" />
+    <PackageReference Include="Bit.Server.Owin" Version="$(BitVersion)" />
+    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="$(BitVersion)" />
+    <PackageReference Include="Bit.Universal.AutoMapper" Version="$(BitVersion)" />
+    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="$(BitVersion)" />
+  </ItemGroup>
+  
 </Project>
