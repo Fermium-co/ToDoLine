@@ -1,6 +1,6 @@
 ﻿using Acr.UserDialogs;
+using Bit.Http.Contracts;
 using Bit.ViewModel;
-using Bit.ViewModel.Contracts;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Threading;

@@ -1,6 +1,6 @@
-/// <reference path="../../node_modules/@bit/bit-framework/bit.core.d.ts" />
-/// <reference path="../../node_modules/@bit/bit-framework/bit.model.context.d.ts" />
-/// <reference path="../../node_modules/@bit/bit-framework/bit.core.declarations.d.ts" />
+/// <reference path="../../node_modules/@bit/bitframework/bit.core.d.ts" />
+/// <reference path="../../node_modules/@bit/bitframework/bit.model.context.d.ts" />
+/// <reference path="../../node_modules/@bit/bitframework/bit.core.declarations.d.ts" />
 /// <reference path="../../node_modules/@bit/jaydata/jaydata.d.ts" />
 
 export const SecurityService = new Bit.Implementations.DefaultSecurityService();

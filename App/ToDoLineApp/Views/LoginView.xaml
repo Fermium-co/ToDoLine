@@ -8,7 +8,7 @@
     xmlns:res="clr-namespace:ToDoLineApp.Resources"
     xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
     xmlns:vm="clr-namespace:ToDoLineApp.ViewModels"
-    xmlns:bit="clr-namespace:Bit.View;assembly=Bit.CSharpClient.Prism"
+    xmlns:bit="https://bitframework.com"
     x:DataType="vm:LoginViewModel"
     NavigationPage.HasNavigationBar="False">
     <StackLayout Padding="5">

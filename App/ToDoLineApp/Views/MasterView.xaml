@@ -3,13 +3,12 @@
     x:Class="ToDoLineApp.Views.MasterView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:bitViewProps="clr-namespace:Bit.View.Props;assembly=Bit.CSharpClient.Prism"
+    xmlns:prism="http://prismlibrary.com"
     xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
-    xmlns:view="clr-namespace:ToDoLineApp.Views"
     x:Name="master">
     <MasterDetailPage.Master>
         <ContentPage Title="{x:Static strRes:Strings.ToDoLine}">
-            <view:MenuView bitViewProps:PartialViewProps.PartialViewParentPage="{x:Reference master}" />
+            <ContentView prism:RegionManager.RegionName="MenuRegion" />
         </ContentPage>
     </MasterDetailPage.Master>
 </MasterDetailPage>

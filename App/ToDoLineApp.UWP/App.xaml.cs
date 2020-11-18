@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ToDoLineApp.UWP
 {
-    sealed partial class App : Bit.UWP.BitApplication
+    sealed partial class App
     {
         static App()
         {

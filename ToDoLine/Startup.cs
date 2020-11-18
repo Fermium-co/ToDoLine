@@ -7,16 +7,17 @@ using Bit.Data.EntityFrameworkCore.Implementations;
 using Bit.Model.Implementations;
 using Bit.OData.ActionFilters;
 using Bit.OData.Contracts;
+using Bit.Owin;
 using Bit.Owin.Implementations;
-using Bit.OwinCore;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Reflection;
+using ToDoLine.Controller;
 using ToDoLine.Data;
 using ToDoLine.Security;
 
@@ -121,12 +122,11 @@ namespace ToDoLine
 
             dependencyManager.RegisterDtoEntityMapper();
             dependencyManager.RegisterMapperConfiguration<DefaultMapperConfiguration>();
+            dependencyManager.RegisterMapperConfiguration<ToDoLineMapperConfiguration>();
 
             dependencyManager.RegisterSingleSignOnServer<ToDoLineUserService, ToDoLineClientsProvider>();
 
             dependencyManager.RegisterIndexPageMiddlewareUsingDefaultConfiguration();
-
-            dependencyManager.RegisterAppEvents<RunMigrationsAppEvent>();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Bit.Core.Contracts;
+using Bit.Core.Exceptions;
 using Bit.Data.Contracts;
 using Bit.OData.ODataControllers;
-using Bit.Owin.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Converters;
 using Swashbuckle.Examples;

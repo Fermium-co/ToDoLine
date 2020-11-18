@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -11,26 +11,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BitCodeAnalyzer" Version="2.3.0" />
-    <PackageReference Include="Fody" Version="5.0.5">
+    <PackageReference Include="Bit.Client.Xamarin.Prism" Version="6.3.0" />
+    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="6.3.0" />
+    <PackageReference Include="Bit.Universal.Model" Version="6.3.0" />
+    <PackageReference Include="Fody" Version="6.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="3.0.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.2.10" />
 
-    <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.462" />
 
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.44" />
-    <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.1.0.44" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.1.0.44" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.1.0.44" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
-    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.9.961" />
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
-    <PackageReference Include="Bit.CSharpClient.OData" Version="2.3.0" />
-
-    <PackageReference Include="Xamarin.LiveReload" Version="0.3.27" Condition=" '$(Configuration)' == 'Debug' " />
-    <PackageReference Include="LiveXAML" Version="2.1.72" Condition=" '$(Configuration)' == 'Debug' " />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.42" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.3.0.42" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.3.0.42" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1560" />
+    <PackageReference Include="Bit.Universal.OData" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,12 +47,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\ToDoLine\ToDoLine.csproj" ExcludeAssets="all">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
 
   <Import Project="..\..\Shared\ToDoLine.Dto\ToDoLine.Dto.projitems" Label="Shared" />

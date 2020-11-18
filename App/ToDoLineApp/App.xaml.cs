@@ -1,25 +1,29 @@
 ﻿using Acr.UserDialogs;
 using Autofac;
 using Bit;
-using Bit.Model.Events;
-using Bit.ViewModel.Contracts;
-using Bit.ViewModel.Implementations;
+using Bit.View;
 using FFImageLoading;
 using FFImageLoading.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Prism;
-using Prism.Autofac;
 using Prism.Events;
 using Prism.Ioc;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Prism.Services;
 using ToDoLineApp.Contracts;
 using ToDoLineApp.Implementations;
 using ToDoLineApp.ViewModels;
 using ToDoLineApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Bit.Core.Models.Events;
+using Bit.Http.Contracts;
+using Bit.Core.Contracts;
+using Bit.Core.Implementations;
+using Xamarin.Essentials;
+using Simple.OData.Client;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -47,8 +51,9 @@ namespace ToDoLineApp
         static App()
         {
 #if DEBUG
-            Xamarin.Forms.Internals.Log.Listeners.Add(new Xamarin.Forms.Internals.DelegateLogListener((category, message) => throw new Exception($"{category} {message}")));
+            Xamarin.Forms.Internals.Log.Listeners.Add(new Xamarin.Forms.Internals.DelegateLogListener((category, message) => Console.WriteLine($"{category} {message}")));
 #endif
+            BitCSharpClientControls.XamlInit();
         }
 
         public new static App Current
@@ -64,9 +69,6 @@ namespace ToDoLineApp
         public App(IPlatformInitializer platformInitializer)
             : base(platformInitializer)
         {
-#if DEBUG
-            LiveReload.Init();
-#endif
         }
 
         protected async override Task OnInitializedAsync()
@@ -102,30 +104,32 @@ namespace ToDoLineApp
             await base.OnInitializedAsync();
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
+        protected override void RegisterTypes(IDependencyManager dependencyManager, IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
         {
             containerRegistry.RegisterForNav<NavigationPage>("Nav");
             containerRegistry.RegisterForNav<MasterView, MasterViewModel>("Master");
-            containerRegistry.RegisterPartialView<MenuView, MenuViewModel>();
+            containerRegistry.RegisterForRegionNav<MenuView, MenuViewModel>("Menu");
             containerRegistry.RegisterForNav<LoginView, LoginViewModel>("Login");
             containerRegistry.RegisterForNav<ToDoItemsView, ToDoItemsViewModel>("ToDoItems");
 
+            const string developerMachineIp = "192.168.43.153";
+
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri("http://192.168.1.215:53200/"),
+                HostUri = new Uri((Device.RuntimePlatform == Device.Android && Xamarin.Essentials.DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:53200" : Device.RuntimePlatform == Device.UWP ? "http://127.0.0.1:53200" : $"http://{developerMachineIp}:53200"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
             }).SingleInstance();
 
-            containerBuilder.RegisterRequiredServices();
-            containerBuilder.RegisterHttpClient();
-            containerBuilder.RegisterODataClient();
-            containerBuilder.RegisterIdentityClient();
+            dependencyManager.RegisterRequiredServices();
+            dependencyManager.RegisterHttpClient();
+            dependencyManager.RegisterODataClient((serviceProvider, settings) => settings.MetadataDocument = ToDoLineMetadata.MetadataString);
+            dependencyManager.RegisterIdentityClient();
 
             containerBuilder.Register(c => UserDialogs.Instance).SingleInstance();
-            containerBuilder.RegisterType<DefaultToDoServie>().As<IToDoService>().PropertiesAutowired(PropertyWiringOptions.PreserveSetValues).SingleInstance();
+            dependencyManager.Register<IToDoService, DefaultToDoServie>(lifeCycle: DependencyLifeCycle.SingleInstance);
 
-            base.RegisterTypes(containerRegistry, containerBuilder, services);
+            base.RegisterTypes(dependencyManager, containerRegistry, containerBuilder, services);
         }
     }
 }

@@ -207,6 +207,8 @@ namespace ToDoLine.Migrations
                 table: "Users",
                 column: "UserName",
                 unique: true);
+
+            migrationBuilder.AllowSnapshotIsolation();
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
