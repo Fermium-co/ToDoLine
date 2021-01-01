@@ -108,7 +108,7 @@ namespace ToDoLineApp
         {
             containerRegistry.RegisterForNav<NavigationPage>("Nav");
             containerRegistry.RegisterForNav<MasterView, MasterViewModel>("Master");
-            containerRegistry.RegisterForRegionNav<MenuView, MenuViewModel>("Menu");
+            containerRegistry.RegisterPartialView<MenuView, MenuViewModel>();
             containerRegistry.RegisterForNav<LoginView, LoginViewModel>("Login");
             containerRegistry.RegisterForNav<ToDoItemsView, ToDoItemsViewModel>("ToDoItems");
 
