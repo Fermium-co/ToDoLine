@@ -1,9 +1,7 @@
-﻿using Bit.Core.Implementations;
-using Bit.Data.EntityFrameworkCore.Implementations;
+﻿using Bit.Data.EntityFrameworkCore.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 using ToDoLine.Model;
 using ToDoLine.Util;
 
@@ -18,10 +16,8 @@ namespace ToDoLine.Data
             Configuration ??= ToDoLineConfigurationProvider.GetConfiguration();
 
             return new ToDoLineDbContext(new DbContextOptionsBuilder<ToDoLineDbContext>()
-                .UseSqlServer(connectionString: DefaultAppEnvironmentsProvider.Current.GetActiveAppEnvironment().GetConfig<string>("AppConnectionString")).Options);
-        }
-
-       
+                .UseSqlServer(connectionString: Configuration.GetConnectionString("AppConnectionString")).Options);
+        }       
     }
 
     public class ToDoLineDbContext : EfCoreDbContextBase
