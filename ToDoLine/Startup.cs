@@ -77,7 +77,7 @@ namespace ToDoLine
 
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
-                aspNetCoreApp.UseResponseCompression(); // => It's not working fine with AllowSynchronousIO = false;
+                aspNetCoreApp.UseResponseCompression();
                 aspNetCoreApp.UseStaticFiles();
             });
 
