@@ -118,69 +118,69 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Cancel" xml:space="preserve">
-    <value />
+    <value>Cancel</value>
   </data>
   <data name="DoNotHaveAccountSignUp" xml:space="preserve">
-    <value />
+    <value>Don't have an account? Sign up.</value>
   </data>
   <data name="English" xml:space="preserve">
-    <value />
+    <value>English (United States)</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value />
+    <value>Error</value>
   </data>
   <data name="ForgotLoginDetails" xml:space="preserve">
-    <value />
+    <value>Forgotten your login details?</value>
   </data>
   <data name="GetHelpSignIn" xml:space="preserve">
-    <value />
+    <value>Get Help Signing In.</value>
   </data>
   <data name="GroupName" xml:space="preserve">
-    <value />
+    <value>Group Name</value>
   </data>
   <data name="Important" xml:space="preserve">
-    <value />
+    <value>Important</value>
   </data>
   <data name="InvalidUserNameAndOrPassword" xml:space="preserve">
-    <value />
+    <value>Invalid user name and or password</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value />
+    <value>Login</value>
   </data>
   <data name="LoginWithMicrosoftAccount" xml:space="preserve">
-    <value />
+    <value>Log in with Microsoft.</value>
   </data>
   <data name="MyDay" xml:space="preserve">
-    <value />
-  </data>
-  <data name="NewGroupName" xml:space="preserve">
-    <value />
+    <value>My Day</value>
   </data>
   <data name="NewGroup" xml:space="preserve">
-    <value />
+    <value>New To Do Group</value>
+  </data>
+  <data name="NewGroupName" xml:space="preserve">
+    <value>New To Do Group</value>
   </data>
   <data name="Or" xml:space="preserve">
-    <value />
+    <value>OR</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value />
+    <value>Password</value>
   </data>
   <data name="PasswordIsRequired" xml:space="preserve">
-    <value />
+    <value>Password is required</value>
   </data>
   <data name="Planned" xml:space="preserve">
-    <value />
+    <value>Planned</value>
   </data>
   <data name="ToDoItems" xml:space="preserve">
-    <value />
+    <value>To Do Items</value>
   </data>
   <data name="ToDoLine" xml:space="preserve">
-    <value />
+    <value>ToDo Line</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value />
+    <value>User name</value>
   </data>
   <data name="UserNameIsRequired" xml:space="preserve">
-    <value />
+    <value>User name is required</value>
   </data>
 </root>

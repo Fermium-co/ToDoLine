@@ -1,7 +1,5 @@
 ﻿using Acr.UserDialogs;
 using Bit.ViewModel;
-using FFImageLoading.Forms;
-using FFImageLoading.Forms.Platform;
 using Syncfusion.ListView.XForms.UWP;
 using Syncfusion.XForms.UWP.BadgeView;
 using Syncfusion.XForms.UWP.Buttons;
@@ -35,11 +33,8 @@ namespace ToDoLineApp.UWP
 
                 UseDefaultConfiguration();
 
-                CachedImageRenderer.Init();
-
                 Xamarin.Forms.Forms.Init(e, new Assembly[]
-                {   typeof(CachedImage).GetTypeInfo().Assembly,
-                    typeof(CachedImageRenderer).GetTypeInfo().Assembly,
+                {
                     typeof(SfTextInputLayoutRenderer).Assembly,
                     typeof(SfBadgeViewRenderer).GetTypeInfo().Assembly,
                     typeof(SfButtonRenderer).GetTypeInfo().Assembly,

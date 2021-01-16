@@ -6,8 +6,6 @@
     xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:dto="clr-namespace:ToDoLine.Dto"
-    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:res="clr-namespace:ToDoLineApp.Resources"
     xmlns:sfListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:strRes="clr-namespace:ToDoLineApp.Resources.Strings"
     xmlns:view="clr-namespace:ToDoLineApp.Views"
@@ -46,7 +44,11 @@
                     HorizontalOptions="FillAndExpand"
                     Text="{Binding ToDoService.User.UserName}"
                     VerticalTextAlignment="Center" />
-                <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Search}" VerticalOptions="CenterAndExpand" />
+                <Image
+                    HeightRequest="19"
+                    Source="search.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="19" />
             </StackLayout>
 
             <BoxView BackgroundColor="LightGray" HeightRequest="1" />
@@ -63,25 +65,37 @@
                         <StackLayout Padding="5,0">
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
-                                <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Day}" />
+                                <Image
+                                    HeightRequest="19"
+                                    Source="day.png"
+                                    WidthRequest="19" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.MyDay}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.MyDayToDoItemsCount}" />
                             </StackLayout>
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
-                                <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Star}" />
+                                <Image
+                                    HeightRequest="19"
+                                    Source="star.png"
+                                    WidthRequest="19" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.Important}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.ImportantToDoItemsCount}" />
                             </StackLayout>
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
-                                <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Planned}" />
+                                <Image
+                                    HeightRequest="19"
+                                    Source="planned.png"
+                                    WidthRequest="19" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.Planned}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.PlannedToDoItemsCount}" />
                             </StackLayout>
 
                             <StackLayout Style="{StaticResource ToDoGroupStackLayout}">
-                                <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.Task}" />
+                                <Image
+                                    HeightRequest="19"
+                                    Source="task.png"
+                                    WidthRequest="19" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{x:Static strRes:Strings.ToDoItems}" />
                                 <badge:SfBadgeView BadgeText="{Binding ToDoService.ToDoItemsWithoutToDoGroupCount}" />
                             </StackLayout>
@@ -102,7 +116,10 @@
                             Padding="5,0"
                             BorderColor="LightGray">
                             <StackLayout CompressedLayout.IsHeadless="False" Style="{StaticResource ToDoGroupStackLayout}">
-                                <ffImage:CachedImage res:ImageProps.FileName="{x:Static res:ImageNames.List}" />
+                                <Image
+                                    HeightRequest="19"
+                                    Source="list.png"
+                                    WidthRequest="19" />
                                 <Label Style="{StaticResource ToDoGroupLabel}" Text="{Binding Title}" />
                                 <badge:SfBadgeView BadgeText="{Binding Id, Converter={view:ToDoGroupIdToToDoItemsCountConverter}, ConverterParameter={x:Reference menuView}}" />
                             </StackLayout>

@@ -3,7 +3,6 @@ using Bit.Data.Contracts;
 using Bit.OData.ODataControllers;
 using System;
 using System.Linq;
-using System.Threading;
 using System.Web.Http;
 using ToDoLine.Dto;
 using ToDoLine.Model;

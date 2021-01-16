@@ -19,7 +19,7 @@ namespace ToDoLineApp.Resources.Strings {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -61,7 +61,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
             get {
@@ -70,7 +70,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Don&apos;t have an account? Sign up..
         /// </summary>
         public static string DoNotHaveAccountSignUp {
             get {
@@ -79,7 +79,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to English (United States).
         /// </summary>
         public static string English {
             get {
@@ -88,7 +88,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
             get {
@@ -97,7 +97,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Forgotten your login details?.
         /// </summary>
         public static string ForgotLoginDetails {
             get {
@@ -106,7 +106,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Get Help Signing In..
         /// </summary>
         public static string GetHelpSignIn {
             get {
@@ -115,7 +115,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Group Name.
         /// </summary>
         public static string GroupName {
             get {
@@ -124,7 +124,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Important.
         /// </summary>
         public static string Important {
             get {
@@ -133,7 +133,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Invalid user name and or password.
         /// </summary>
         public static string InvalidUserNameAndOrPassword {
             get {
@@ -142,7 +142,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
             get {
@@ -151,7 +151,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Log in with Microsoft..
         /// </summary>
         public static string LoginWithMicrosoftAccount {
             get {
@@ -160,7 +160,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to My Day.
         /// </summary>
         public static string MyDay {
             get {
@@ -169,7 +169,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to New To Do Group.
         /// </summary>
         public static string NewGroup {
             get {
@@ -178,7 +178,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to New To Do Group.
         /// </summary>
         public static string NewGroupName {
             get {
@@ -187,7 +187,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to OR.
         /// </summary>
         public static string Or {
             get {
@@ -196,7 +196,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
             get {
@@ -205,7 +205,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Password is required.
         /// </summary>
         public static string PasswordIsRequired {
             get {
@@ -214,7 +214,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Planned.
         /// </summary>
         public static string Planned {
             get {
@@ -223,7 +223,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to To Do Items.
         /// </summary>
         public static string ToDoItems {
             get {
@@ -232,7 +232,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ToDo Line.
         /// </summary>
         public static string ToDoLine {
             get {
@@ -241,7 +241,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to User name.
         /// </summary>
         public static string UserName {
             get {
@@ -250,7 +250,7 @@ namespace ToDoLineApp.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to User name is required.
         /// </summary>
         public static string UserNameIsRequired {
             get {

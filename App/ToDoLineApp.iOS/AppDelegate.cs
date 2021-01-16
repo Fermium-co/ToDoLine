@@ -2,7 +2,6 @@
 using Bit.iOS;
 using Bit.ViewModel;
 using Bit.ViewModel.Implementations;
-using FFImageLoading.Forms.Platform;
 using Foundation;
 using Prism.Autofac;
 using Prism.Ioc;
@@ -10,8 +9,10 @@ using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Buttons;
 using Syncfusion.XForms.iOS.TextInputLayout;
+using System.Threading.Tasks;
 using ToDoLineApp.Implementations;
 using UIKit;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ToDoLineApp.iOS
@@ -33,9 +34,19 @@ namespace ToDoLineApp.iOS
 
             SfListViewRenderer.Init();
 
-            CachedImageRenderer.Init();
-
             Forms.Init();
+
+            if (VersionTracking.IsFirstLaunchForCurrentVersion || VersionTracking.IsFirstLaunchForCurrentBuild
+#if DEBUG
+|| true
+#endif
+)
+            {
+                Task.Run(() =>
+                {
+                    Xamarin.Forms.Nuke.NukeController.ClearCache();
+                });
+            }
 
             LoadApplication(new App(new ToDoLinePlatformInitializer()));
 

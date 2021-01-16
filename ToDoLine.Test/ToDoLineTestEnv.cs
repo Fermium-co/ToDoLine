@@ -1,12 +1,34 @@
-﻿using Bit.Test;
+﻿using Bit.Core;
+using Bit.Owin.Implementations;
+using Bit.Test;
+using FakeItEasy;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
+using ToDoLine.Util;
 
 namespace ToDoLine.Test
 {
     public class ToDoLineTestEnv : TestEnvironmentBase
     {
+        static ToDoLineTestEnv()
+        {
+            if (!Environment.Is64BitProcess)
+                throw new InvalidOperationException("Please run tests in x64 process");
+
+            Environment.CurrentDirectory = Path.Combine(Environment.CurrentDirectory, "../../../../ToDoLine");
+            AspNetCoreAppEnvironmentsProvider.Current.Configuration = ToDoLineConfigurationProvider.GetConfiguration();
+            IWebHostEnvironment webHostEnv = A.Fake<IWebHostEnvironment>();
+            webHostEnv.EnvironmentName = Environments.Development;
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Environments.Development);
+            webHostEnv.ApplicationName = "Redemption";
+            AspNetCoreAppEnvironmentsProvider.Current.WebHostEnvironment = webHostEnv;
+            AspNetCoreAppEnvironmentsProvider.Current.Init();
+        }
+
         public ToDoLineTestEnv(TestEnvironmentArgs args = null)
             : base(ApplyArgsDefaults(args))
         {

@@ -3,12 +3,11 @@ using Simple.OData.Client;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ToDoLine.Controller;
 using ToDoLine.Dto;
 
 namespace ToDoLine.Test.Controller
 {
-    public class LoginResult
+    public class ToDoLineClient
     {
         /// <summary>
         /// Every request you make using this odata client, uses <see cref="Token"/>
@@ -46,7 +45,7 @@ namespace ToDoLine.Test.Controller
         /// Login with provided user name. If registerNewUserByRandomUserName gets provided 'true' then it calls <see cref="RegisterNewUser(ToDoLineTestEnv, string)"/> first.
         /// You've to either provide a valid userName or pass registerNewUserByRandomUserName 'true'. It generates a random userName and returns that to you in case no userName is provided for registration.
         /// </summary>
-        public static async Task<LoginResult> LoginInToApp(this ToDoLineTestEnv testEnv, bool registerNewUserByRandomUserName, string userName = null, string password = "P@ssw0rd")
+        public static async Task<ToDoLineClient> LoginInToApp(this ToDoLineTestEnv testEnv, bool registerNewUserByRandomUserName, string userName = null, string password = "P@ssw0rd")
         {
             if (registerNewUserByRandomUserName == true)
             {
@@ -62,7 +61,7 @@ namespace ToDoLine.Test.Controller
 
             IODataClient odataClient = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine", token: token);
 
-            return new LoginResult { UserName = userName, ODataClient = odataClient, Token = token };
+            return new ToDoLineClient { UserName = userName, ODataClient = odataClient, Token = token };
         }
 
         public static async Task<UserDto> GetUserByUserName(this IODataClient client, string userName)

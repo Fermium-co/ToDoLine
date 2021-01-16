@@ -1,65 +1,43 @@
 ﻿using Acr.UserDialogs;
 using Autofac;
-using Bit;
+using Bit.Core.Contracts;
+using Bit.Core.Implementations;
+using Bit.Core.Models.Events;
+using Bit.Http.Contracts;
 using Bit.View;
-using FFImageLoading;
-using FFImageLoading.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Prism;
 using Prism.Events;
 using Prism.Ioc;
+using Simple.OData.Client;
 using System;
-using System.Net.Http;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
-using Prism.Services;
 using ToDoLineApp.Contracts;
 using ToDoLineApp.Implementations;
+using ToDoLineApp.Resources.Strings;
 using ToDoLineApp.ViewModels;
 using ToDoLineApp.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using Bit.Core.Models.Events;
-using Bit.Http.Contracts;
-using Bit.Core.Contracts;
-using Bit.Core.Implementations;
 using Xamarin.Essentials;
-using Simple.OData.Client;
+using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
+using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
 namespace ToDoLineApp
 {
-    public partial class App : IMiniLogger
-    {
-        public void Debug(string message)
-        {
-        }
-
-        public void Error(string errorMessage)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-
-        public void Error(string errorMessage, Exception ex)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-    }
-
-    public partial class App : BitApplication
+    public partial class App
     {
         static App()
         {
-#if DEBUG
-            Xamarin.Forms.Internals.Log.Listeners.Add(new Xamarin.Forms.Internals.DelegateLogListener((category, message) => Console.WriteLine($"{category} {message}")));
-#endif
             BitCSharpClientControls.XamlInit();
         }
 
-        public new static App Current
-        {
-            get { return (App)Application.Current; }
-        }
+        public new static App Current => (App)Xamarin.Forms.Application.Current;
 
         public App()
             : this(null)
@@ -73,17 +51,12 @@ namespace ToDoLineApp
 
         protected async override Task OnInitializedAsync()
         {
-            ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
-            {
-                HttpClient = Container.Resolve<HttpClient>(),
-                AllowUpscale = false,
-                ClearMemoryCacheOnOutOfMemory = true,
-#if DEBUG
-                Logger = this
-#endif
-            });
-
             InitializeComponent();
+
+            Strings.Culture = Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo("en");
+
+            On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
+            On<Windows>().SetImageDirectory("Assets");
 
             bool isLoggedIn = await Container.Resolve<ISecurityService>().IsLoggedInAsync();
 
@@ -112,13 +85,18 @@ namespace ToDoLineApp
             containerRegistry.RegisterForNav<LoginView, LoginViewModel>("Login");
             containerRegistry.RegisterForNav<ToDoItemsView, ToDoItemsViewModel>("ToDoItems");
 
-            const string developerMachineIp = "192.168.43.153";
+            const string developerMachineIp = "192.168.42.174";
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri((Device.RuntimePlatform == Device.Android && Xamarin.Essentials.DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:53200" : Device.RuntimePlatform == Device.UWP ? "http://127.0.0.1:53200" : $"http://{developerMachineIp}:53200"),
+                HostUri = new Uri((Device.RuntimePlatform == Device.Android && DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:53200" : Device.RuntimePlatform == Device.UWP ? "http://127.0.0.1:53200" : $"http://{developerMachineIp}:53200"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
+#if DEBUG
+                Environment = "Development"
+#else
+                Environment = "Production"
+#endif
             }).SingleInstance();
 
             dependencyManager.RegisterRequiredServices();

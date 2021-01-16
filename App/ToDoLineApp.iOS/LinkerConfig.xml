@@ -1,0 +1,96 @@
+﻿<linker>
+
+	<!-- Prism -->
+
+	<assembly fullname="Prism.Forms">
+		<type fullname="*" />
+	</assembly>
+	<assembly fullname="Prism">
+		<type fullname="*" />
+	</assembly>
+	<assembly fullname="Prism.Plugin.Popups">
+		<type fullname="*" />
+	</assembly>
+	<assembly fullname="Autofac">
+		<type fullname="*" />
+	</assembly>
+	<assembly fullname="Autofac.Extensions.DependencyInjection">
+		<type fullname="*" />
+	</assembly>
+	<assembly fullname="Microsoft.Extensions.DependencyInjection.Abstractions">
+		<type fullname="*" />
+	</assembly>
+	<assembly fullname="Microsoft.Extensions.DependencyInjection">
+		<type fullname="*" />
+	</assembly>
+
+	<!-- Bit.Universal.OData -->
+
+	<assembly fullname="Simple.OData.Client.V4.Adapter">
+		<type fullname="*" />
+	</assembly>
+
+
+	<!-- Bit.Client.Xamarin.Controls -->
+
+	<assembly fullname="Rg.Plugins.Popup">
+		<type fullname="*" />
+	</assembly>
+
+	<!-- App -->
+
+	<assembly fullname="ToDoLineApp.iOS">
+		<type fullname="*" />
+	</assembly>
+	<assembly fullname="ToDoLineApp">
+		<type fullname="*" />
+	</assembly>
+
+	<!-- Other -->
+
+	<!--<assembly fullname="Microsoft.ApplicationInsights">
+		<type fullname="*" />
+	</assembly>
+
+	<assembly fullname="AutoMapper">
+		<type fullname="*" />
+	</assembly>-->
+
+	<assembly fullname="System.Core">
+		<type fullname="*" />
+	</assembly>
+
+	<assembly fullname="mscorlib">
+		<type fullname="System.DateTime">
+			<method name="AddYears"></method>
+			<method name="AddMonths"></method>
+			<method name="AddDays"></method>
+			<method name="AddHours"></method>
+			<method name="AddMinutes"></method>
+			<method name="AddSeconds"></method>
+		</type>
+	</assembly>
+
+	<!-- Microsoft Extensions => For both Bit.Universal.Http and Bit.Client.Data.EntityFrameworkCore -->
+
+	<assembly fullname="Microsoft.Extensions.Http">
+		<type fullname="*" />
+	</assembly>
+
+	<assembly fullname="Microsoft.Extensions.Logging">
+		<type fullname="*" />
+	</assembly>
+
+	<assembly fullname="Microsoft.Extensions.Logging.Debug">
+		<type fullname="*" />
+	</assembly>
+
+	<assembly fullname="Microsoft.Extensions.Options">
+		<type fullname="*" />
+	</assembly>
+
+	<assembly fullname="System.IdentityModel.Tokens.Jwt">
+		<type fullname="*" />
+	</assembly>
+
+</linker>

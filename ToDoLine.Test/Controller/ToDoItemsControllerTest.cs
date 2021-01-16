@@ -7,7 +7,6 @@ using Simple.OData.Client;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ToDoLine.Controller;
 using ToDoLine.Dto;
 
 namespace ToDoLine.Test.Controller
@@ -18,72 +17,69 @@ namespace ToDoLine.Test.Controller
         [TestMethod]
         public async Task CreateToDoItemTest()
         {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+            using ToDoLineTestEnv testEnv = new ToDoLineTestEnv();
 
-                ToDoGroupDto toDoGroup = await loginResult.ODataClient.ToDoGroups()
-                   .CreateToDoGroup("Test")
-                   .ExecuteAsSingleAsync();
+            ToDoLineClient toDoLineClient = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoItemDto toDoItem = await loginResult.ODataClient.ToDoItems()
-                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
-                   .InsertEntryAsync();
+            ToDoGroupDto toDoGroup = await toDoLineClient.ODataClient.ToDoGroups()
+               .CreateToDoGroup("Test")
+               .ExecuteAsSingleAsync();
 
-                Assert.AreEqual("Task1", toDoItem.Title);
-            }
+            ToDoItemDto toDoItem = await toDoLineClient.ODataClient.ToDoItems()
+               .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
+               .InsertEntryAsync();
+
+            Assert.AreEqual("Task1", toDoItem.Title);
         }
 
         [TestMethod]
         public async Task CreateToDoItemWithoutToDoGroupTest()
         {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+            using ToDoLineTestEnv testEnv = new ToDoLineTestEnv();
 
-                ToDoItemDto toDoItem = await loginResult.ODataClient.ToDoItems()
-                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = null })
-                   .InsertEntryAsync();
+            ToDoLineClient toDoLineClient = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                Assert.AreEqual("Task1", toDoItem.Title);
-            }
+            ToDoItemDto toDoItem = await toDoLineClient.ODataClient.ToDoItems()
+               .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = null })
+               .InsertEntryAsync();
+
+            Assert.AreEqual("Task1", toDoItem.Title);
         }
 
         [TestMethod]
         public async Task CreatingToDoItemShouldCreateToDoItemOptionsPerUserTest()
         {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var loginResult1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+            using ToDoLineTestEnv testEnv = new ToDoLineTestEnv();
 
-                ToDoGroupDto toDoGroup = await loginResult1.ODataClient.ToDoGroups()
-                   .CreateToDoGroup("Test")
-                   .ExecuteAsSingleAsync();
+            ToDoLineClient toDoLineClient1 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                var loginResult2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+            ToDoGroupDto toDoGroup = await toDoLineClient1.ODataClient.ToDoGroups()
+               .CreateToDoGroup("Test")
+               .ExecuteAsSingleAsync();
 
-                UserDto user2 = await loginResult1.ODataClient.GetUserByUserName(loginResult2.UserName);
+            ToDoLineClient toDoLineClient2 = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                await loginResult1.ODataClient.ToDoGroups()
-                     .ShareToDoGroupWithAnotherUser(anotherUserId: user2.Id, toDoGroupId: toDoGroup.Id)
-                     .ExecuteAsync();
+            UserDto user2 = await toDoLineClient1.ODataClient.GetUserByUserName(toDoLineClient2.UserName);
 
-                ToDoItemDto toDoItem = await loginResult2.ODataClient.ToDoItems()
-                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
-                   .InsertEntryAsync();
+            await toDoLineClient1.ODataClient.ToDoGroups()
+                 .ShareToDoGroupWithAnotherUser(anotherUserId: user2.Id, toDoGroupId: toDoGroup.Id)
+                 .ExecuteAsync();
 
-                bool hasToDoItem = (await loginResult1.ODataClient.ToDoItems()
-                    .GetMyToDoItems()
-                    .FindEntriesAsync()).Any();
+            ToDoItemDto toDoItem = await toDoLineClient2.ODataClient.ToDoItems()
+               .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
+               .InsertEntryAsync();
 
-                Assert.AreEqual(true, hasToDoItem);
-            }
+            bool hasToDoItem = (await toDoLineClient1.ODataClient.ToDoItems()
+                .GetMyToDoItems()
+                .FindEntriesAsync()).Any();
+
+            Assert.AreEqual(true, hasToDoItem);
         }
 
         [TestMethod]
         public async Task ActiveShowInMyDayToDoItemTest()
         {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv(new TestEnvironmentArgs
+            using ToDoLineTestEnv testEnv = new ToDoLineTestEnv(new TestEnvironmentArgs
             {
                 AdditionalDependencies = (dependencyManager, services) =>
                 {
@@ -94,104 +90,101 @@ namespace ToDoLine.Test.Controller
 
                     dependencyManager.RegisterInstance(dateTimeProvider);
                 }
-            }))
+            });
 
-            {
-                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+            ToDoLineClient toDoLineClient = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                UserDto user = await loginResult.ODataClient.GetUserByUserName(loginResult.UserName);
+            UserDto user = await toDoLineClient.ODataClient.GetUserByUserName(toDoLineClient.UserName);
 
-                ToDoGroupDto toDoGroup = await loginResult.ODataClient.ToDoGroups()
-                                  .CreateToDoGroup("Test")
-                                  .ExecuteAsSingleAsync();
+            ToDoGroupDto toDoGroup = await toDoLineClient.ODataClient.ToDoGroups()
+                              .CreateToDoGroup("Test")
+                              .ExecuteAsSingleAsync();
 
-                ToDoItemDto toDoItem = await loginResult.ODataClient.ToDoItems()
-                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ShowInMyDay = true, ToDoGroupId = toDoGroup.Id })
-                   .InsertEntryAsync();
-                Assert.AreEqual("Task1", toDoItem.Title);
-                Assert.AreEqual(true, toDoItem.ShowInMyDay);
-            }
+            ToDoItemDto toDoItem = await toDoLineClient.ODataClient.ToDoItems()
+               .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ShowInMyDay = true, ToDoGroupId = toDoGroup.Id })
+               .InsertEntryAsync();
+
+            Assert.AreEqual("Task1", toDoItem.Title);
+
+            Assert.AreEqual(true, toDoItem.ShowInMyDay);
         }
 
         [TestMethod]
         public async Task UpdateToDoItemTest()
         {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+            using ToDoLineTestEnv testEnv = new ToDoLineTestEnv();
 
-                ToDoGroupDto toDoGroup = await loginResult.ODataClient.ToDoGroups()
-                   .CreateToDoGroup("Test")
-                   .ExecuteAsSingleAsync();
+            ToDoLineClient toDoLineClient = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoItemDto toDoItem = await loginResult.ODataClient.ToDoItems()
-                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
-                   .InsertEntryAsync();
+            ToDoGroupDto toDoGroup = await toDoLineClient.ODataClient.ToDoGroups()
+               .CreateToDoGroup("Test")
+               .ExecuteAsSingleAsync();
 
-                toDoItem.Title += "!";
-                toDoItem.IsCompleted = true;
+            ToDoItemDto toDoItem = await toDoLineClient.ODataClient.ToDoItems()
+               .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
+               .InsertEntryAsync();
 
-                ToDoItemDto updatedToDoItem = await loginResult.ODataClient.ToDoItems()
-                   .Key(toDoItem.Id)
-                   .Set(toDoItem)
-                   .UpdateEntryAsync();
+            toDoItem.Title += "!";
+            toDoItem.IsCompleted = true;
 
-                Assert.AreEqual("Task1!", updatedToDoItem.Title);
-                Assert.AreEqual(true, updatedToDoItem.IsCompleted);
-                Assert.AreEqual(loginResult.UserName, updatedToDoItem.CompletedBy);
-            }
+            ToDoItemDto updatedToDoItem = await toDoLineClient.ODataClient.ToDoItems()
+               .Key(toDoItem.Id)
+               .Set(toDoItem)
+               .UpdateEntryAsync();
+
+            Assert.AreEqual("Task1!", updatedToDoItem.Title);
+            Assert.AreEqual(true, updatedToDoItem.IsCompleted);
+            Assert.AreEqual(toDoLineClient.UserName, updatedToDoItem.CompletedBy);
         }
 
         [TestMethod]
         public async Task UpdateToDoItemToDoGroupIdIsNotSupportedTest()
         {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
+            using ToDoLineTestEnv testEnv = new ToDoLineTestEnv();
+
+            ToDoLineClient toDoLineClient = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+
+            ToDoItemDto toDoItem = await toDoLineClient.ODataClient.ToDoItems()
+               .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = null })
+               .InsertEntryAsync();
+
+            toDoItem.Title += "!";
+            toDoItem.IsCompleted = true;
+            toDoItem.ToDoGroupId = Guid.NewGuid();
+
+            try
             {
-                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+                await toDoLineClient.ODataClient.ToDoItems()
+                   .Key(toDoItem.Id)
+                   .Set(toDoItem)
+                   .UpdateEntryAsync();
 
-                ToDoItemDto toDoItem = await loginResult.ODataClient.ToDoItems()
-                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = null })
-                   .InsertEntryAsync();
+                Assert.Fail();
+            }
+            catch (WebRequestException exp) when (exp.Message == "KnownError" && JToken.Parse(exp.Response)["error"]["message"].Value<string>() == "ChangingToDoGroupIdIsNotSupportedAtTheMoment")
+            {
 
-                toDoItem.Title += "!";
-                toDoItem.IsCompleted = true;
-                toDoItem.ToDoGroupId = Guid.NewGuid();
-
-                try
-                {
-                    await loginResult.ODataClient.ToDoItems()
-                       .Key(toDoItem.Id)
-                       .Set(toDoItem)
-                       .UpdateEntryAsync();
-
-                    Assert.Fail();
-                }
-                catch (WebRequestException exp) when (exp.Message == "KnownError" && JToken.Parse(exp.Response)["error"]["message"].Value<string>() == "ChangingToDoGroupIdIsNotSupportedAtTheMoment")
-                {
-
-                }
             }
         }
 
         [TestMethod]
         public async Task DeleteToDoItemTest()
         {
-            using (ToDoLineTestEnv testEnv = new ToDoLineTestEnv())
-            {
-                var loginResult = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
+            using ToDoLineTestEnv testEnv = new ToDoLineTestEnv();
 
-                ToDoGroupDto toDoGroup = await loginResult.ODataClient.ToDoGroups()
-                   .CreateToDoGroup("Test")
-                   .ExecuteAsSingleAsync();
+            ToDoLineClient toDoLineClient = await testEnv.LoginInToApp(registerNewUserByRandomUserName: true);
 
-                ToDoItemDto toDoItem = await loginResult.ODataClient.ToDoItems()
-                   .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
-                   .InsertEntryAsync();
+            ToDoGroupDto toDoGroup = await toDoLineClient.ODataClient.ToDoGroups()
+               .CreateToDoGroup("Test")
+               .ExecuteAsSingleAsync();
 
-                await loginResult.ODataClient.ToDoItems()
-                    .Key(toDoItem.Id)
-                    .DeleteEntryAsync();
-            }
+            ToDoItemDto toDoItem = await toDoLineClient.ODataClient.ToDoItems()
+               .Set(new ToDoItemDto { Title = "Task1", Notes = "Hi this is the first sample", ToDoGroupId = toDoGroup.Id })
+               .InsertEntryAsync();
+
+            await toDoLineClient.ODataClient.ToDoItems()
+                .Key(toDoItem.Id)
+                .DeleteEntryAsync();
         }
     }
 }

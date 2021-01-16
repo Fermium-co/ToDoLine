@@ -10,13 +10,17 @@ using Bit.OData.Contracts;
 using Bit.Owin;
 using Bit.Owin.Implementations;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Reflection;
+using System.Web.Http;
 using ToDoLine.Controller;
 using ToDoLine.Data;
 using ToDoLine.Security;
@@ -30,7 +34,7 @@ namespace ToDoLine
         public Startup(IServiceProvider serviceProvider)
             : base(serviceProvider)
         {
-
+            AspNetCoreAppEnvironmentsProvider.Current.Init();
         }
 
         public override IServiceProvider ConfigureServices(IServiceCollection services)
@@ -58,18 +62,22 @@ namespace ToDoLine
 
             dependencyManager.RegisterDefaultAspNetCoreApp();
 
-            /*services.AddResponseCompression(options =>
+            services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
                 options.Providers.Add<GzipCompressionProvider>();
+                options.Providers.Add<BrotliCompressionProvider>();
             }).Configure<GzipCompressionProviderOptions>(options =>
             {
-                options.Level = CompressionLevel.Optimal;
-            });*/
+                options.Level = CompressionLevel.Fastest;
+            }).Configure<BrotliCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Fastest;
+            });
 
             dependencyManager.RegisterAspNetCoreMiddlewareUsing(aspNetCoreApp =>
             {
-                // aspNetCoreApp.UseResponseCompression(); // => It's not working fine with AllowSynchronousIO = false;
+                aspNetCoreApp.UseResponseCompression(); // => It's not working fine with AllowSynchronousIO = false;
                 aspNetCoreApp.UseStaticFiles();
             });
 
@@ -89,11 +97,7 @@ namespace ToDoLine
                 {
                     httpConfiguration.Filters.Add(new System.Web.Http.AuthorizeAttribute());
 
-                    httpConfiguration.EnableSwagger(c =>
-                    {
-                        c.SingleApiVersion("v1", $"ToDoLine-Api");
-                        c.ApplyDefaultApiConfig(httpConfiguration);
-                    }).EnableBitSwaggerUi();
+                    httpConfiguration.EnableMultiVersionWebApiSwaggerWithUI();
                 });
             });
 
@@ -116,7 +120,7 @@ namespace ToDoLine
             dependencyManager.Register<IDbConnectionProvider, DefaultDbConnectionProvider<SqlConnection>>();
             dependencyManager.RegisterEfCoreDbContext<ToDoLineDbContext>((serviceProvider, options) =>
             {
-                options.UseSqlServer(serviceProvider.GetRequiredService<IDbConnectionProvider>().GetDbConnection(serviceProvider.GetService<AppEnvironment>().GetConfig<string>("AppConnectionString"), rollbackOnScopeStatusFailure: true));
+                options.UseSqlServer(serviceProvider.GetRequiredService<IDbConnectionProvider>().GetDbConnection(serviceProvider.GetService<IConfiguration>().GetConnectionString("AppConnectionString"), rollbackOnScopeStatusFailure: true));
             });
             dependencyManager.RegisterRepository(typeof(EfCoreRepository<>).GetTypeInfo());
 
