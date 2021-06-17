@@ -8,24 +8,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Bit.Client.Xamarin.Prism" Version="6.9.0" />
-		<PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="6.9.0" />
-		<PackageReference Include="Bit.Universal.Model" Version="6.9.0" />
-		<PackageReference Include="Fody" Version="6.3.0">
+		<PackageReference Include="Bit.Client.Xamarin.Prism" Version="7.4.0" />
+		<PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="7.4.0" />
+		<PackageReference Include="Bit.Universal.Model" Version="7.4.0" />
+		<PackageReference Include="Fody" Version="6.5.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="PropertyChanged.Fody" Version="3.3.1" />
+		<PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
 
-		<PackageReference Include="Acr.UserDialogs" Version="7.1.0.475" />
+		<PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
 
 		<PackageReference Include="Resizetizer.NT" Version="0.2.0" />
 
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.4.0.41" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.4.0.41" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.4.0.41" />
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.1931" />
-		<PackageReference Include="Bit.Universal.OData" Version="6.9.0" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.69" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.69" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.69" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+		<PackageReference Include="Bit.Universal.OData" Version="7.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -56,6 +56,9 @@
 	<ItemGroup>
 	  <Compile Update="Resources\Strings\Strings.Designer.cs">
 	    <DesignTime>True</DesignTime>
+	  </Compile>
+	  <Compile Update="Views\MainView.xaml.cs">
+	    <DependentUpon>MainView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

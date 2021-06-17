@@ -1,4 +1,5 @@
-﻿using IdentityModel.Client;
+﻿using Bit.Http.Contracts;
+using IdentityModel.Client;
 using Simple.OData.Client;
 using System;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ToDoLine.Test.Controller
         /// </summary>
         public IODataClient ODataClient { get; set; }
 
-        public TokenResponse Token { get; set; }
+        public Token Token { get; set; }
 
         /// <summary>
         /// In these tests, user names are random guid values, you might need the user name, because it's not a well knwon hard coded user name.
@@ -57,7 +58,7 @@ namespace ToDoLine.Test.Controller
                     throw new ArgumentNullException(nameof(userName));
             }
 
-            TokenResponse token = await testEnv.Server.Login(userName, password: password, clientId: "ToDoLine", secret: "secret");
+            Token token = await testEnv.Server.LoginWithCredentials(userName, password: password, clientId: "ToDoLine", secret: "secret");
 
             IODataClient odataClient = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine", token: token);
 

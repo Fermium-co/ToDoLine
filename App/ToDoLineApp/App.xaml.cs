@@ -62,7 +62,7 @@ namespace ToDoLineApp
 
             if (isLoggedIn)
             {
-                await NavigationService.NavigateAsync("/Master/Nav/ToDoItems");
+                await NavigationService.NavigateAsync("/Main/Nav/ToDoItems");
             }
             else
             {
@@ -80,10 +80,11 @@ namespace ToDoLineApp
         protected override void RegisterTypes(IDependencyManager dependencyManager, IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
         {
             containerRegistry.RegisterForNav<NavigationPage>("Nav");
-            containerRegistry.RegisterForNav<MasterView, MasterViewModel>("Master");
-            containerRegistry.RegisterPartialView<MenuView, MenuViewModel>();
+            containerRegistry.RegisterForNav<MainView, MainViewModel>("Main");
             containerRegistry.RegisterForNav<LoginView, LoginViewModel>("Login");
             containerRegistry.RegisterForNav<ToDoItemsView, ToDoItemsViewModel>("ToDoItems");
+
+            containerRegistry.RegisterForRegionNav<MenuView, MenuViewModel>("Menu");
 
             const string developerMachineIp = "192.168.42.174";
 

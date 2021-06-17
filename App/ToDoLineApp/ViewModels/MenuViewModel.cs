@@ -43,7 +43,7 @@ namespace ToDoLineApp.ViewModels
         {
             await base.OnNavigatedToAsync(parameters);
 
-            if (parameters.GetNavigationMode() == NavigationMode.New)
+            if (parameters.TryGetNavigationMode(out NavigationMode navigationMode) && navigationMode == NavigationMode.New)
             {
                 await ToDoService.LoadData(CancellationToken.None);
             }

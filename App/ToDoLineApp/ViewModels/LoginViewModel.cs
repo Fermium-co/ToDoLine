@@ -52,7 +52,7 @@ namespace ToDoLineApp.ViewModels
                     }, cancellationToken);
                 }
 
-                await NavigationService.NavigateAsync("/Master/Nav/ToDoItems");
+                await NavigationService.NavigateAsync("/Main/Nav/ToDoItems");
             }
             catch (Exception ex)
             {

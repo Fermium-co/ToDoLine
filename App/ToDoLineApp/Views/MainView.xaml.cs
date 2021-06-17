@@ -1,8 +1,8 @@
 ﻿namespace ToDoLineApp.Views
 {
-    public partial class MasterView
+    public partial class MainView
     {
-        public MasterView()
+        public MainView()
         {
             InitializeComponent();
         }
