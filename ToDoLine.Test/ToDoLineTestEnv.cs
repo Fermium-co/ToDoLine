@@ -21,12 +21,13 @@ namespace ToDoLine.Test
 
             Environment.CurrentDirectory = Path.Combine(Environment.CurrentDirectory, "../../../../ToDoLine");
             AspNetCoreAppEnvironmentsProvider.Current.Configuration = ToDoLineConfigurationProvider.GetConfiguration();
-            IWebHostEnvironment webHostEnv = A.Fake<IWebHostEnvironment>();
-            webHostEnv.EnvironmentName = Environments.Development;
+            IHostEnvironment hostEnv = A.Fake<IHostEnvironment>();
+            hostEnv.EnvironmentName = Environments.Development;
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Environments.Development);
-            webHostEnv.ApplicationName = "Redemption";
-            AspNetCoreAppEnvironmentsProvider.Current.WebHostEnvironment = webHostEnv;
+            hostEnv.ApplicationName = "Redemption";
+            AspNetCoreAppEnvironmentsProvider.Current.HostingEnvironment = hostEnv;
             AspNetCoreAppEnvironmentsProvider.Current.Init();
+            AspNetCoreAppEnvironmentsProvider.Current.Use();
         }
 
         public ToDoLineTestEnv(TestEnvironmentArgs args = null)

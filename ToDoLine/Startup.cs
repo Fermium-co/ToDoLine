@@ -1,6 +1,5 @@
 ﻿using Bit.Core;
 using Bit.Core.Contracts;
-using Bit.Core.Models;
 using Bit.Data;
 using Bit.Data.Contracts;
 using Bit.Data.EntityFrameworkCore.Implementations;
@@ -16,33 +15,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.Application;
-using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Reflection;
 using System.Web.Http;
+using ToDoLine;
 using ToDoLine.Controller;
 using ToDoLine.Data;
 using ToDoLine.Security;
 
 [assembly: ODataModule("ToDoLine")]
+[assembly: AppModule(typeof(ToDoLineAppModulesProvider))]
 
 namespace ToDoLine
 {
-    public class Startup : AutofacAspNetCoreAppStartup
+    public class Startup : AspNetCoreAppStartup
     {
-        public Startup(IServiceProvider serviceProvider)
-            : base(serviceProvider)
-        {
-            AspNetCoreAppEnvironmentsProvider.Current.Init();
-        }
 
-        public override IServiceProvider ConfigureServices(IServiceCollection services)
-        {
-            DefaultAppModulesProvider.Current = new ToDoLineAppModulesProvider();
-
-            return base.ConfigureServices(services);
-        }
     }
 
     public class ToDoLineAppModulesProvider : IAppModule, IAppModulesProvider
@@ -54,8 +43,6 @@ namespace ToDoLine
 
         public virtual void ConfigureDependencies(IServiceCollection services, IDependencyManager dependencyManager)
         {
-            AssemblyContainer.Current.Init();
-
             dependencyManager.RegisterMinimalDependencies();
 
             dependencyManager.RegisterDefaultLogger(typeof(DebugLogStore).GetTypeInfo(), typeof(ConsoleLogStore).GetTypeInfo());
