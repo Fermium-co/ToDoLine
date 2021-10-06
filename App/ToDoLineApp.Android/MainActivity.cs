@@ -4,9 +4,11 @@ using Android.Content.PM;
 using Android.OS;
 using Autofac;
 using Bit.Android;
+using Bit.Core.Contracts;
 using Bit.ViewModel;
 using Bit.ViewModel.Implementations;
 using Bumptech.Glide;
+using Microsoft.Extensions.DependencyInjection;
 using Prism.Autofac;
 using Prism.Ioc;
 using System.Reflection;
@@ -72,11 +74,9 @@ namespace ToDoLineApp.Droid
         {
         }
 
-        public override void RegisterTypes(IContainerRegistry containerRegistry)
+        public override void RegisterTypes(IDependencyManager dependencyManager, IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
         {
-            ContainerBuilder containerBuilder = containerRegistry.GetBuilder();
-
-            base.RegisterTypes(containerRegistry);
+            base.RegisterTypes(dependencyManager, containerRegistry, containerBuilder, services);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using Bit.Core.Contracts;
 using Bit.Core.Implementations;
 using Bit.ViewModel.Implementations;
+using Microsoft.Extensions.DependencyInjection;
 using Prism.Autofac;
 using Prism.Ioc;
 using Syncfusion.ListView.XForms.UWP;
@@ -25,11 +27,9 @@ namespace ToDoLineApp.UWP
 
     public class ToDoLinePlatformInitializer : BitPlatformInitializer
     {
-        public override void RegisterTypes(IContainerRegistry containerRegistry)
+        public override void RegisterTypes(IDependencyManager dependencyManager, IContainerRegistry containerRegistry, ContainerBuilder containerBuilder, IServiceCollection services)
         {
-            ContainerBuilder containerBuilder = containerRegistry.GetBuilder();
-
-            base.RegisterTypes(containerRegistry);
+            base.RegisterTypes(dependencyManager, containerRegistry, containerBuilder, services);
         }
     }
 }

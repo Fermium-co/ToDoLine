@@ -81,9 +81,9 @@
 		<type fullname="*" />
 	</assembly>
 
-	<assembly fullname="Microsoft.Extensions.Logging.Debug">
+	<!--<assembly fullname="Microsoft.Extensions.Logging.Debug">
 		<type fullname="*" />
-	</assembly>
+	</assembly>-->
 
 	<assembly fullname="Microsoft.Extensions.Options">
 		<type fullname="*" />

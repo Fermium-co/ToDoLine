@@ -33,7 +33,10 @@ namespace ToDoLine.Test.Controller
         {
             userName = userName ?? Guid.NewGuid().ToString("N");
 
-            IODataClient client = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine");
+            IODataClient client = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine", odataClientSettings:new ODataClientSettings
+            {
+                MetadataDocument = ToDoLineMetadata.MetadataString
+            });
 
             await client.UserRegistration()
                 .Register(new UserRegistrationDto { UserName = userName, Password = password })
@@ -60,7 +63,10 @@ namespace ToDoLine.Test.Controller
 
             Token token = await testEnv.Server.LoginWithCredentials(userName, password: password, clientId: "ToDoLine", secret: "secret");
 
-            IODataClient odataClient = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine", token: token);
+            IODataClient odataClient = testEnv.Server.BuildODataClient(odataRouteName: "ToDoLine", token: token, odataClientSettings: new ODataClientSettings
+            {
+                MetadataDocument = ToDoLineMetadata.MetadataString
+            });
 
             return new ToDoLineClient { UserName = userName, ODataClient = odataClient, Token = token };
         }

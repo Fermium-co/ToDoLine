@@ -11,7 +11,7 @@ namespace ToDoLineApp.ViewModels
         {
             if (parameters.TryGetNavigationMode(out NavigationMode navigationMode) && navigationMode == NavigationMode.New)
             {
-                RegionManager.RequestNavigate("FlyoutRegion", "Menu");
+                await RegionManager.NavigateAsync("FlyoutRegion", "Menu", parameters);
             }
 
             await base.OnNavigatedToAsync(parameters);

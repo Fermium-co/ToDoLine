@@ -19,12 +19,14 @@ namespace ToDoLine.Test
             if (!Environment.Is64BitProcess)
                 throw new InvalidOperationException("Please run tests in x64 process");
 
+            AssemblyContainer.Current.Init();
+            AssemblyContainer.Current.AddAppAssemblies(Assembly.Load("ToDoLine"));
             Environment.CurrentDirectory = Path.Combine(Environment.CurrentDirectory, "../../../../ToDoLine");
             AspNetCoreAppEnvironmentsProvider.Current.Configuration = ToDoLineConfigurationProvider.GetConfiguration();
             IHostEnvironment hostEnv = A.Fake<IHostEnvironment>();
             hostEnv.EnvironmentName = Environments.Development;
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", Environments.Development);
-            hostEnv.ApplicationName = "Redemption";
+            hostEnv.ApplicationName = "ToDoLine";
             AspNetCoreAppEnvironmentsProvider.Current.HostingEnvironment = hostEnv;
             AspNetCoreAppEnvironmentsProvider.Current.Init();
             AspNetCoreAppEnvironmentsProvider.Current.Use();
@@ -39,7 +41,6 @@ namespace ToDoLine.Test
         private static TestEnvironmentArgs ApplyArgsDefaults(TestEnvironmentArgs args)
         {
             args = args ?? new TestEnvironmentArgs();
-            args.CustomAppModulesProvider = args.CustomAppModulesProvider ?? new ToDoLineAppModulesProvider();
             return args;
         }
 

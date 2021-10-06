@@ -86,7 +86,7 @@ namespace ToDoLineApp
 
             containerRegistry.RegisterForRegionNav<MenuView, MenuViewModel>("Menu");
 
-            const string developerMachineIp = "192.168.42.174";
+            const string developerMachineIp = "192.168.42.192";
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
