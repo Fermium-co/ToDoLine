@@ -3,25 +3,25 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
-    <TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>4.5</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
-    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="8.3.0" />
-    <PackageReference Include="Bit.Server.IdentityServer" Version="8.3.0" />
-    <PackageReference Include="Bit.Server.OData" Version="8.3.0" />
-    <PackageReference Include="Bit.Server.Owin" Version="8.3.0" />
-    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="8.3.0" />
-    <PackageReference Include="Bit.Universal.AutoMapper" Version="8.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-rc.1.21452.10">
+    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="8.8.0" />
+    <PackageReference Include="Bit.Server.IdentityServer" Version="8.8.0" />
+    <PackageReference Include="Bit.Server.OData" Version="8.8.0" />
+    <PackageReference Include="Bit.Server.Owin" Version="8.8.0" />
+    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="8.8.0" />
+    <PackageReference Include="Bit.Universal.AutoMapper" Version="8.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-rc.1.21452.10" />
-    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="8.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-rc.1.21452.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="8.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
