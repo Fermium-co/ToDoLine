@@ -9,19 +9,19 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
-    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="8.8.0" />
-    <PackageReference Include="Bit.Server.IdentityServer" Version="8.8.0" />
-    <PackageReference Include="Bit.Server.OData" Version="8.8.0" />
-    <PackageReference Include="Bit.Server.Owin" Version="8.8.0" />
-    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="8.8.0" />
-    <PackageReference Include="Bit.Universal.AutoMapper" Version="8.8.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+    <PackageReference Include="Bit.Server.Data.EntityFrameworkCore" Version="8.9.0" />
+    <PackageReference Include="Bit.Server.IdentityServer" Version="8.9.0" />
+    <PackageReference Include="Bit.Server.OData" Version="8.9.0" />
+    <PackageReference Include="Bit.Server.Owin" Version="8.9.0" />
+    <PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="8.9.0" />
+    <PackageReference Include="Bit.Universal.AutoMapper" Version="8.9.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
-    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="8.8.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Bit.Tooling.CodeGenerator.Task" Version="8.9.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
