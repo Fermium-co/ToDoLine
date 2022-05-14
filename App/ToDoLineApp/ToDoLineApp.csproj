@@ -8,10 +8,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Bit.Client.Xamarin.Prism" Version="8.9.0" />
-		<PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="8.9.0" />
-		<PackageReference Include="Bit.Universal.Model" Version="8.9.0" />
-		<PackageReference Include="Fody" Version="6.6.0">
+		<PackageReference Include="Bit.Client.Xamarin.Prism" Version="10.0.0" />
+		<PackageReference Include="Bit.Tooling.CodeAnalyzer" Version="10.0.0" />
+		<PackageReference Include="Bit.Universal.Model" Version="10.0.0" />
+		<PackageReference Include="Fody" Version="6.6.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
@@ -24,12 +24,12 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.4.0.52" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.4.0.52" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.4.0.52" />
-		<PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
-		<PackageReference Include="Bit.Universal.OData" Version="8.9.0" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="20.1.0.55" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="20.1.0.55" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="20.1.0.55" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+		<PackageReference Include="Bit.Universal.OData" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
