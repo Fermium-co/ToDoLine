@@ -3,7 +3,7 @@
     x:Class="ToDoLineApp.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:bit="https://bitframework.com"
+    xmlns:bit="https://bitplatform.dev"
     xmlns:bitPrism="clr-namespace:Bit;assembly=Bit.Client.Xamarin.Prism"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms">
     <bitPrism:BitApplication.Resources>

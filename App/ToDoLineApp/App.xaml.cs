@@ -90,7 +90,7 @@ namespace ToDoLineApp
 
             containerBuilder.Register<IClientAppProfile>(c => new DefaultClientAppProfile
             {
-                HostUri = new Uri((Device.RuntimePlatform == Device.Android && DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:53200" : Device.RuntimePlatform == Device.UWP ? "http://127.0.0.1:53200" : $"http://{developerMachineIp}:53200"),
+                HostUri = new Uri((Device.RuntimePlatform == Device.Android && DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5320" : Device.RuntimePlatform == Device.UWP ? "http://127.0.0.1:5320" : $"http://{developerMachineIp}:5320"),
                 ODataRoute = "odata/ToDoLine/",
                 AppName = "ToDoLine",
 #if DEBUG

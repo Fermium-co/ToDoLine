@@ -25,7 +25,7 @@ namespace ToDoLine
 #if DEBUG
                 .ConfigureWebHostDefaults(webHostBuilder =>
                 {
-                    webHostBuilder.UseUrls("http://*:53200/");
+                    webHostBuilder.UseUrls("http://*:5320/");
                 })
 #endif
             ;
